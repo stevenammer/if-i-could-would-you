@@ -1,0 +1,7 @@
+{
+  "name": "if-i-could-would-you",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "scripts": { "check:public": "node scripts/check-public.mjs" }
+}
