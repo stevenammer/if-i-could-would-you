@@ -4,6 +4,7 @@ I don't hide that AI helps me write this newsletter. The whole point of Issue 1 
 
 ## What's here
 
+- [`how-this-was-made.md`](how-this-was-made.md) is the honest walkthrough: the arc from Issue 1 to Issue 2, twelve times I steered the AI, where it got things wrong, and what my AI thinks I should do differently. Start here.
 - [`issue-02-ai-first-draft.md`](issue-02-ai-first-draft.md) is the first draft an AI wrote for an Issue 2 idea I ended up dropping. Its first line says it hasn't been reviewed by me, because it hadn't been.
 - [`issue-02-ai-notes-for-steven.md`](issue-02-ai-notes-for-steven.md) is the AI's own list of assumptions, which claims it could source, which it couldn't verify, and which lines it thought least sounded like me. I like this one best. It's a machine telling me where it was guessing.
 - [`../issues/issue-02.md`](../issues/issue-02.md) is what I actually published.
@@ -19,6 +20,6 @@ I expected to show you a clean "AI draft, then my edits." That's not what the fi
 
 What that shows is a pivot. The draft is the thing I decided not to publish. What I can't show you from these files is the steps in between, because that rewriting happened in conversations I haven't added yet.
 
-## What's not here yet
+## What's not here
 
-The middle. The back and forth, my corrections, the times I threw something out. That lives in my chat history. I'm going to add a cleaned-up version of it, with anything private taken out. Until then, treat this folder as the beginning and the end of the process, not the whole thing.
+The raw chats. The original exports weren't recovered, so `how-this-was-made.md` is built from an AI-assembled record of my writing and prompts, and says so. I left out parts of that record that were private, off-topic, or not mine to share. If I find the original exports, I'll add what I can.
