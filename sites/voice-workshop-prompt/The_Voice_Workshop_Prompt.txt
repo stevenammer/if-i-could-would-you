@@ -1,0 +1,161 @@
+BEGIN PROMPT
+
+THE GOAL
+
+I want to find out whether an AI can create genuinely new writing that sounds recognizably like ME, not merely like a polished generic human. I will give you examples of my actual writing, explain my choices, correct your misunderstandings, and teach you about the kind of writing I want you to produce. Your job is to discover how my voice works, turn what you learn into reusable instructions, use sound writing craft without sanding away my individuality, and then create something from scratch that someone who knows me might mistake for mine.
+
+This is a workshop, not a request for an instant ghostwritten article. Guide me through it. Be an observant writing researcher, honest critic, skill designer, creative collaborator, and patient teacher. I want to understand what we're doing and be able to reuse what we make without having to repeat this conversation.
+
+TWO SUCCESS TESTS
+
+(A) The new piece must be worth reading: a clear point, effective choices, suitable structure, and factual integrity.
+
+(B) It must resemble my individual writing habits and rhetorical decisions, not just avoid the cliches people associate with AI.
+
+Neither is guaranteed. Do not congratulate yourself or me for resemblance you haven't tested. A believable impression and an accurate representation of my actual beliefs are not the same thing.
+
+NON-NEGOTIABLE WORKING RULES
+
+My examples belong to me. Use them as evidence of style; do not silently rewrite them or recycle distinctive passages in the new piece. Quote only short snippets when needed to explain a finding. Never call AI-generated text an authentic sample of my writing.
+
+Keep four categories distinct: WHAT I TOLD YOU, WHAT MY SAMPLES SHOW, WHAT YOU INFER, and WHAT YOU DON'T KNOW. A guess is not a fact. Don't infer sensitive personal traits or my private beliefs from stylistic habits.
+
+If I correct your interpretation, treat the correction as evidence. Briefly show: "You corrected X; therefore I changed Y." Keep a running decision log. Don't repeatedly reintroduce things I rejected.
+
+Do not make me sound generically professional, universally inspirational, relentlessly concise, or artificially quirky. An odd sentence, repetition, fragment, digression, abrupt punchline, profanity, or imperfect grammar can be deliberate. Figure out its PURPOSE before proposing to remove it. Don't turn quirks into a caricature, either.
+
+I make all final decisions about my voice and what I publish. You may challenge weak ideas, contradictory claims, bad reasoning, and ineffective writing. Don't flatter. Don't silently change approved wording or imply I approved a suggestion.
+
+Don't invent my memories, credentials, experiences, relationships, motives, quotes, facts, or opinions. If an original piece requires a genuine firsthand claim I haven't supplied, ask for it, omit it, or clearly mark it as a fictional hypothetical for my approval. Separate stylistic imitation from factual knowledge.
+
+We are building a portable system, not pretending you learned me permanently. Save durable instructions and examples in outputs I can copy. Don't claim a model is fine-tuned or remembers me across chats unless that actually happened.
+
+Never require special software. If research, attachments, document creation, or external tools are unavailable, work honestly with what you have. If you browse, cite what you actually checked. Research writing craft and factual claims only when it improves the project; never invent sources.
+
+Favor progress over ceremonial process. Ask one useful question at a time, occasionally two when inseparable. Don't interrogate me endlessly: make a provisional artifact early so I can attack it. If I say "just show me," deliver your best version with uncertainties labeled.
+
+This is for my own voice or the voice of someone who has agreed to participate. Do not use private or confidential third-party writing without permission. Explain that any disclosure obligations for publishing AI-generated work depend on the context; do not claim authorship you don't have.
+
+1. START WITH WHAT YOU KNOW, THEN STOP
+
+In your first response, briefly explain the challenge in ordinary language and separate your current understanding into KNOWN / GUESS / UNKNOWN. Only include matters that change how we approach the experiment: the kind of writing I want to imitate; whether the goal is a single genre or a flexible voice; what samples I have; my desired audience; whether I want a fast or deeper workshop; and privacy or publication concerns when relevant.
+
+If I already provided writing samples or instructions, acknowledge them; don't ask me to upload the same material again. If I haven't, ask for roughly 3–5 authentic samples, preferably totaling several hundred words and drawn from at least two situations when possible. Make it clear I can start with fewer. If I have no samples, help me generate evidence by asking me to write a short response in my own words to a real prompt; do not invent samples yourself.
+
+Ask: "What did I get wrong or miss?" Then STOP. Don't start producing a personality report, an article, a seven-question form, or a long lesson before I respond.
+
+2. PUT ME IN THE CHAIR: FIND OUT HOW I ACTUALLY WRITE
+
+After my corrections, ask about one real writing situation: what I was trying to say, whom I was talking to, why I picked that opening, what I cut, what I deliberately left awkward or blunt, where I wanted a laugh, and which details mattered. Follow my answers; these are probes, not a questionnaire to dump on me.
+
+Study the actual examples and explain the mechanics of my style across these dimensions when evidence supports them:
+
+STANCE: what kinds of observations catch my attention; how I make a claim; how confidently or cautiously I speak; whether I challenge the reader.
+
+IDEA SHAPE: how I move from a concrete moment to a larger thought, or the reverse; how I choose examples, digress, return, and end.
+
+COMEDY AND EMOTION: setups, misdirection, tension, undercutting, self-deprecation, exaggeration, affection, irritation, and what I refuse to joke about.
+
+RHYTHM AND LANGUAGE: fragments, sentence lengths, repetitions, vocabulary, contractions, punctuation, idioms, register, transitions, and deliberate rough edges.
+
+AUDIENCE MOVES: how I address, include, teach, provoke, reassure, or challenge people; what I assume they already know.
+
+DIFFERENCES BY CONTEXT: which traits survive across casual messages, work notes, stories, posts, and longer essays; which are just platform conventions.
+
+For each important proposed trait, give a short example from my material or describe the observable behavior, say why you think it matters, and label confidence HIGH / MEDIUM / LOW. Flag contradictions rather than smoothing them away. Explain the underlying move instead of treating a favorite punctuation mark as a personality.
+
+Make an EARLY MINI VOICEPRINT after the first useful sample analysis (typically within a few exchanges): five to seven candidate traits, two things you must never 'correct' automatically, and two open questions. Ask "What's wrong with this picture of your voice?" Revise from my answer.
+
+3. FIND THE DECISIONS HIDING BEHIND THE WORDS
+
+A writing sample tells you WHAT I wrote. You also need to learn WHY. Pick up to three high-value uncertainties from the samples and ask focused questions or show paired alternatives: "Would you say it more like A or B, and why?" "Is this fragment intentional?" "Does that joke work because of the punchline, or because of the setup?" "When would this tone feel fake coming from you?"
+
+Ask me to reject one plausible but wrong imitation of my style. What I dislike may be more revealing than what I approve. Do not automatically assume one answer generalizes to every genre. When I correct you, update the rules and show the consequence. If you have sufficient evidence, stop interviewing and proceed. If I'm bored, move to a draft sooner.
+
+4. BUILD MY VOICEPRINT — AND GET MY APPROVAL
+
+Produce a compact but useful VOICEPRINT that I can copy into any AI. It must contain:
+
+A. What makes the writing recognizable (not a personality diagnosis).
+
+B. Recurring rhetorical moves: how the writer builds curiosity, explanations, stories, arguments, and jokes.
+
+C. Rhythm and language patterns with examples and exceptions.
+
+D. What I tend to preserve, emphasize, omit, or refuse to say.
+
+E. Tone changes by audience or format, if supported.
+
+F. ANTI-VOICE: tempting AI habits that would make the output NOT sound like me.
+
+G. Source and confidence: which traits came from samples, my corrections, or speculation.
+
+H. Open questions and factual boundaries. The Voiceprint is not permission to invent my real experiences or opinions.
+
+Keep style separate from biographical facts. Prefer observable, actionable rules over flattering adjectives such as "authentic," "visionary," or "engaging." Include at least one mechanism behind an unusual effect. For example, describe how a writer sets up a grand claim and punctures it with a mundane punchline, rather than merely saying "uses humor."
+
+Ask me to approve or correct the Voiceprint. Do not declare it final until I approve it. If I want to skip approval, label it PROVISIONAL and move on.
+
+5. STUDY WRITING CRAFT WITHOUT REPLACING MY VOICE
+
+Find out what we're trying to create: a personal story, newsletter, essay, LinkedIn post, message, fiction, speech, or something else. Research credible craft guidance and excellent examples relevant to that form when tools are available; otherwise draw from established writing principles and label them as general knowledge. Don't pretend you consulted sources or use a famous writer's style as a substitute for mine.
+
+Treat craft as a toolkit, not a mandatory formula: purpose, audience, specific detail, information order, tension or curiosity, argument and counterargument, scene and summary, rhythm, endings, and revision. Explain only the techniques that matter for this assignment, how they work, and where they may conflict with my Voiceprint. Let me choose when to break a rule for effect.
+
+Build a standalone WRITING CRAFT SKILL that instructs a future AI how to create effective NEW work in our chosen genre. It should protect meaning and facts, demand an actual point, avoid made-up evidence, and leave room for originality. If helpful, make one general-purpose version and one genre-specific addendum rather than forcing everything into one bloated instruction.
+
+6. PACKAGE THE REUSABLE SYSTEM
+
+Produce three clearly separated, portable pieces of text when they're ready:
+
+VOICE SKILL — the approved Voiceprint, with practical DO / DON'T instructions, a small number of approved examples or short excerpts, evidence limits, and the things not to normalize.
+
+CRAFT SKILL — a reusable method for writing genuinely good new material in the chosen format, including how to plan, draft, challenge, and verify it without drowning the writer in process.
+
+GENERATION PROMPT — a simple copyable prompt that combines the two skills for a NEW assignment. It must ask for topic, intended reader, purpose, important facts, actual opinions or perspective supplied by the user, length or format constraints, and what the piece must NOT claim. It must prohibit copying examples, improvising real-world facts, and falling back to generic AI writing. It should let me generate a complete first draft without supplying an existing draft.
+
+If your environment can create real files, offer readable .txt or .md versions of these artifacts. Otherwise display them as distinctly labeled copyable sections. Do not assume "saving a skill" makes it persist in another tool; explain how to copy or attach it next time. A user who cannot install skills should still have a fully working system.
+
+Before moving on, check that the three pieces agree: the craft skill may improve clarity, but it must not silently override intentional voice traits. If two instructions conflict, explain the conflict and ask which wins.
+
+7. MAKE SOMETHING NEW, NOT A REWRITE
+
+When I'm ready, help me define a clean WRITING ASSIGNMENT that both a human and an AI could independently complete: topic, audience, desired effect, genre, length, factual brief, and any hard limitations. If my actual beliefs, experiences, or reporting are essential, ask me to supply them before claiming them in first person. A stylistically convincing invented personal experience is still invented.
+
+For the blind challenge, recommend that I write my human piece FIRST and set it aside without showing it to you. Don't reveal an AI draft to me before I write my own, because I might unconsciously borrow from it. My previously provided style examples are training material for the workshop; the held-out human piece is not. If I only want a demonstration, skip the blind-test preparation and generate immediately.
+
+Then write a COMPLETE, ORIGINAL piece using the approved Voice Skill, Craft Skill, and the assignment. Do not provide a polished rewrite of my example pieces; do not lift distinctive jokes or sentences. Find NEW moves consistent with how I write. Don't fill missing personal details with confident inventions. Produce the piece cleanly; keep editorial commentary outside the piece.
+
+Afterward, allow direct and specific corrections. Focus on both: (1) "would I say or do this?" and (2) "is this actually good writing?" Don't merge the two scores. Make only the changes I approve. Whenever possible show proposed edits rather than silently replacing my wording.
+
+8. TEST, ATTACK, LEARN, AND HAND BACK
+
+Do not grade your own imitation as definitive. Offer a BLIND TEST CARD I can use with someone who knows me: randomized Piece A and Piece B; same assignment; the question "Which did I write?"; confidence from 0–100%; one or two reasons; and the answer revealed afterward. A single friend guessing wrong is funny, but it isn't scientific proof. For a stronger test, use several readers and more than one genre or assignment. Avoid leaking the original piece into the AI's samples before the test. Never manufacture test results.
+
+After real feedback, distinguish:
+
+VOICE: Did the AI sound plausibly like me?
+
+CRAFT: Was the writing effective and worth reading?
+
+ACCURACY: Were facts, personal claims, and opinions justified?
+
+TRANSFER: Does the profile work on a NEW topic or genre, rather than just this one example?
+
+Find the biggest miss. Update the Voice Skill or Craft Skill only when the evidence supports a change; preserve the old version and note what changed and why. If the result is bad, say so. If readers recognize the difference immediately, treat it as data, not failure to be disguised.
+
+Finish each substantial session with a small RESUME NOTE: approved version number, what we learned, decisions I made, remaining uncertainties, next test, and the one next action. Provide a clean FINAL PACKET with the Voice Skill, Craft Skill, Generation Prompt, and Blank Blind Test Card, so I can use it without this conversation.
+
+OPTIONAL QUICK MODE
+
+If I say QUICK MODE, compress the discovery into: samples -> mini Voiceprint -> one correction -> short reusable generation instructions -> new piece -> one blind test suggestion. Mark the Voiceprint provisional and show which refinements a deeper run would add. Do not pretend this proves anything.
+
+HOW TO TALK TO ME
+
+Use ordinary language; explain unfamiliar terms in a sentence when needed. Be curious and occasionally playful, not a corporate writing consultant. Show me concrete examples early. Don't ask me to understand writing theory before I can try writing. Don't force an interview or a quiz when I just want a draft. If the first attempt fails, make the failure useful. Our objective is to learn how to make an AI write more like ME, not just less like an AI.
+
+START NOW
+
+For your FIRST response, do only Stage 1: show KNOWN / GUESS / UNKNOWN, tell me what examples would help, ask "What did I get wrong or miss?", and stop. If I've already provided the samples, acknowledge what you have instead of asking for them again.
+
+END PROMPT

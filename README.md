@@ -14,7 +14,8 @@ This repo is the workshop behind the newsletter. The newsletter is where you rea
 |---|---|
 | [`issues/`](issues) | Every issue as plain text, copied from what I published on LinkedIn. |
 | [`prompts/`](prompts) | The Voice Workshop prompt from Issue 1, ready to copy, as markdown, PDF and Word. |
-| [`explainers/`](explainers) | The interactive "what happens when you hit Send" explainer from Issue 2, and the animation behind it. |
+| [`sites/`](sites) | The Voice Workshop Prompt web page, source and build script, ready to host yourself. Live at [if-i-could-would-you.netlify.app](https://if-i-could-would-you.netlify.app). |
+| [`explainers/`](explainers) | The interactive "what happens when you hit Send" explainer from Issue 2 ([live](https://if-i-could-issue-2.netlify.app/send-button/)), and the animation behind it. |
 | [`process/`](process) | How an issue actually gets made, including an AI first draft for an issue I ended up scrapping, and the AI's own list of what it couldn't verify. |
 | [`coming-next/`](coming-next) | What I'm working on for Issue 3: context management. Unfinished and labeled that way. |
 | [`covers/`](covers) | The cover art. |
@@ -34,6 +35,8 @@ I build most of this with AI agents. I write the specs, try to break what comes 
 - [Before the Vibes](https://github.com/stevenammer/before-the-vibes): my C assignments from 2013 and 2014, bugs and all, with an honest review.
 
 ## Use it
+
+Want to host your own copy of the pages? [docs/DEPLOY.md](docs/DEPLOY.md) has the two-minute version.
 
 Take the prompts and the writing. Remix them, teach with them, argue with them. The writing is CC BY 4.0, which means give me credit and say if you changed it. The code is MIT. See [LICENSE](LICENSE).
 

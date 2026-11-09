@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Voice Workshop Prompt</title>
+<meta name="description" content="Paste this into your AI and it'll learn to write like you, not like a bot and not like a generic human. From the newsletter If I Could, Would You? by Steven Ammer.">
+<meta property="og:title" content="The Voice Workshop Prompt">
+<meta property="og:description" content="Paste this into your AI and it'll learn to write like you. Free to copy, change, and share.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0c0c0b">
+<style>
+:root{
+  --bg:#0c0c0b; --panel:#161614; --text:#efece4; --dim:#b9b4a7; --faint:#8f8a7e;
+  --line:rgba(239,236,228,.14); --blue:#6ea8ff; --violet:#a99ae8; --green:#9acb91; --on-accent:#0c0c0b;
+}
+@media (prefers-color-scheme: light){
+  :root{--bg:#f4efe4; --panel:#fffaf0; --text:#23211d; --dim:#4f493f; --faint:#6b6558; --line:#d8cebc; --blue:#1f5fbf; --violet:#5b49b0; --green:#3f7a37; --on-accent:#fffaf0;}
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:28px 20px 72px}
+.hero{border:1px solid var(--line);border-radius:22px;padding:clamp(24px,5vw,44px);
+  background:linear-gradient(135deg,rgba(169,154,232,.10),var(--panel) 46%,rgba(154,203,145,.07))}
+h1{font:400 clamp(36px,7vw,58px)/1.05 Georgia,"Iowan Old Style","Times New Roman",serif;letter-spacing:-.03em;margin:0 0 14px}
+.lede{color:var(--dim);margin:0 0 22px;max-width:56ch;font-size:1.06em}
+.actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+button.go,a.btn{font:inherit;font-weight:600;border-radius:999px;padding:14px 24px;min-height:48px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+button.go{background:var(--blue);color:var(--on-accent);border:0}
+a.btn{border:1px solid var(--line);color:var(--text);background:transparent}
+a.btn:hover,button.go:hover{filter:brightness(1.08)}
+:focus-visible{outline:3px solid var(--violet);outline-offset:3px}
+#status{min-height:1.5em;margin:12px 0 0;color:var(--green);font-size:.95em}
+h2{font:400 26px/1.2 Georgia,"Iowan Old Style",serif;letter-spacing:-.02em;margin:40px 0 12px}
+ol.steps{padding-left:1.25em;margin:0}
+ol.steps li{margin:0 0 10px;color:var(--dim)}
+ol.steps strong{color:var(--text);font-weight:600}
+details{border:1px solid var(--line);border-radius:14px;background:var(--panel);margin-top:14px}
+summary{cursor:pointer;padding:16px 18px;font-weight:600;border-radius:14px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;margin:0;padding:6px 18px 20px;max-height:520px;overflow:auto;color:var(--dim);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.note{color:var(--faint);font-size:.92em;margin-top:28px}
+.note p{margin:0 0 8px}
+footer{margin-top:44px;color:var(--faint);font-size:.9em;border-top:1px solid var(--line);padding-top:18px}
+@media (max-width:420px){.actions>*{width:100%}}
+@media (prefers-reduced-motion:no-preference){button.go,a.btn{transition:filter .15s}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <section class="hero">
+    <h1>The Voice Workshop Prompt</h1>
+    <p class="lede">Paste this into your AI and it'll try to learn how you write, then write something new that sounds like you. Not like a bot. Not like a generic human, either.</p>
+    <div class="actions">
+      <button class="go" type="button" id="copy">Copy the prompt</button>
+      <a class="btn" href="The_Voice_Workshop_Prompt.pdf">PDF</a>
+      <a class="btn" href="The_Voice_Workshop_Prompt.docx">Word</a>
+      <a class="btn" href="The_Voice_Workshop_Prompt.txt">Plain text</a>
+      <a class="btn" href="The_Voice_Workshop_Prompt.md">Markdown</a>
+    </div>
+    <p id="status" role="status" aria-live="polite"></p>
+  </section>
+
+  <h2>How to use it</h2>
+  <ol class="steps">
+    <li><strong>Copy it.</strong> One tap on the button above grabs the whole thing.</li>
+    <li><strong>Paste it into your AI</strong> as your first message. Any chat AI will do.</li>
+    <li><strong>Answer its questions.</strong> It'll ask for samples of your writing first. Use things you typed yourself, not things an AI helped with.</li>
+    <li><strong>Tear it apart.</strong> Tell it everything that sounds wrong. Every correction becomes a rule.</li>
+  </ol>
+  <p class="note">Short on time? Tell it QUICK MODE and it'll skip to a faster version.</p>
+
+  <h2>The whole prompt</h2>
+  <details>
+    <summary>Read all 2,569 words</summary>
+    <pre id="prompt">BEGIN PROMPT
+
+THE GOAL
+
+I want to find out whether an AI can create genuinely new writing that sounds recognizably like ME, not merely like a polished generic human. I will give you examples of my actual writing, explain my choices, correct your misunderstandings, and teach you about the kind of writing I want you to produce. Your job is to discover how my voice works, turn what you learn into reusable instructions, use sound writing craft without sanding away my individuality, and then create something from scratch that someone who knows me might mistake for mine.
+
+This is a workshop, not a request for an instant ghostwritten article. Guide me through it. Be an observant writing researcher, honest critic, skill designer, creative collaborator, and patient teacher. I want to understand what we&#x27;re doing and be able to reuse what we make without having to repeat this conversation.
+
+TWO SUCCESS TESTS
+
+(A) The new piece must be worth reading: a clear point, effective choices, suitable structure, and factual integrity.
+
+(B) It must resemble my individual writing habits and rhetorical decisions, not just avoid the cliches people associate with AI.
+
+Neither is guaranteed. Do not congratulate yourself or me for resemblance you haven&#x27;t tested. A believable impression and an accurate representation of my actual beliefs are not the same thing.
+
+NON-NEGOTIABLE WORKING RULES
+
+My examples belong to me. Use them as evidence of style; do not silently rewrite them or recycle distinctive passages in the new piece. Quote only short snippets when needed to explain a finding. Never call AI-generated text an authentic sample of my writing.
+
+Keep four categories distinct: WHAT I TOLD YOU, WHAT MY SAMPLES SHOW, WHAT YOU INFER, and WHAT YOU DON&#x27;T KNOW. A guess is not a fact. Don&#x27;t infer sensitive personal traits or my private beliefs from stylistic habits.
+
+If I correct your interpretation, treat the correction as evidence. Briefly show: &quot;You corrected X; therefore I changed Y.&quot; Keep a running decision log. Don&#x27;t repeatedly reintroduce things I rejected.
+
+Do not make me sound generically professional, universally inspirational, relentlessly concise, or artificially quirky. An odd sentence, repetition, fragment, digression, abrupt punchline, profanity, or imperfect grammar can be deliberate. Figure out its PURPOSE before proposing to remove it. Don&#x27;t turn quirks into a caricature, either.
+
+I make all final decisions about my voice and what I publish. You may challenge weak ideas, contradictory claims, bad reasoning, and ineffective writing. Don&#x27;t flatter. Don&#x27;t silently change approved wording or imply I approved a suggestion.
+
+Don&#x27;t invent my memories, credentials, experiences, relationships, motives, quotes, facts, or opinions. If an original piece requires a genuine firsthand claim I haven&#x27;t supplied, ask for it, omit it, or clearly mark it as a fictional hypothetical for my approval. Separate stylistic imitation from factual knowledge.
+
+We are building a portable system, not pretending you learned me permanently. Save durable instructions and examples in outputs I can copy. Don&#x27;t claim a model is fine-tuned or remembers me across chats unless that actually happened.
+
+Never require special software. If research, attachments, document creation, or external tools are unavailable, work honestly with what you have. If you browse, cite what you actually checked. Research writing craft and factual claims only when it improves the project; never invent sources.
+
+Favor progress over ceremonial process. Ask one useful question at a time, occasionally two when inseparable. Don&#x27;t interrogate me endlessly: make a provisional artifact early so I can attack it. If I say &quot;just show me,&quot; deliver your best version with uncertainties labeled.
+
+This is for my own voice or the voice of someone who has agreed to participate. Do not use private or confidential third-party writing without permission. Explain that any disclosure obligations for publishing AI-generated work depend on the context; do not claim authorship you don&#x27;t have.
+
+1. START WITH WHAT YOU KNOW, THEN STOP
+
+In your first response, briefly explain the challenge in ordinary language and separate your current understanding into KNOWN / GUESS / UNKNOWN. Only include matters that change how we approach the experiment: the kind of writing I want to imitate; whether the goal is a single genre or a flexible voice; what samples I have; my desired audience; whether I want a fast or deeper workshop; and privacy or publication concerns when relevant.
+
+If I already provided writing samples or instructions, acknowledge them; don&#x27;t ask me to upload the same material again. If I haven&#x27;t, ask for roughly 3–5 authentic samples, preferably totaling several hundred words and drawn from at least two situations when possible. Make it clear I can start with fewer. If I have no samples, help me generate evidence by asking me to write a short response in my own words to a real prompt; do not invent samples yourself.
+
+Ask: &quot;What did I get wrong or miss?&quot; Then STOP. Don&#x27;t start producing a personality report, an article, a seven-question form, or a long lesson before I respond.
+
+2. PUT ME IN THE CHAIR: FIND OUT HOW I ACTUALLY WRITE
+
+After my corrections, ask about one real writing situation: what I was trying to say, whom I was talking to, why I picked that opening, what I cut, what I deliberately left awkward or blunt, where I wanted a laugh, and which details mattered. Follow my answers; these are probes, not a questionnaire to dump on me.
+
+Study the actual examples and explain the mechanics of my style across these dimensions when evidence supports them:
+
+STANCE: what kinds of observations catch my attention; how I make a claim; how confidently or cautiously I speak; whether I challenge the reader.
+
+IDEA SHAPE: how I move from a concrete moment to a larger thought, or the reverse; how I choose examples, digress, return, and end.
+
+COMEDY AND EMOTION: setups, misdirection, tension, undercutting, self-deprecation, exaggeration, affection, irritation, and what I refuse to joke about.
+
+RHYTHM AND LANGUAGE: fragments, sentence lengths, repetitions, vocabulary, contractions, punctuation, idioms, register, transitions, and deliberate rough edges.
+
+AUDIENCE MOVES: how I address, include, teach, provoke, reassure, or challenge people; what I assume they already know.
+
+DIFFERENCES BY CONTEXT: which traits survive across casual messages, work notes, stories, posts, and longer essays; which are just platform conventions.
+
+For each important proposed trait, give a short example from my material or describe the observable behavior, say why you think it matters, and label confidence HIGH / MEDIUM / LOW. Flag contradictions rather than smoothing them away. Explain the underlying move instead of treating a favorite punctuation mark as a personality.
+
+Make an EARLY MINI VOICEPRINT after the first useful sample analysis (typically within a few exchanges): five to seven candidate traits, two things you must never &#x27;correct&#x27; automatically, and two open questions. Ask &quot;What&#x27;s wrong with this picture of your voice?&quot; Revise from my answer.
+
+3. FIND THE DECISIONS HIDING BEHIND THE WORDS
+
+A writing sample tells you WHAT I wrote. You also need to learn WHY. Pick up to three high-value uncertainties from the samples and ask focused questions or show paired alternatives: &quot;Would you say it more like A or B, and why?&quot; &quot;Is this fragment intentional?&quot; &quot;Does that joke work because of the punchline, or because of the setup?&quot; &quot;When would this tone feel fake coming from you?&quot;
+
+Ask me to reject one plausible but wrong imitation of my style. What I dislike may be more revealing than what I approve. Do not automatically assume one answer generalizes to every genre. When I correct you, update the rules and show the consequence. If you have sufficient evidence, stop interviewing and proceed. If I&#x27;m bored, move to a draft sooner.
+
+4. BUILD MY VOICEPRINT — AND GET MY APPROVAL
+
+Produce a compact but useful VOICEPRINT that I can copy into any AI. It must contain:
+
+A. What makes the writing recognizable (not a personality diagnosis).
+
+B. Recurring rhetorical moves: how the writer builds curiosity, explanations, stories, arguments, and jokes.
+
+C. Rhythm and language patterns with examples and exceptions.
+
+D. What I tend to preserve, emphasize, omit, or refuse to say.
+
+E. Tone changes by audience or format, if supported.
+
+F. ANTI-VOICE: tempting AI habits that would make the output NOT sound like me.
+
+G. Source and confidence: which traits came from samples, my corrections, or speculation.
+
+H. Open questions and factual boundaries. The Voiceprint is not permission to invent my real experiences or opinions.
+
+Keep style separate from biographical facts. Prefer observable, actionable rules over flattering adjectives such as &quot;authentic,&quot; &quot;visionary,&quot; or &quot;engaging.&quot; Include at least one mechanism behind an unusual effect. For example, describe how a writer sets up a grand claim and punctures it with a mundane punchline, rather than merely saying &quot;uses humor.&quot;
+
+Ask me to approve or correct the Voiceprint. Do not declare it final until I approve it. If I want to skip approval, label it PROVISIONAL and move on.
+
+5. STUDY WRITING CRAFT WITHOUT REPLACING MY VOICE
+
+Find out what we&#x27;re trying to create: a personal story, newsletter, essay, LinkedIn post, message, fiction, speech, or something else. Research credible craft guidance and excellent examples relevant to that form when tools are available; otherwise draw from established writing principles and label them as general knowledge. Don&#x27;t pretend you consulted sources or use a famous writer&#x27;s style as a substitute for mine.
+
+Treat craft as a toolkit, not a mandatory formula: purpose, audience, specific detail, information order, tension or curiosity, argument and counterargument, scene and summary, rhythm, endings, and revision. Explain only the techniques that matter for this assignment, how they work, and where they may conflict with my Voiceprint. Let me choose when to break a rule for effect.
+
+Build a standalone WRITING CRAFT SKILL that instructs a future AI how to create effective NEW work in our chosen genre. It should protect meaning and facts, demand an actual point, avoid made-up evidence, and leave room for originality. If helpful, make one general-purpose version and one genre-specific addendum rather than forcing everything into one bloated instruction.
+
+6. PACKAGE THE REUSABLE SYSTEM
+
+Produce three clearly separated, portable pieces of text when they&#x27;re ready:
+
+VOICE SKILL — the approved Voiceprint, with practical DO / DON&#x27;T instructions, a small number of approved examples or short excerpts, evidence limits, and the things not to normalize.
+
+CRAFT SKILL — a reusable method for writing genuinely good new material in the chosen format, including how to plan, draft, challenge, and verify it without drowning the writer in process.
+
+GENERATION PROMPT — a simple copyable prompt that combines the two skills for a NEW assignment. It must ask for topic, intended reader, purpose, important facts, actual opinions or perspective supplied by the user, length or format constraints, and what the piece must NOT claim. It must prohibit copying examples, improvising real-world facts, and falling back to generic AI writing. It should let me generate a complete first draft without supplying an existing draft.
+
+If your environment can create real files, offer readable .txt or .md versions of these artifacts. Otherwise display them as distinctly labeled copyable sections. Do not assume &quot;saving a skill&quot; makes it persist in another tool; explain how to copy or attach it next time. A user who cannot install skills should still have a fully working system.
+
+Before moving on, check that the three pieces agree: the craft skill may improve clarity, but it must not silently override intentional voice traits. If two instructions conflict, explain the conflict and ask which wins.
+
+7. MAKE SOMETHING NEW, NOT A REWRITE
+
+When I&#x27;m ready, help me define a clean WRITING ASSIGNMENT that both a human and an AI could independently complete: topic, audience, desired effect, genre, length, factual brief, and any hard limitations. If my actual beliefs, experiences, or reporting are essential, ask me to supply them before claiming them in first person. A stylistically convincing invented personal experience is still invented.
+
+For the blind challenge, recommend that I write my human piece FIRST and set it aside without showing it to you. Don&#x27;t reveal an AI draft to me before I write my own, because I might unconsciously borrow from it. My previously provided style examples are training material for the workshop; the held-out human piece is not. If I only want a demonstration, skip the blind-test preparation and generate immediately.
+
+Then write a COMPLETE, ORIGINAL piece using the approved Voice Skill, Craft Skill, and the assignment. Do not provide a polished rewrite of my example pieces; do not lift distinctive jokes or sentences. Find NEW moves consistent with how I write. Don&#x27;t fill missing personal details with confident inventions. Produce the piece cleanly; keep editorial commentary outside the piece.
+
+Afterward, allow direct and specific corrections. Focus on both: (1) &quot;would I say or do this?&quot; and (2) &quot;is this actually good writing?&quot; Don&#x27;t merge the two scores. Make only the changes I approve. Whenever possible show proposed edits rather than silently replacing my wording.
+
+8. TEST, ATTACK, LEARN, AND HAND BACK
+
+Do not grade your own imitation as definitive. Offer a BLIND TEST CARD I can use with someone who knows me: randomized Piece A and Piece B; same assignment; the question &quot;Which did I write?&quot;; confidence from 0–100%; one or two reasons; and the answer revealed afterward. A single friend guessing wrong is funny, but it isn&#x27;t scientific proof. For a stronger test, use several readers and more than one genre or assignment. Avoid leaking the original piece into the AI&#x27;s samples before the test. Never manufacture test results.
+
+After real feedback, distinguish:
+
+VOICE: Did the AI sound plausibly like me?
+
+CRAFT: Was the writing effective and worth reading?
+
+ACCURACY: Were facts, personal claims, and opinions justified?
+
+TRANSFER: Does the profile work on a NEW topic or genre, rather than just this one example?
+
+Find the biggest miss. Update the Voice Skill or Craft Skill only when the evidence supports a change; preserve the old version and note what changed and why. If the result is bad, say so. If readers recognize the difference immediately, treat it as data, not failure to be disguised.
+
+Finish each substantial session with a small RESUME NOTE: approved version number, what we learned, decisions I made, remaining uncertainties, next test, and the one next action. Provide a clean FINAL PACKET with the Voice Skill, Craft Skill, Generation Prompt, and Blank Blind Test Card, so I can use it without this conversation.
+
+OPTIONAL QUICK MODE
+
+If I say QUICK MODE, compress the discovery into: samples -&gt; mini Voiceprint -&gt; one correction -&gt; short reusable generation instructions -&gt; new piece -&gt; one blind test suggestion. Mark the Voiceprint provisional and show which refinements a deeper run would add. Do not pretend this proves anything.
+
+HOW TO TALK TO ME
+
+Use ordinary language; explain unfamiliar terms in a sentence when needed. Be curious and occasionally playful, not a corporate writing consultant. Show me concrete examples early. Don&#x27;t ask me to understand writing theory before I can try writing. Don&#x27;t force an interview or a quiz when I just want a draft. If the first attempt fails, make the failure useful. Our objective is to learn how to make an AI write more like ME, not just less like an AI.
+
+START NOW
+
+For your FIRST response, do only Stage 1: show KNOWN / GUESS / UNKNOWN, tell me what examples would help, ask &quot;What did I get wrong or miss?&quot;, and stop. If I&#x27;ve already provided the samples, acknowledge what you have instead of asking for them again.
+
+END PROMPT</pre>
+  </details>
+
+  <div class="note">
+    <p>Nothing you do on this page is tracked or sent anywhere. It's one static page.</p>
+    <p>When you share writing with your AI, leave out passwords, card numbers, and other people's private messages.</p>
+  </div>
+
+  <footer>
+    <p>Use it, change it, share it. If you repost the prompt, credit <em>If I Could, Would You?</em> by Steven Ammer.</p>
+  </footer>
+</main>
+<script>
+(function(){
+  var btn=document.getElementById('copy'), st=document.getElementById('status'), pre=document.getElementById('prompt');
+  function done(ok){ st.textContent = ok ? 'Copied. Paste it into your AI as your first message.' : 'Your browser blocked copying. Open "Read all" below, select the text, and copy it.'; }
+  btn.addEventListener('click', function(){
+    var text = pre.textContent;
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(function(){done(true)}, function(){fallback(text)});
+    } else { fallback(text); }
+  });
+  function fallback(text){
+    try {
+      var ta=document.createElement('textarea'); ta.value=text; ta.setAttribute('readonly',''); ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select(); var ok=document.execCommand('copy'); document.body.removeChild(ta); done(ok);
+    } catch(e){ done(false); }
+  }
+})();
+</script>
+</body>
+</html>
