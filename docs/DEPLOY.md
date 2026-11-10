@@ -22,7 +22,7 @@ Source: [`explainers/issue-2/index.html`](../explainers/issue-2/index.html). One
 
 The live version is at https://if-i-could-issue-2.netlify.app/send-button/.
 
-## The Issue 3 context-window prototype
+## The parked context-window prototype
 
 Source: [`coming-next/issue-03/index.html`](../coming-next/issue-03/index.html). Also one file, scripted, and not finished. Same deal.
 
