@@ -208,7 +208,7 @@ footer { margin:22px 0 0; color:var(--faint); font-size:11px; line-height:1.6 }
 <section class="stage" id="s5" aria-labelledby="h5a" hidden>
   <header><span class="num">5</span><h2 id="h5a">The loop that never ends</h2><span class="tick">✔ DONE</span></header>
   <div class="inner">
-    <p>This is the stopping condition from another loop in the same project (February 2014 snapshot). The page simulates it for at most 6 trips and then lets you stop it. <span class="tag">simulation, not the real program</span></p>
+    <p>This is the real loop that tries to place each word in the word search grid, from the same project (February 2014 snapshot, shortened). The inner circle is supposed to keep trying until the word fits. This page simulates it for at most 6 trips and then lets you stop it. <span class="tag">simulation, not the real program</span></p>
     <div class="code" id="code5"></div>
     <div class="row"><button class="primary" id="run5">Run one trip</button><button id="fix5">Switch to ==</button><button id="stop5">Stop simulation</button><button id="reset5">↺ Restart</button></div>
     <div class="note" id="note5" aria-live="polite"></div>
@@ -526,10 +526,18 @@ let eq5 = true, trips5 = 0, fit5 = 'N', saw = { bug: false, fix: false }, stoppe
 const CAP5 = 6;
 function render5() {
   const cond = eq5 ? "doesItFit = 'N'" : "doesItFit == 'N'";
-  const mark = d => { d.querySelectorAll('.eqmark').forEach(e => e.className = 'eqmark ' + (eq5 ? 'eq' : 'eqok')); return d; };
-  const line = dual(`} while (doesItFit ${eq5 ? '=' : '=='} 'N'); //End inner do while.`, eq5 ? "Keep going while: set doesItFit to 'N', and 'N' counts as true." : "Keep going while doesItFit is equal to 'N'.", { cls: eq5 ? 'bugline' : 'hot' });
-  line.querySelector('.c').innerHTML = `} while (doesItFit <span class="eqmark ${eq5 ? 'eq' : 'eqok'}">${eq5 ? '=' : '=='}</span> 'N'); //End inner do while.`;
-  $('code5').replaceChildren(line);
+  const last = dual(`} while (doesItFit ${eq5 ? '=' : '=='} 'N'); //End inner do while.`, eq5 ? "Keep going while: set doesItFit to 'N', and 'N' counts as true." : "Keep going while doesItFit is equal to 'N'.", { cls: eq5 ? 'bugline' : 'hot', indent: 1 });
+  last.querySelector('.c').innerHTML = `} while (doesItFit <span class="eqmark ${eq5 ? 'eq' : 'eqok'}">${eq5 ? '=' : '=='}</span> 'N'); //End inner do while.`;
+  $('code5').replaceChildren(
+    dual("char doesItFit = 'N';", 'Start by saying: it does not fit yet.'),
+    dual('do {', 'Outer circle: one trip for each word.'),
+    dual('do {', 'Inner circle: keep trying to place this word.', { indent: 1 }),
+    dual('chooseDirection(&direction);', 'Pick a direction.', { indent: 2 }),
+    dual('chooseSpotinGrid(&spotInGridI, &spotInGridJ);', 'Pick a spot in the grid.', { indent: 2 }),
+    dual('// ...(eight tries trimmed here, one per direction, each handed doesItFit)...', '(Eight tries, one per direction. Each one is handed doesItFit so it can report back.)', { indent: 2 }),
+    last,
+    dual('count++;', 'Move on to the next word. This line is only reached if the inner circle ever ends.', { indent: 1 }),
+    dual('} while (count < numberOfWords); //End outer do while.', 'Back to the top for the next word, until all words are placed.'));
   $('vars5').innerHTML = `<span class="var">doesItFit = '${fit5}'</span><span class="var">trips = ${trips5}</span><span class="var">condition = ${cond}</span>`;
   $('term5').textContent = out5.join('\n') || '(press Run one trip)';
   $('run5').disabled = stopped5 || (!eq5 && trips5 > 0 && out5.at(-1)?.includes('exit')) || (eq5 && trips5 >= CAP5);

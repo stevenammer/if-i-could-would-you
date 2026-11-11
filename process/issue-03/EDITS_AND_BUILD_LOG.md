@@ -23,8 +23,29 @@ Steven asked for typo fixes only, said to keep "alls", and to leave judgment cal
 | 13 | (HTML build comment about the interactive demonstration) | `TL;DR` line, then `Try it yourself: The Loop (interactive explainer)` | requested: link the explainer as TL;DR, matching Issue 2. Placed right before Word of the Week. The link is a repo path until the explainer is hosted. |
 | 14 | `Where I see if I can figure something out and then teach it away... In a way... That inspires others.` | `Where I find out what I can do, then find out if I can teach it away in a way that inspires others.` | requested: use the same tagline wording as Issue 1 (where "teach it away" is the author's own phrase). |
 | 15 | `bloodthirsty claws of inescapable death!` | `bloodthirsty jaws of inescapable death!` | requested: matches the film line. |
+| 16 | `["interested"](https://github.com/stevenammer/before-the-vibes)` | `[interested](https://github.com/stevenammer/before-the-vibes)` | requested: "interested" is hyperlinked only, no quotation marks |
+| 17 | `then find out if I can teach it away in a way that inspires others.` | `then find out if I can teach it away, in a way, that inspires others.` | requested: commas after "away" and "way" |
+| 18 | `named Dennis Hunchuck who had` | `named [Dennis Hunchuck](https://www.linkedin.com/in/dennis-hunchuck-7a748a56/) who had` | requested: link the professor on LinkedIn. Chosen profile: Valencia College, West Virginia University. Three other newer-looking Valencia "Dennis Hunchuck" profiles exist. |
+| 19 | `some secret agent language to talk to computers, but` | `some secret agent language to talk to computers with, but` | requested: "to talk to computers with" |
+| 20 | `not at all unlike my word search strategy when` | `not at all unlike my *actual* word search strategy when` | requested: emphasize "actual" in italics. This adds the word "actual". Italics need to be applied in the LinkedIn editor. |
+| 21 | `trying to turn firm no's to excited yeses with no clear indication of` | `trying to turn firm nos to excited yeses without any clear indication of` | requested: correct plural ("nos", like "yeses"; "noes" is also accepted) and "without any clear indication of" |
+| 22 | `Finally something would reward me figuring out` | `Finally something would reward me for figuring out` | grammar: added "for" |
+| 23 | `start showing you gasp actual code` | `start showing you \*gasp\* actual code` | requested: asterisks around "gasp" so it reads as humor (escaped so they show literally) |
+| 24 | `and a loop to go around periodically just to make sure they stay busy.` | `periodically just to make sure they stay busy.` | requested: "a manager that gives them a kick in the tail periodically just to make sure they stay busy" |
+| 25 | `but at least now you know "who" we're dealing with.` | `but at least you know "who" we're all dealing with here.` | requested: "At least you know \"who\" we're all dealing with here" |
+| 26 | `Especially when things start getting wacky.` | `Especially when things start getting weird.` | requested: "weird" instead of "wacky" |
+| 27 | `That's why when I see something like this,` | `That's why, when I see something like this,` | comma after "why" |
+| 28 | `    printf("Read it again.\n");
+    printf("Do you get it yet? (y/n): ");` | `    printf("Read it again.\n");
+    sleep(2);  // pause for effect
+    printf("Do you get it yet? (y/n): ");` | requested: a pause between the print statements in the parting shot |
+| 29 | `(placeholder for the plain-English version of the first code example)` | `16 plain-English lines, one per block` | requested: a plain-English version of the first example. Written by the assistant; "spot" numbers count from 0 like the code. |
+| 30 | `(placeholder for the "Semantic version" of the real getWords code)` | `plain-English version of each line` | requested: the semantic version of the 2014 code. Written by the assistant. |
+| 31 | `the single `} while (doesItFit = 'N');` line` | `the real surrounding loops from the 2014 file, with the eight direction tries trimmed and marked` | requested: retrieve the real code. Source: before-the-vibes originals/wordSearchProjectSoFar.c, enterWordsIntoGrid. The inner `do while` is stuck, so the outer `count++` is never reached. |
 
 ## Left alone on purpose (author-wording or judgment calls, flagged for review)
+
+- **Edits that added or changed words, applied as requested but worth a second look:** "my *actual* word search strategy" (adds the word "actual"), and "without any clear indication of" (was "with no clear indication of").
 
 - **"For this week's offer to the throne:"** is the author's locked Groundhog Day caption. Not changed.
 - **Personal details:** the wife's job-list anecdote and laptop automation, and the professor's name spelling, are the author's call.

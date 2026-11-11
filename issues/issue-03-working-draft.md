@@ -7,7 +7,7 @@ author: "Steven Ammer"
 
 # If I Could, Would You?
 
-Where I find out what I can do, then find out if I can teach it away in a way that inspires others.
+Where I find out what I can do, then find out if I can teach it away, in a way, that inspires others.
 
 ## Issue #3: The Loop
 
@@ -15,11 +15,11 @@ Where I find out what I can do, then find out if I can teach it away in a way th
 
 When deciding what to make this week's lesson about, my mind, as so often is the case, ran in a few different directions at once. Context management seemed like a natural continuation of the basics we covered last week. I also considered making this week the week I walk the non-initiated from zero to vibe coding. I even pondered making it about security which is quickly becoming that saucepan I forgot to stir until I smelled something burning because I was too busy watching the steaks cook.
 
-But then, out of curiosity, and not a small amount of imposter syndrome, I asked ChatGPT if it could find my old code I wrote in college in my Gmail account. And unlike Gemini, who is supposed to be having intimate relations with Gmail, but just can't seem to bring them to a satisfying conclusion, ChatGPT found them right away. They're now up in my GitHub if you're ["interested"](https://github.com/stevenammer/before-the-vibes).
+But then, out of curiosity, and not a small amount of imposter syndrome, I asked ChatGPT if it could find my old code I wrote in college in my Gmail account. And unlike Gemini, who is supposed to be having intimate relations with Gmail, but just can't seem to bring them to a satisfying conclusion, ChatGPT found them right away. They're now up in my GitHub if you're [interested](https://github.com/stevenammer/before-the-vibes).
 
 And as I read through my projects and saw my thinking in the code, it made me realize why I fell in love with this stuff all those years ago.
 
-You see, I had a brilliant professor at a little old community college named Dennis Hunchuck who had a wicked sense of humor that I've always been a sucker for and a way of explaining things that made you feel both silly if you didn't get it the first time, yet somehow totally okay asking him to explain it again. And Dennis taught me about my first loop.
+You see, I had a brilliant professor at a little old community college named [Dennis Hunchuck](https://www.linkedin.com/in/dennis-hunchuck-7a748a56/) who had a wicked sense of humor that I've always been a sucker for and a way of explaining things that made you feel both silly if you didn't get it the first time, yet somehow totally okay asking him to explain it again. And Dennis taught me about my first loop.
 
 ### The Lesson:
 
@@ -29,17 +29,17 @@ You know, you hear a word enough times in enough increasingly different places a
 
 A loop... Is a circle. It goes round and round and repeats itself forever. That's it. In programming, (if you're doing it right) it's a circle with an off ramp.
 
-When I first started to learn to code, I felt so powerful. It was like learning some secret agent language to talk to computers, but my professor warned me: these computers can't think. They are going to do exactly what you tell them to. If you mess up an instruction or say it in a way they don't understand, they are going to mess up the execution.
+When I first started to learn to code, I felt so powerful. It was like learning some secret agent language to talk to computers with, but my professor warned me: these computers can't think. They are going to do exactly what you tell them to. If you mess up an instruction or say it in a way they don't understand, they are going to mess up the execution.
 
-Seems pretty obvious when you think about it, but for me, this was a revelation! Because, if the flip side was true, I could take my time, catch every error before I tried to run it, and even if I somehow let a mistake slip through, I could fix it just by following the logic of what I told it to do. Or by going line by line looking for "syntax errors," not at all unlike my word search strategy when I just can't find a word.
+Seems pretty obvious when you think about it, but for me, this was a revelation! Because, if the flip side was true, I could take my time, catch every error before I tried to run it, and even if I somehow let a mistake slip through, I could fix it just by following the logic of what I told it to do. Or by going line by line looking for "syntax errors," not at all unlike my *actual* word search strategy when I just can't find a word.
 
-To a guy who had spent most of his career trying to turn firm no's to excited yeses with no clear indication of what they were actually thinking or why this one hung up on me or why that one gave me the card... well the idea of that kind of honest interaction was therapeutic.
+To a guy who had spent most of his career trying to turn firm nos to excited yeses without any clear indication of what they were actually thinking or why this one hung up on me or why that one gave me the card... well the idea of that kind of honest interaction was therapeutic.
 
-And then he got me again. He taught the lesson on my first loop. And my mind about exploded with the possibilities. Now I could use up all my brain power on solving a big interesting problem once and then repeat it over and over again as many times as I needed without ever having to lift another finger. If I thought smart enough, I could skip writing lines and lines of code. Finally something would reward me figuring out the assignment and skipping the busy work. Work smarter not harder, but with real margins!
+And then he got me again. He taught the lesson on my first loop. And my mind about exploded with the possibilities. Now I could use up all my brain power on solving a big interesting problem once and then repeat it over and over again as many times as I needed without ever having to lift another finger. If I thought smart enough, I could skip writing lines and lines of code. Finally something would reward me for figuring out the assignment and skipping the busy work. Work smarter not harder, but with real margins!
 
 ### The Actual Code (I know, I know, hang in there with me!)
 
-I'll give you an example and instead of going shallower for better understanding like I normally would, I'm gonna take the path less traveled and make this more complicated and start showing you gasp actual code. You see, I needed to get the words from the user for my word search generator. I could have just made each new word a whole new line. It would have taken me forever, but it would have been straightforward, required little thinking, and it would have worked. It would have looked like this:
+I'll give you an example and instead of going shallower for better understanding like I normally would, I'm gonna take the path less traveled and make this more complicated and start showing you \*gasp\* actual code. You see, I needed to get the words from the user for my word search generator. I could have just made each new word a whole new line. It would have taken me forever, but it would have been straightforward, required little thinking, and it would have worked. It would have looked like this:
 
 Without a loop (illustrative alternative, not my original code):
 
@@ -114,7 +114,24 @@ Now, I know people see code and their eyes just go unfocused, but look closely..
 
 How about now?
 
-<!-- CLAUDE CODE SLOT: Author placeholder: (Example with the code translated in semantic instructions). Build a labeled plain-language visualization here. No new authored newsletter prose without approval. -->
+```text
+If they asked for at least 1 word: ask for word 1, then save it in spot 0.
+If they asked for at least 2 words: ask for word 2, then save it in spot 1.
+If they asked for at least 3 words: ask for word 3, then save it in spot 2.
+If they asked for at least 4 words: ask for word 4, then save it in spot 3.
+If they asked for at least 5 words: ask for word 5, then save it in spot 4.
+If they asked for at least 6 words: ask for word 6, then save it in spot 5.
+If they asked for at least 7 words: ask for word 7, then save it in spot 6.
+If they asked for at least 8 words: ask for word 8, then save it in spot 7.
+If they asked for at least 9 words: ask for word 9, then save it in spot 8.
+If they asked for at least 10 words: ask for word 10, then save it in spot 9.
+If they asked for at least 11 words: ask for word 11, then save it in spot 10.
+If they asked for at least 12 words: ask for word 12, then save it in spot 11.
+If they asked for at least 13 words: ask for word 13, then save it in spot 12.
+If they asked for at least 14 words: ask for word 14, then save it in spot 13.
+If they asked for at least 15 words: ask for word 15, then save it in spot 14.
+If they asked for at least 16 words: ask for word 16, then save it in spot 15.
+```
 
 Almost seems like the kind of thing you would see Bart Simpson writing on a blackboard. It even looks like a punishment.
 
@@ -141,16 +158,39 @@ void getWords(char words[][20], int numberOfWords) {
 
 I know, I know, still scary code, but at least you can look at it long enough to see what the actual words are. I'll give it the same treatment:
 
-<!-- CLAUDE CODE SLOT: Author placeholder: (Semantic version). Create readable plain-language steps matching the C code; label explanatory text as UI, not Steven's article prose. -->
+```text
+Collect words. This takes the empty list and how many words to collect.
+    Start a counter at 0.
+    Make a small box to hold the word being typed.
+    Begin the circle. Everything down to the last check repeats.
+        Clear the screen.
+        Ask for word number counter + 1.
+        Wait for a typed word and put it in the box.
+        Clear out leftover keystrokes.
+        Show them what we heard.
+        Put the word in that spot of the list.
+        Add 1 to the counter.
+    Is the counter still less than the number of words? If yes, back to the top. If no, leave the circle.
+    Done. Hand control back.
+End.
+```
 
 Seems like a much easier way to get your point across, huh? That's all a loop is. It's as simple as it is powerful. What could go wrong?
 
 Well, here is another example of my super amazing meat fingers clicking away:
 
-<!-- CLAUDE CODE SLOT: Author placeholder: (Put the busted loop logic up). Exact archival excerpt below, added from source for visualization; highlight SINGLE '=' character in the conditional. -->
+
 
 ```c
-        } while (doesItFit = 'N'); //End inner do while.
+char doesItFit = 'N';
+do {
+    do {
+        chooseDirection(&direction);
+        chooseSpotinGrid(&spotInGridI, &spotInGridJ);
+        // ...(eight tries trimmed here, one per direction, each handed doesItFit)...
+    } while (doesItFit = 'N'); //End inner do while.
+    count++;
+} while (count < numberOfWords); //End outer do while.
 ```
 
 I'm not even gonna bother translating this one guys. Look at the highlighted portion. 
@@ -169,11 +209,11 @@ So take it from a career salesman: alls an "agent" is, is your normal way of int
 
 "CLI" agents like Claude Code and Codex? Just an AI call, some rules, tools, and loops.
 
-Those fancy new always on, proactive agents like Muse and Dots and Grokbot, and now Duet? The exact same thing with a slick wrapper and, basically, a manager that gives them a kick in the tail and a loop to go around periodically just to make sure they stay busy.
+Those fancy new always on, proactive agents like Muse and Dots and Grokbot, and now Duet? The exact same thing with a slick wrapper and, basically, a manager that gives them a kick in the tail periodically just to make sure they stay busy.
 
-You can buy them, sell them, you can build them yourself, use them, or not use them, but at least now you know "who" we're dealing with.
+You can buy them, sell them, you can build them yourself, use them, or not use them, but at least you know "who" we're all dealing with here.
 
-I think that's helpful. Especially when things start getting wacky.
+I think that's helpful. Especially when things start getting weird.
 
 TL;DR
 
@@ -211,7 +251,7 @@ So when I first started experimenting with AI, I created an automated job hunt f
 
 Basically, all I was able to accomplish was automating getting on my wife's nerves, and I certainly don't need any leverage there.
 
-That's why when I see something like this, I feel for the guy. In a total Ammer move, he ended up just [unplugging the thing to get it to stop.](https://chrisboyd.me/blog/openclaw-meltdown/)
+That's why, when I see something like this, I feel for the guy. In a total Ammer move, he ended up just [unplugging the thing to get it to stop.](https://chrisboyd.me/blog/openclaw-meltdown/)
 
 ### Something to Watch on the Throne
 
@@ -234,6 +274,7 @@ char doYouGetItYet = 'n';
 
 do {
     printf("Read it again.\n");
+    sleep(2);  // pause for effect
     printf("Do you get it yet? (y/n): ");
     scanf(" %c", &doYouGetItYet);
 
