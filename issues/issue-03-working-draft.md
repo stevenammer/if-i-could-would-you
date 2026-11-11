@@ -175,7 +175,11 @@ You can buy them, sell them, you can build them yourself, use them, or not use t
 
 I think that's helpful. Especially when things start getting wacky.
 
-<!-- CLAUDE CODE BUILD NOTE FROM AUTHOR (not newsletter prose): The interactive demonstration will let readers compare the repetitive code with the loop, step through the original word-entry process, see what happens when the stopping condition is broken, and explore a simplified AI agent loop. -->
+TL;DR
+
+Try it yourself: [The Loop (interactive explainer)](../explainers/issue-3/index.html)
+
+<!-- Swap the link above for the hosted URL once the explainer is deployed. Same pattern as Issue 2: a plain "TL;DR" line, then this link, right before Word of the Week. -->
 
 ### Word of the Week: Bootstrapping
 
@@ -195,7 +199,7 @@ In Plain Ammer:
 
 Use something already built to speed up the next build.
 
-See also: ["Hammer Time"](https://www.youtube.com/watch?v=otCpCn0l4Wo)
+See also: ["Super Freak"](https://www.youtube.com/watch?v=QYHxGBH6o4M) to ["Can't Touch This"](https://www.youtube.com/watch?v=otCpCn0l4Wo)
 
 ### A Dose of Optimism
 

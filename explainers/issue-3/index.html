@@ -221,20 +221,22 @@ footer { margin:22px 0 0; color:var(--faint); font-size:11px; line-height:1.6 }
 <section class="stage" id="s6" aria-labelledby="h6a" hidden>
   <header><span class="num">6</span><h2 id="h6a">Now put an AI inside the loop</h2><span class="tick">✔ DONE</span></header>
   <div class="inner">
-    <p>Same shape, different job. Instead of asking a person for words, this loop asks an AI to keep checking a job board and tell you about new roles. Build the loop first.</p>
+    <p>Same loop, same kind of mistake, but this time there is an AI inside the circle, checking a job board for new roles. Build the loop. Look closely at the last piece: two of them look almost the same.</p>
     <div class="code" id="code6"></div>
     <div class="pool" id="pool6" aria-label="Pieces to place"></div>
     <div class="hintbar"><button class="hintbtn" id="hb6">💡 Hint</button><div class="msg" id="msg6" aria-live="polite"></div></div>
     <div id="sim" hidden>
-      <div class="note">This is a <b>scripted example</b> with made-up postings. There is no real search and no real model. A real agent chooses its next step by reading the latest result. It does not retrain itself each trip, and a loop on its own is not everything an agent is: tools, permissions and safeguards matter too.</div>
+      <div class="note">This is a <b>scripted example</b> with made-up postings. There is no real search and no real model. A real agent picks its next step by reading the latest result. It does not retrain itself each pass, and a loop on its own is not everything an agent is: tools, permissions and safeguards matter too.</div>
       <div class="row" style="margin:12px 0">
-        <label class="toggle"><input type="checkbox" id="dedupe" checked> Duplicate gate (skip postings already sent)</label>
-        <label class="toggle"><input type="checkbox" id="cap" checked> Cap: stop after <select id="capn"><option>3</option><option selected>5</option><option>8</option></select> passes</label>
+        <span class="sub">The closing piece uses:</span>
+        <button id="opEq" aria-pressed="false">=</button><button id="opEqEq" aria-pressed="false">==</button>
+        <label class="toggle"><input type="checkbox" id="cap"> Safety cap: stop after <select id="capn"><option>3</option><option selected>6</option><option>8</option></select> passes</label>
       </div>
       <div class="row" style="margin-bottom:12px"><button class="primary" id="run6">▶ Run next pass</button><button id="auto6">⏵ Auto-run</button><button id="human6">✋ Stop (that's you)</button><button id="reset6">↺ Restart</button></div>
-      <div class="sub" id="status6" aria-live="polite"></div>
+      <div class="vars" id="meter6" aria-label="Running totals"></div>
+      <div class="sub" id="status6" aria-live="polite" style="margin-top:8px"></div>
       <div id="log6" style="display:flex;flex-direction:column;gap:8px;margin-top:10px" aria-live="polite"></div>
-      <div class="note" style="margin-top:12px"><b>Try this:</b> Run it with everything on. It stops by itself when a pass finds nothing new. Now turn off the duplicate gate: the same list keeps coming back until the cap stops it. Turn off the cap too and nothing stops it except this page's emergency stop at 12 passes, or you.</div>
+      <div class="note" style="margin-top:12px"><b>Try this:</b> Run it with <b>=</b> and no safety cap. Watch what the AI notices at pass 4, and what the loop does about it. Then switch to <b>==</b> and run it again. Then turn the safety cap on and go back to <b>=</b>: the cap is a second off ramp that works even when the loop is broken.</div>
     </div>
   </div>
 </section>
@@ -378,7 +380,7 @@ $('howNow').onclick = () => {
 function puzzle({ stage, codeEl, poolEl, msgEl, hb, before, after, slots, tiles, hint, onDone }) {
   const slotEls = slots.map((s, i) => { const d = mk('div', 'slot empty'); d.dataset.i = i; d.setAttribute('aria-label', `Spot ${i + 1}, empty`); if (s.indent) d.style.marginLeft = (8 + s.indent * 22) + 'px'; return d; });
   codeEl.replaceChildren(...before, ...slotEls, ...after);
-  let filled = 0, wrong = 0, finished = false, manual = 0; const help = helperFor(stage);
+  let filled = 0, wrong = 0, finished = false, manual = 0; const placed = []; const help = helperFor(stage);
   const say = (t, c) => { msgEl.textContent = t; msgEl.className = 'msg ' + (c || ''); };
   const order = [...tiles]; do { order.sort(() => Math.random() - .5); } while (tiles.length > 1 && order.every((t, i) => t === tiles[i]));
   const tileEls = order.map(t => { const b = mk('button', 'tile'); b.type = 'button'; b.dataset.id = t.id; t.lines.forEach(l => b.append(dual(l[0], l[1]))); b.setAttribute('aria-label', 'Piece: ' + t.lines.map(l => l[1]).join(' ')); draggable(b, t.id); return b; });
@@ -397,9 +399,9 @@ function puzzle({ stage, codeEl, poolEl, msgEl, hb, before, after, slots, tiles,
     if (!slots[i].accept.includes(id)) {
       s.classList.remove('shake'); void s.offsetWidth; s.classList.add('shake'); say(hint(id, i), 'bad'); wrong++; if (wrong >= 2) { manual = Math.max(manual, 2); giveHint(2); } return;
     }
-    clearN(); help.hide(); wrong = 0; manual = 0; idle.reset(); closeZone(s); s.classList.remove('empty'); s.classList.add('filled'); s.replaceChildren(tileEl);
+    clearN(); help.hide(); wrong = 0; manual = 0; idle.reset(); closeZone(s); placed[i] = id; s.classList.remove('empty'); s.classList.add('filled'); s.replaceChildren(tileEl);
     tileEl.classList.add('placed'); tileEl.disabled = true; tileEl.tabIndex = -1; tileEl.classList.remove('picked', 'nudge'); s.setAttribute('aria-label', `Spot ${i + 1}, filled`); s.tabIndex = -1; filled++;
-    if (filled === slots.length) { finished = true; hb.disabled = true; say('', 'good'); onDone(); } else say(`Yes. ${filled} of ${slots.length} placed.`, 'good');
+    if (filled === slots.length) { finished = true; hb.disabled = true; say('', 'good'); onDone(placed); } else say(`Yes. ${filled} of ${slots.length} placed.`, 'good');
   }, () => say('Pick up a piece first: drag one, or tap one and then tap a spot.', '')));
   say('');
 }
@@ -552,33 +554,35 @@ reset5(false);
 const help5 = helperFor($('s5'));
 watch($('s5'), () => !$('s5').hidden && !$('s5').classList.contains('done'), lv => help5.show(!saw.bug ? 'Press Run one trip a few times. Does it ever get out?' : 'Now press Switch to ==, then run it.'));
 
-/* ---------- 6: an AI inside the loop ---------- */
+/* ---------- 6: an AI inside the loop, with the wrong operator ---------- */
+let op6 = '=', sawBug = false, sawFix = false;
 puzzle({
   stage: $('s6'), codeEl: $('code6'), poolEl: $('pool6'), msgEl: $('msg6'), hb: $('hb6'),
-  before: [dual('goal = "find new remote roles I have not seen"', 'The goal: find new remote roles I have not seen.'), dual('seen = [ ]; tries = 0', 'Start with nothing seen and zero passes.')],
+  before: [dual('goal = "find new remote roles I have not seen"', 'The goal: find new remote roles I have not seen.'), dual('seen = [ ]', 'Start with nothing seen.')],
   after: [],
   slots: [
-    { accept: ['do'], clue: 'Which piece starts the circle?' },
+    { accept: ['init'], clue: "Before the circle starts, something has to say there is more to do." },
+    { accept: ['do'], clue: 'Which piece begins the circle?' },
     { accept: ['choose'], indent: 1, clue: 'First the AI looks at the last result and picks its next step.' },
     { accept: ['run'], indent: 1, clue: 'Once the AI has picked a step, a tool has to actually do it.' },
     { accept: ['dedupe'], indent: 1, clue: 'Before telling anyone anything: which results are really new? Filter out what was already sent.' },
-    { accept: ['empty', 'cap'], indent: 1, clue: 'Now an off ramp. Either stop when nothing is new, or stop after too many passes.' },
-    { accept: ['show'], indent: 1, clue: 'If there was something new, show it and remember it.' },
-    { accept: ['empty', 'cap'], indent: 1, clue: 'The other off ramp goes here.' },
-    { accept: ['end'], clue: 'What closes the circle?' },
+    { accept: ['show'], indent: 1, clue: 'Show what is new and remember it.' },
+    { accept: ['check'], indent: 1, clue: 'Now the AI decides if there is more to do: if nothing was new, there is not.' },
+    { accept: ['endEq', 'endEqEq'], clue: 'The last piece closes the circle and decides whether to go around again. Two of them look almost the same. One assigns. One compares. Which is which?' },
   ],
   tiles: [
+    { id: 'init', lines: [["char moreToDo = 'Y';", "Start by saying there is more to do."]] },
     { id: 'do', lines: [['do {', 'Begin the circle.']] },
     { id: 'choose', lines: [['action = ai.chooseNextStep(goal, lastResult)', 'The AI reads the last result and picks the next step.']] },
     { id: 'run', lines: [['result = tool.run(action)', 'A tool carries out that step (a job board search).']] },
     { id: 'dedupe', lines: [['new = result minus seen', 'Keep only postings I have not seen yet.']] },
-    { id: 'empty', lines: [['if (new is empty) break', 'Off ramp: nothing new, so stop.']] },
     { id: 'show', lines: [['show(new); seen = seen + new', 'Tell me about the new ones and remember them.']] },
-    { id: 'cap', lines: [['if (++tries >= maxTries) break', 'Off ramp: count this pass. If it is too many, stop.']] },
-    { id: 'end', lines: [['} while (true);', 'Back to the top. The off ramps are the checks above.']] },
+    { id: 'check', lines: [["moreToDo = (new is empty) ? 'N' : 'Y';", "If nothing was new, say there is nothing more to do. Otherwise say there is more."]] },
+    { id: 'endEq', lines: [["} while (moreToDo = 'Y');", "Set moreToDo to 'Y', and go around again."]] },
+    { id: 'endEqEq', lines: [["} while (moreToDo == 'Y');", "Go around again only while moreToDo is equal to 'Y'."]] },
   ],
-  hint: (id, i) => id === 'end' ? 'The closing piece ends the circle, so it goes last.' : id === 'do' ? 'Start the circle first.' : (id === 'empty' || id === 'cap') ? 'The off ramps are checks. They come after the AI has acted.' : i === 0 ? 'The circle has to start before anything inside it can repeat.' : 'Not there. Think: choose a step, do it, filter, check, show, check, close.',
-  onDone: () => { $('msg6').textContent = 'That is the whole shape: choose, act, check, go around again, with off ramps.'; $('msg6').className = 'msg good'; $('s6').classList.add('done'); $('sim').hidden = false; reset6(); }
+  hint: (id, i) => (id === 'endEq' || id === 'endEqEq') ? 'The closing piece goes last. Everything that repeats goes before it.' : id === 'do' ? 'Something has to be set up before the circle begins.' : i === 7 ? 'The last spot is the closing piece. The loop pieces go before it.' : 'Not there. Think: set up, begin the circle, choose, act, filter, show, decide, close.',
+  onDone: placed => { op6 = placed[7] === 'endEq' ? '=' : '=='; $('msg6').textContent = 'The loop is built. Run it and watch what the AI does.'; $('msg6').className = 'msg good'; $('sim').hidden = false; reset6(); }
 });
 /* scripted mock job board: each pass the "AI" reads the last result to pick its next search */
 const SCRIPT = [
@@ -587,38 +591,48 @@ const SCRIPT = [
   { act: 'search "enablement manager, remote"', why: 'Only 1 new result last time. Try a nearby job title.', res: ['Enablement Mgr, Wayne Ent.', 'Field Trainer, Stark'] },
   { act: 'search "sales trainer, remote, posted today"', why: 'Last time brought 1 new result. Check the narrow search again.', res: ['Field Trainer, Stark', 'Enablement Mgr, Wayne Ent.'] },
 ];
-let pass6 = 0, seen6 = [], over6 = null, timer6 = null, log6 = []; const CAP6 = 12;
-function reset6() { clearInterval(timer6); timer6 = null; pass6 = 0; seen6 = []; over6 = null; log6 = []; $('status6').textContent = 'Ready. Press Run next pass.'; $('auto6').textContent = '⏵ Auto-run'; render6(); }
+const EXT = { act: 'search "sales, remote, any title"', why: 'Nothing new last time, but the loop said to keep going, so it widens the search.', res: ['Field Trainer, Stark', 'Enablement Mgr, Wayne Ent.'], extra: '(plus 36 older postings)' };
+let pass6 = 0, seen6 = [], over6 = null, timer6 = null, log6 = [], quiet6 = 0, found6 = 0; const CAP6 = 12;
+function reset6() {
+  clearInterval(timer6); timer6 = null; pass6 = 0; seen6 = []; over6 = null; log6 = []; quiet6 = 0; found6 = 0;
+  $('opEq').setAttribute('aria-pressed', op6 === '='); $('opEqEq').setAttribute('aria-pressed', op6 === '=='); $('opEq').classList.toggle('primary', op6 === '='); $('opEqEq').classList.toggle('primary', op6 === '==');
+  $('status6').textContent = `Ready. The loop closes with  while (moreToDo ${op6} 'Y').`; $('auto6').textContent = '⏵ Auto-run'; render6();
+}
 function render6() {
   const l = $('log6'); l.replaceChildren();
+  $('meter6').innerHTML = `<span class="var">passes = ${pass6}</span><span class="var${quiet6 ? ' changed' : ''}">passes with nothing new = ${quiet6}</span><span class="var">new postings found = ${found6}</span>`;
   log6.forEach(r => {
-    const d = mk('div', 'attempt' + (r.new.length ? ' ok' : r.dupes.length ? ' dupe' : ''));
-    d.append(mk('b', '', `Pass ${r.n}: AI chose ${r.act}`)); const w = mk('small', 'why', 'Why: ' + r.why); d.append(w);
-    const s = mk('small', '', `Tool returned ${r.res.length}: ${r.res.join('; ')}`); d.append(s);
-    const c = mk('small', '', r.gate ? `Duplicate gate: ${r.new.length} new, ${r.res.length - r.new.length} already sent. ${r.new.length ? 'Showing: ' + r.new.join('; ') : 'Nothing new.'}` : `No duplicate gate: sending all ${r.res.length}${r.dupes.length ? `, including ${r.dupes.length} you already got` : ''}.`); d.append(c);
-    l.append(d);
+    const d = mk('div', 'attempt' + (r.fresh.length ? ' ok' : ' dupe'));
+    d.append(mk('b', '', `Pass ${r.n}: the AI chose ${r.act}`), mk('small', 'why', 'Why: ' + r.why));
+    d.append(mk('small', '', `Tool returned ${r.res.length}${r.extra ? ' ' + r.extra : ''}: ${r.res.join('; ')}`));
+    d.append(mk('small', '', r.fresh.length ? `New: ${r.fresh.join('; ')}. So moreToDo = 'Y'.` : `Nothing new. The AI sets moreToDo = 'N'.`));
+    d.append(mk('small', '', r.cond)); l.append(d);
   });
   if (over6) { const d = mk('div', 'note'); d.innerHTML = over6; l.append(d); }
-  $('run6').disabled = !!over6 || !$('sim').hidden === false; $('auto6').disabled = !!over6; $('human6').disabled = !!over6 || pass6 === 0;
+  $('run6').disabled = !!over6; $('auto6').disabled = !!over6; $('human6').disabled = !!over6 || pass6 === 0;
+  if (sawBug && sawFix && !$('s6').classList.contains('done')) $('s6').classList.add('done');
 }
 function pass() {
   if (over6) return;
-  const s = SCRIPT[Math.min(pass6, SCRIPT.length - 1)], gate = $('dedupe').checked; pass6++;
-  const res = pass6 > SCRIPT.length ? SCRIPT.at(-1).res : s.res, why = pass6 > SCRIPT.length ? 'Nothing new came back, so it tries the same narrow search again.' : s.why;
-  const dupes = res.filter(x => seen6.includes(x)), fresh = res.filter(x => !seen6.includes(x));
-  const sent = gate ? fresh : res; log6.push({ n: pass6, act: s.act, why, res, new: sent, dupes, gate });
-  sent.forEach(x => { if (!seen6.includes(x)) seen6.push(x); });
-  if (gate && !fresh.length) over6 = '<span class="badge good">OFF RAMP: NOTHING NEW</span> The last pass found nothing you have not already seen, so the loop stopped itself.';
-  else if ($('cap').checked && pass6 >= +$('capn').value) over6 = `<span class="badge warn">OFF RAMP: CAP</span> It hit the limit of ${$('capn').value} passes and stopped, even though it might have kept going.`;
-  else if (pass6 >= CAP6) over6 = `<span class="badge bad">NO OFF RAMP</span> Nothing stopped it. This page pulled its own emergency stop at ${CAP6} passes. ${gate ? '' : 'And look at the log: it kept sending the same postings. That is the stale-list problem. '}A real loop keeps going until something outside stops it.`;
+  const s = pass6 < SCRIPT.length ? SCRIPT[pass6] : EXT; pass6++;
+  const fresh = s.res.filter(x => !seen6.includes(x)); fresh.forEach(x => seen6.push(x)); found6 += fresh.length; quiet6 = fresh.length ? 0 : quiet6 + 1;
+  const more = fresh.length ? 'Y' : 'N';
+  const cond = op6 === '=' ? `Condition: moreToDo = 'Y' puts 'Y' back in, and that counts as true. Go around again.` : `Condition: moreToDo == 'Y' compares: '${more}' == 'Y' is ${more === 'Y' ? 'true, so go around again' : 'false, so leave the loop'}.`;
+  log6.push({ n: pass6, act: s.act, why: s.why, res: s.res, extra: s.extra, fresh, cond });
+  const bugNote = `<br><b>The AI did its job right.</b> At pass 4 it saw nothing new and set moreToDo to 'N'. The loop's <b>=</b> put it back to 'Y' every time. The AI was never the problem. The loop was.`;
+  if (op6 === '==' && !fresh.length) { over6 = `<span class="badge good">OFF RAMP: NOTHING NEW</span> With <b>==</b> the loop listened to the AI's own answer and stopped.`; sawFix = true; }
+  else if ($('cap').checked && pass6 >= +$('capn').value) { over6 = `<span class="badge warn">OFF RAMP: SAFETY CAP</span> It hit the limit of ${$('capn').value} passes and stopped, even though it might have kept going.` + (op6 === '=' && pass6 > 4 ? bugNote : ''); if (op6 === '=') sawBug = true; }
+  else if (pass6 >= CAP6) { over6 = `<span class="badge bad">NO OFF RAMP</span> Nothing stopped it. This page pulled its own emergency stop at ${CAP6} passes. A real loop keeps going, and keeps spending, until something outside stops it.` + bugNote; sawBug = true; }
   $('status6').textContent = over6 ? 'Loop finished.' : `Pass ${pass6} done. Going around again.`; render6();
 }
 $('run6').onclick = pass;
 $('auto6').onclick = () => { if (timer6) { clearInterval(timer6); timer6 = null; $('auto6').textContent = '⏵ Auto-run'; return; } $('auto6').textContent = '⏸ Pause'; timer6 = setInterval(() => { if (over6) { clearInterval(timer6); timer6 = null; $('auto6').textContent = '⏵ Auto-run'; return; } pass(); }, 1100); };
-$('human6').onclick = () => { if (over6) return; clearInterval(timer6); timer6 = null; over6 = '<span class="badge warn">OFF RAMP: YOU</span> You stopped it. A person can always be the off ramp. That is what "human in the loop" means.'; $('status6').textContent = 'Stopped by you.'; $('auto6').textContent = '⏵ Auto-run'; render6(); };
-$('reset6').onclick = reset6; ['dedupe', 'cap', 'capn'].forEach(id => $(id).addEventListener('input', () => { if (log6.length) reset6(); }));
+$('human6').onclick = () => { if (over6) return; clearInterval(timer6); timer6 = null; over6 = `<span class="badge warn">OFF RAMP: YOU</span> You stopped it. A person can always be the off ramp. That is what "human in the loop" means.` + (op6 === '=' && quiet6 ? `<br><b>The AI did its job right.</b> It kept saying "nothing more to do." The loop's <b>=</b> kept saying "go again."` : ''); if (op6 === '=' && pass6 > 1) sawBug = true; $('status6').textContent = 'Stopped by you.'; $('auto6').textContent = '⏵ Auto-run'; render6(); };
+$('reset6').onclick = reset6;
+$('opEq').onclick = () => { op6 = '='; reset6(); }; $('opEqEq').onclick = () => { op6 = '=='; reset6(); };
+['cap', 'capn'].forEach(id => $(id).addEventListener('input', () => { if (log6.length) reset6(); }));
 const help6 = helperFor($('s6'));
-watch($('s6'), () => !$('sim').hidden && !over6 && !timer6, lv => { help6.show(!log6.length ? 'Press Run next pass to send the AI around the loop once.' : lv < 3 ? 'Press Run next pass again. What does the AI choose next, and why?' : 'Try turning off the duplicate gate and running it. What comes back?'); if (!log6.length) $('run6').classList.add('nudgebtn'); });
+watch($('s6'), () => !$('sim').hidden && !over6 && !timer6, lv => { help6.show(!log6.length ? 'Press Run next pass to send the AI around the loop once.' : pass6 < 5 && op6 === '=' ? 'Keep pressing Run next pass. Watch pass 4: what does the AI notice, and does the loop listen?' : sawBug && !sawFix ? 'Now switch the closing piece to == and run it again.' : 'Try the safety cap: turn it on and run the = version.'); if (!log6.length) $('run6').classList.add('nudgebtn'); });
 $('run6').addEventListener('click', () => { $('run6').classList.remove('nudgebtn'); help6.hide(); });
 
 if (location.hash === '#unlock') { ['s2', 's3', 's4', 's5', 's6', 'partB'].forEach(id => { $(id).hidden = false; }); $('typing').hidden = false; $('sim').hidden = false; reset6(); }
