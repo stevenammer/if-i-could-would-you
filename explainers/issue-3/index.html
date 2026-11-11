@@ -58,6 +58,7 @@ html[data-mode=words] .c, html[data-mode=code] .w { display:none !important }
 .blank:empty::before { content:'_'; }
 .blank.over { background:rgba(110,168,255,.3) }
 .blank.picktarget { border-bottom-color:var(--mint) }
+.blank.locked { opacity:.45; border-bottom-style:dotted; cursor:default }
 .blank.filled { border-bottom:2px solid var(--mint); background:rgba(127,214,176,.12); color:var(--mint); cursor:default }
 .blank.shake,.slot.shake { animation:shake .35s; border-color:var(--rose) }
 .blank.nudge,.slot.nudge,.tile.nudge,.chip.nudge,.nudgebtn { animation:glow 1.1s ease-in-out infinite; border-color:var(--violet) !important }
@@ -146,9 +147,9 @@ footer { margin:22px 0 0; color:var(--faint); font-size:11px; line-height:1.6 }
 <section class="stage" id="s1" aria-labelledby="h1a">
   <header><span class="num">1</span><h2 id="h1a">Build it the long way</h2><span class="tick">✔ DONE</span></header>
   <div class="inner">
-    <p>The program has to ask a person for up to 16 words. The only tool is copy and paste, so you write one block for every word. Drag a number from the tray into each blank. Every block has three. <span class="tag">illustrative alternative, not Steven's 2014 code</span></p>
+    <p>The program has to ask a person for up to 16 words. The only tool is copy and paste, so you write one block for every word. Drag a number from the tray into each of the 6 blanks in the first two blocks. Then watch the other 14 blocks. <span class="tag">illustrative alternative, not Steven's 2014 code</span></p>
     <div class="tray" id="tray1" aria-label="Number tray"><span class="lab">Numbers</span></div>
-    <div class="row"><div class="progress" style="flex:1;min-width:140px"><i id="bar1"></i></div><span class="sub" id="count1" aria-live="polite">0 of 48 blanks filled</span></div>
+    <div class="row"><div class="progress" style="flex:1;min-width:140px"><i id="bar1"></i></div><span class="sub" id="count1" aria-live="polite">0 of 6 blanks filled</span></div>
     <div class="blks code" id="blks1" aria-label="Sixteen copy-pasted blocks"></div>
     <div class="hintbar"><button class="hintbtn" id="hb1">💡 Hint</button><div class="msg" id="msg1" aria-live="polite"></div></div>
     <div id="pat1" hidden class="row"><button class="primary" id="seePat">Do you see a pattern?</button><button id="howNow" hidden>How about now?</button></div>
@@ -325,19 +326,22 @@ const visible = els => els.find(e => e.offsetParent !== null) || els[0];
 
 /* ---------- 1: sixteen blocks, 48 blanks ---------- */
 const blanks = {}, expected = {}; let filled1 = 0, wrong1 = 0, done1 = false;
-const KEYS = []; for (let k = 1; k <= 16; k++) ['t', 'a', 's'].forEach(r => KEYS.push(k + r));
+const KEYS = []; for (let k = 1; k <= 2; k++) ['t', 'a', 's'].forEach(r => KEYS.push(k + r));  // the blanks you fill in
+const REST = []; for (let k = 3; k <= 16; k++) ['t', 'a', 's'].forEach(r => REST.push(k + r));  // filled for you
 function blank1(key) {
   const b = mk('span', 'blank'); b.dataset.key = key; (blanks[key] = blanks[key] || []).push(b);
-  zone(b, n => { if (n === expected[key]) setBlank(key, n); else miss(key, n); });
+  if (KEYS.includes(key)) zone(b, n => { if (n === expected[key]) setBlank(key, n); else miss(key, n); }); else b.classList.add('locked');
   return b;
 }
 function setBlank(key, n) {
   blanks[key].forEach(b => { b.textContent = n; b.classList.add('filled'); closeZone(b); });
   filled1++; wrong1 = 0; idle1.reset(); help1.hide(); clearNudge1();
-  $('bar1').style.width = (filled1 / 48 * 100) + '%'; $('count1').textContent = `${filled1} of 48 blanks filled`;
-  const blocksDone = Math.floor(filled1 / 3); $('msg1').className = 'msg good';
-  $('msg1').textContent = filled1 % 3 === 0 && filled1 < 48 ? `Block ${blocksDone} of 16 done. ${16 - blocksDone} to go.` : '';
-  if (filled1 === 48 && !done1) { done1 = true; $('msg1').textContent = 'All 16 blocks. That was annoying on purpose.'; $('hb1').disabled = true; $('pat1').hidden = false; }
+  $('bar1').style.width = (filled1 / 6 * 100) + '%'; $('count1').textContent = `${filled1} of 6 blanks filled`;
+  $('msg1').className = 'msg good'; $('msg1').textContent = filled1 === 3 ? 'Block 1 done. One more.' : '';
+  if (filled1 === 6 && !done1) {
+    done1 = true; $('hb1').disabled = true; $('msg1').textContent = 'Now imagine doing the other 14 yourself.';
+    REST.forEach((key2, i) => setTimeout(() => { blanks[key2].forEach(b => { b.textContent = expected[key2]; b.classList.remove('locked'); b.classList.add('filled'); }); if (i === REST.length - 1) $('pat1').hidden = false; }, reduced ? 0 : i * 55));
+  }
 }
 const roleText = { t: 'how many words this check needs to be true', a: 'the word number the person sees', s: 'the list spot. Lists start counting at 0, so it is one less than the word number' };
 function miss(key, n) {
@@ -356,7 +360,7 @@ for (let k = 1; k <= 16; k++) {
   $('blks1').append(blk);
 }
 const tray = $('tray1');
-for (let n = 0; n <= 16; n++) { const c = mk('button', 'chip', String(n)); c.type = 'button'; c.dataset.n = n; draggable(c, n); tray.append(c); }
+for (let n = 0; n <= 5; n++) { const c = mk('button', 'chip', String(n)); c.type = 'button'; c.dataset.n = n; draggable(c, n); tray.append(c); }
 const help1 = helperFor($('s1'));
 const nextKey1 = () => KEYS.find(k => !blanks[k][0].classList.contains('filled'));
 function clearNudge1() { document.querySelectorAll('#s1 .nudge').forEach(e => e.classList.remove('nudge')); }

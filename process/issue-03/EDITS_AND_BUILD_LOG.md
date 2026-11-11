@@ -38,7 +38,7 @@ Built by the assistant from `INTERACTIVE_SPEC.md` plus Steven's direction. Every
 
 Step 6 shows the wrong-operator bug a second time with an AI inside the loop: the AI notices nothing is new and sets moreToDo to 'N', and the `=` in the closing line puts it back to 'Y' every pass, so the loop runs forever (page emergency stop at 12 passes) unless a safety cap or the human stops it. Switching to `==` makes the loop respect the AI's answer.
 
-Decisions that came from Steven: my product's visual theme (warm black, cream, aurora blue and violet); a big Plain words / Real code switch, starting on plain words; many fill-in blanks in the first step, on purpose annoying; real drag and drop; hints when stuck or idle; do-while examples throughout, because the article teaches a do-while loop, not a for loop; "and now Duet" added to the agent sentence.
+Decisions that came from Steven: my product's visual theme (warm black, cream, aurora blue and violet); a big Plain words / Real code switch, starting on plain words; a fill-in first step that is a bit tedious on purpose, but only 6 blanks (the first two blocks), then the other 14 blocks fill themselves so the repetition is felt without the work; real drag and drop; hints when stuck or idle; do-while examples throughout, because the article teaches a do-while loop, not a for loop; "and now Duet" added to the agent sentence.
 
 Safety and honesty choices: it never runs the original C; word counts are capped 1 to 16; the `=` simulation stops after 6 trips and has a Stop button; the AI loop is scripted with made-up job postings and says so; it makes no network requests; it uses system fonts instead of the theme's web fonts for that reason.
 
