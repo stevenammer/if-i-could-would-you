@@ -20,6 +20,12 @@ main { max-width:880px; margin:auto; padding:18px 18px 70px }
 .bar { position:sticky; top:0; z-index:40; background:rgba(12,12,11,.88); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
 .barin { max-width:880px; margin:auto; padding:10px 18px; display:flex; align-items:center; gap:14px; flex-wrap:wrap; justify-content:space-between }
 .brand { font:500 11px var(--mono); letter-spacing:.14em; color:var(--faint); text-transform:uppercase }
+.pips { display:flex; gap:7px; align-items:center }
+.pips i { width:9px; height:9px; border-radius:50%; background:rgba(239,236,228,.14); transition:background .25s, transform .25s }
+.pips i.on { background:var(--mint); transform:scale(1.15) }
+.finale { border:1px solid rgba(169,154,232,.4); background:linear-gradient(135deg,rgba(169,154,232,.12),rgba(154,203,145,.07)); border-radius:20px; padding:28px 22px; text-align:center; margin:0 0 18px }
+.finale .big { margin:0 0 8px }
+.finale p { color:var(--dim); margin:0; font-size:15px }
 .seg { display:flex; border:1px solid var(--border2); border-radius:14px; padding:4px; background:rgba(239,236,228,.03); gap:4px }
 .seg button { border:0; background:transparent; color:var(--dim); padding:12px 22px; border-radius:10px; font:600 15px var(--body); cursor:pointer; min-height:44px }
 .seg button[aria-checked=true] { background:linear-gradient(135deg,rgba(110,168,255,.26),rgba(169,154,232,.2)); color:var(--text); box-shadow:inset 0 0 0 1px rgba(110,168,255,.55) }
@@ -130,6 +136,7 @@ footer { margin:22px 0 0; color:var(--faint); font-size:11px; line-height:1.6 }
 <body>
 <div class="bar"><div class="barin">
   <div class="brand">If I Could, Would You? / Issue #3</div>
+  <div class="pips" id="pips" role="img" aria-label="Progress: 0 of 6 steps done"></div>
   <div class="seg" role="radiogroup" aria-label="Show the steps as plain words or as real code" id="seg">
     <button role="radio" aria-checked="true" data-mode="words">Plain words</button>
     <button role="radio" aria-checked="false" data-mode="code">Real code</button>
@@ -242,6 +249,8 @@ footer { margin:22px 0 0; color:var(--faint); font-size:11px; line-height:1.6 }
   </div>
 </section>
 
+<div class="finale" id="finale" hidden><div class="big">A circle with an off ramp.</div><p>That's the loop. Every loop needs one, and every loop that has an AI inside it needs one even more.</p></div>
+
 <footer>Made as an educational companion to “If I Could, Would You?” — Issue #3. The loop in step 4 is the actual February 2014 code from my college archive. Everything else is simplified and illustrative, and every plain-words line is written for this page, not part of the newsletter. Everything runs in your browser and makes no network requests.</footer>
 </main>
 
@@ -322,6 +331,9 @@ function watch(stageEl, isActive, onIdle) {
 }
 function unlock(id) { const n = $(id); n.hidden = false; n.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' }); }
 function finish(id, next) { $(id).classList.add('done'); if (next) unlock(next); }
+const pips = $('pips'); for (let i = 1; i <= 6; i++) pips.append(document.createElement('i'));
+function syncPips() { const n = document.querySelectorAll('.stage.done').length; [...pips.children].forEach((d, i) => d.classList.toggle('on', i < n)); pips.setAttribute('aria-label', `Progress: ${n} of 6 steps done`); $('finale').hidden = !$('s6').classList.contains('done'); }
+new MutationObserver(syncPips).observe(document.querySelector('main'), { subtree: true, attributes: true, attributeFilter: ['class'] });
 const visible = els => els.find(e => e.offsetParent !== null) || els[0];
 
 /* ---------- 1: sixteen blocks, 48 blanks ---------- */

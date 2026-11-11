@@ -22,6 +22,12 @@ Source: [`explainers/issue-2/index.html`](../explainers/issue-2/index.html). One
 
 The live version is at https://if-i-could-issue-2.netlify.app/send-button/.
 
+## The loop explainer (Issue 3)
+
+Source: [`explainers/issue-3/index.html`](../explainers/issue-3/index.html). One self-contained file, no network requests, and no AI: the loop demos are scripted and labeled that way. It's deployed with a small `_headers` file that sets a strict Content-Security-Policy (inline script and style only), under `loop/index.html` on its own Netlify site.
+
+The live version is at https://if-i-could-issue-3.netlify.app/loop/.
+
 ## The parked context-window prototype
 
 Source: [`coming-next/issue-03/index.html`](../coming-next/issue-03/index.html). Also one file, scripted, and not finished. Same deal.

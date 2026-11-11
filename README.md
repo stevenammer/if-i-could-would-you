@@ -15,7 +15,7 @@ This repo is the workshop behind the newsletter. The newsletter is where you rea
 | [`issues/`](issues) | Every issue as plain text, copied from what I published on LinkedIn. |
 | [`prompts/`](prompts) | The Voice Workshop prompt from Issue 1, ready to copy, as markdown, PDF and Word. |
 | [`sites/`](sites) | The Voice Workshop Prompt web page, source and build script, ready to host yourself. Live at [if-i-could-would-you.netlify.app](https://if-i-could-would-you.netlify.app). |
-| [`explainers/`](explainers) | The interactive "what happens when you hit Send" explainer from Issue 2 ([live](https://if-i-could-issue-2.netlify.app/send-button/)), and the animation behind it. |
+| [`explainers/`](explainers) | The interactive explainers: "what happens when you hit Send" from Issue 2 ([live](https://if-i-could-issue-2.netlify.app/send-button/)), plus the animation behind it, and the drag-and-drop loop explainer from Issue 3 ([live](https://if-i-could-issue-3.netlify.app/loop/)). |
 | [`process/`](process) | How an issue actually gets made, including an AI first draft for an issue I ended up scrapping, and the AI's own list of what it couldn't verify. |
 | [`coming-next/`](coming-next) | An earlier idea for Issue 3 (context management) that I parked. Unfinished and labeled that way. |
 | [`covers/`](covers) | The cover art. |

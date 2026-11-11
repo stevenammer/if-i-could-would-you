@@ -217,9 +217,7 @@ I think that's helpful. Especially when things start getting weird.
 
 TL;DR
 
-Try it yourself: [The Loop (interactive explainer)](../explainers/issue-3/index.html)
-
-<!-- Swap the link above for the hosted URL once the explainer is deployed. Same pattern as Issue 2: a plain "TL;DR" line, then this link, right before Word of the Week. -->
+Try it yourself: [The Loop (interactive explainer)](https://if-i-could-issue-3.netlify.app/loop/)
 
 ### Word of the Week: Bootstrapping
 
