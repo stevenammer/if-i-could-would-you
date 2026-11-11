@@ -72,3 +72,5 @@ Steven approved the post in chat, and the assistant published it to his LinkedIn
 - The editor turned `*gasp*` into italics when pasted, so the asterisks were put back by hand to keep them visible.
 
 A cover image in the same style as Issue 2's was added (`covers/issue-03-cover.png`). No intro text was added to the post. Published: https://www.linkedin.com/pulse/i-could-would-you-issue-3-steven-ammer-i0ane
+
+The announcement post in the LinkedIn feed (Nov 11, 2026) uses my exact wording: "Here's issue 3 of If I Could, Would You? And if you're curious about the writing process, I plan on keeping track of it all here:" and then a link to this repository. The issue is attached as a card, and the post is public. https://www.linkedin.com/feed/update/urn:li:ugcPost:7526392730000932866/
