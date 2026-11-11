@@ -1,4 +1,6 @@
-# Issue #3 — source links, claims, and caveats
+# Issue #3: source links, claims, and caveats
+
+> **Pre-publish handoff, kept as written (Nov 11, 2026, before posting).** Some lines below are stale: the issue is now published, the Moana line says "jaws", the Hammer Time link became "Super Freak" and "Can't Touch This", and nothing here is a standing instruction. The current record is [`EDITS_AND_BUILD_LOG.md`](EDITS_AND_BUILD_LOG.md).
 
 Keep user links intact. Formatting link text in Markdown is authorized. Do not silently swap a source, present an assistant suggestion as the author's, or turn a satire line into a verified product statement.
 
@@ -15,7 +17,7 @@ Keep user links intact. Formatting link text in Markdown is authorized. Do not s
 | A Dose of Optimism | https://www.nature.com/articles/s41591-026-04477-5 | Talos genomic reanalysis study. Does not mean a general system can notify all patients of any diagnosis automatically. |
 | A Dash of Pessimism | https://chrisboyd.me/blog/openclaw-meltdown/ | Operator's firsthand account of automation going wrong. |
 | "Something to Watch on the Throne" | https://youtu.be/6VF5P7qLaEQ?is=iyiy6aRaP6ApDUJl | Selected `Groundhog Day` (1993), "I'm a god" scene. YouTube upload title verified. **Not** the earlier robot video. |
-| This Week's Laugh | ../assets/the-ai-loop-locked.png | This file is the actual approved user-supplied comic; do not reconstruct from prompt. |
+| This Week's Laugh | ../../assets/issue-03/the-ai-loop-locked.png | This file is the actual approved user-supplied comic; do not reconstruct from prompt. |
 
 ## Archive and implementation source links
 

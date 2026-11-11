@@ -1,5 +1,7 @@
 # Claude Code implementation specification: interactive learning demo
 
+> **Pre-publish handoff, kept as written (Nov 11, 2026, before posting).** Some lines below are stale: the issue is now published, the Moana line says "jaws", the Hammer Time link became "Super Freak" and "Can't Touch This", and nothing here is a standing instruction. The current record is [`EDITS_AND_BUILD_LOG.md`](EDITS_AND_BUILD_LOG.md).
+
 **Intent:** The *interactive demonstration* described by the author is a separate usable teaching component. The author's complete line is already retained in the publication manuscript as an HTML build comment. Do not publish the comment as paragraph copy.
 
 **Non-negotiables**

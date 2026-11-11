@@ -1,6 +1,6 @@
 # Issue #3: what changed after the handoff, and what was left alone
 
-Written Nov 11, 2026. `ASSISTANT` here means Claude Code. Nothing below is pushed or published.
+Written Nov 11, 2026. `ASSISTANT` here means Claude Code. Everything below is now pushed and published.
 
 ## Edits made to the article text (author-approved typo pass)
 
@@ -25,7 +25,7 @@ Steven asked for typo fixes only, said to keep "alls", and to leave judgment cal
 | 15 | `bloodthirsty claws of inescapable death!` | `bloodthirsty jaws of inescapable death!` | requested: matches the film line. |
 | 16 | `["interested"](https://github.com/stevenammer/before-the-vibes)` | `[interested](https://github.com/stevenammer/before-the-vibes)` | requested: "interested" is hyperlinked only, no quotation marks |
 | 17 | `then find out if I can teach it away in a way that inspires others.` | `then find out if I can teach it away, in a way, that inspires others.` | requested: commas after "away" and "way" |
-| 18 | `named Dennis Hunchuck who had` | `named [Dennis Hunchuck](https://www.linkedin.com/in/dennis-hunchuck-7a748a56/) who had` | requested: link the professor on LinkedIn. Chosen profile: Valencia College, West Virginia University. Three other newer-looking Valencia "Dennis Hunchuck" profiles exist. |
+| 18 | `named Dennis Hunchuck who had` | `named [Dennis Hunchuck](https://www.linkedin.com/in/dennis-hunchuck-7a748a56/) who had` | requested: link the professor on LinkedIn. Chosen profile: Valencia College, West Virginia University. |
 | 19 | `some secret agent language to talk to computers, but` | `some secret agent language to talk to computers with, but` | requested: "to talk to computers with" |
 | 20 | `not at all unlike my word search strategy when` | `not at all unlike my *actual* word search strategy when` | requested: emphasize "actual" in italics. This adds the word "actual". Italics need to be applied in the LinkedIn editor. |
 | 21 | `trying to turn firm no's to excited yeses with no clear indication of` | `trying to turn firm nos to excited yeses without any clear indication of` | requested: correct plural ("nos", like "yeses"; "noes" is also accepted) and "without any clear indication of" |
@@ -45,6 +45,7 @@ Steven asked for typo fixes only, said to keep "alls", and to leave judgment cal
 
 ## Left alone on purpose (author-wording or judgment calls, flagged for review)
 
+- **Checked since:** the Engelbart quote is exact. It is on page 155 of the linked PDF, and the footer on that page reads "Bootstrap Planning Document -- Working Draft Page 12", so "page 12" is the document's own page number. The Cherny link now points to an article that states the claim, not to his profile.
 - **Edits that added or changed words, applied as requested but worth a second look:** "my *actual* word search strategy" (adds the word "actual"), and "without any clear indication of" (was "with no clear indication of").
 
 - **"For this week's offer to the throne:"** is the author's locked Groundhog Day caption. Not changed.
@@ -74,3 +75,7 @@ Steven approved the post in chat, and the assistant published it to his LinkedIn
 A cover image in the same style as Issue 2's was added (`covers/issue-03-cover.png`). No intro text was added to the post. Published: https://www.linkedin.com/pulse/i-could-would-you-issue-3-steven-ammer-i0ane
 
 The announcement post in the LinkedIn feed (Nov 11, 2026) uses my exact wording: "Here's issue 3 of If I Could, Would You? And if you're curious about the writing process, I plan on keeping track of it all here:" and then a link to this repository. The issue is attached as a card, and the post is public. https://www.linkedin.com/feed/update/urn:li:ugcPost:7526392730000932866/
+
+## Clean-up after an independent review (Nov 11, 2026)
+
+A second AI reviewer read everything public as a skeptical hiring manager. What changed because of it: a test fixture and a smoke-test job posting in the Interview Coach repo that echoed a real job search were replaced with invented ones, and that repo's history was rewritten to match (the code is otherwise identical; only those lines changed). Issue 1's mirror lost a block of pasted LinkedIn sidebar text. The Cherny link now goes to an article. The comic has a satire caption. The Issue 2 site's front page now credits the podcast the same way the podcast page does. Everything else the reviewer raised was either left as is on purpose or noted for later.

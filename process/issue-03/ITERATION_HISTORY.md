@@ -1,4 +1,6 @@
-# Issue #3: The Loop — development history
+# Issue #3: The Loop: development history
+
+> **Pre-publish handoff, kept as written (Nov 11, 2026, before posting).** Some lines below are stale: the issue is now published, the Moana line says "jaws", the Hammer Time link became "Super Freak" and "Can't Touch This", and nothing here is a standing instruction. The current record is [`EDITS_AND_BUILD_LOG.md`](EDITS_AND_BUILD_LOG.md).
 
 **Status:** A public-facing **working history** for a build-in-public repository, not a purported complete transcript or a record of edits already committed.
 

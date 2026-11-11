@@ -24,7 +24,7 @@ You see, I had a brilliant professor at a little old community college named [De
 
 ### The Lesson:
 
-If you have been trying to keep up with AI in the last few months or so, I'm sure you've seen increasing use of the word "loop." Every Claude Consultant wants to tell you about their "closed loop system" or their "human in the loop" or you'll see a LinkedIn post with a confusing graphic of loops that don't seem to actually mean much of anything. Then the ["creator of Claude Code himself"](https://www.linkedin.com/in/bcherny) comes out and says he no longer writes prompts, now he writes loops, and every "prompt engineer" became a "loop engineer" overnight.
+If you have been trying to keep up with AI in the last few months or so, I'm sure you've seen increasing use of the word "loop." Every Claude Consultant wants to tell you about their "closed loop system" or their "human in the loop" or you'll see a LinkedIn post with a confusing graphic of loops that don't seem to actually mean much of anything. Then the [creator of Claude Code himself](https://dev.to/rentierdigital/the-head-of-claude-code-stopped-prompting-thats-not-a-tip-thats-a-timeline-2bg1) comes out and says he no longer writes prompts, now he writes loops, and every "prompt engineer" became a "loop engineer" overnight.
 
 You know, you hear a word enough times in enough increasingly different places and you start losing track of what the word actually means in the first place.
 
@@ -261,6 +261,8 @@ For this week's offer to the throne: [Claude arguing with me about why I should 
 The AI Loop
 
 ![The AI Loop. Locked seven-panel comic.](../assets/issue-03/the-ai-loop-locked.png)
+
+_Satire. The speech balloons are jokes, not real statements from OpenAI or Anthropic._
 
 ### Wrap Up:
 

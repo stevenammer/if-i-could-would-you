@@ -46,26 +46,6 @@ Used in a sentence:
 
 "Seek out a diverse set of collaborators who will use creative conflict and productive friction to spark iteration and sustainable innovation."
 
-Recommended by LinkedIn
-
-Learning by Doing
-
-Harutyun Mardirossian
-
-5 years ago
-
-The Most Important Programming Language
-
-Murat Durmus
-
-8 months ago
-
-Re-becoming a developer
-
-Tom. Lous
-
-10 years ago
-
 Source: Center for Creative Leadership, Leadership Disrupted (2018).
 
 Definition: The act or process of repeating a procedure or sequence.

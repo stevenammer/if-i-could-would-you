@@ -1,5 +1,7 @@
 # The video rabbit hole: rejected candidates, final selection
 
+> **Pre-publish handoff, kept as written (Nov 11, 2026, before posting).** Some lines below are stale: the issue is now published, the Moana line says "jaws", the Hammer Time link became "Super Freak" and "Can't Touch This", and nothing here is a standing instruction. The current record is [`EDITS_AND_BUILD_LOG.md`](EDITS_AND_BUILD_LOG.md).
+
 This is the **process log** of the November 11 search. These suggestions were made by the assistant and rejected by the author. Their presence here is not an endorsement or a claim that every cited demonstration was independently recreated or inspected frame by frame.
 
 | Video/project | Link | Why it didn't make the issue |
