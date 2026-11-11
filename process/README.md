@@ -8,7 +8,7 @@ I don't hide that AI helps me write this newsletter. The whole point of Issue 1 
 - [`issue-02-ai-first-draft.md`](issue-02-ai-first-draft.md) is the first draft an AI wrote for an Issue 2 idea I ended up dropping. Its first line says it hasn't been reviewed by me, because it hadn't been.
 - [`issue-02-ai-notes-for-steven.md`](issue-02-ai-notes-for-steven.md) is the AI's own list of assumptions, which claims it could source, which it couldn't verify, and which lines it thought least sounded like me. I like this one best. It's a machine telling me where it was guessing.
 - [`../issues/issue-02.md`](../issues/issue-02.md) is what I actually published.
-- [`issue-03/`](issue-03) is the build record for Issue 3, "The Loop": the dated decision timeline (including the ideas I dropped and the rejected video search), the source links and caveats, the spec for the interactive explainer, and a plain list of what changed after the handoff and what I left alone. Start with [`issue-03/ITERATION_HISTORY.md`](issue-03/ITERATION_HISTORY.md).
+- [`issue-03/`](issue-03) is the build record for Issue 3, "The Loop": the dated decision timeline (including the ideas I dropped and the rejected video search), the source links and caveats, the spec for the interactive explainer, and a plain list of what changed after the handoff and what I left alone. Start with [`issue-03/HOW_THIS_ISSUE_WAS_MADE.md`](issue-03/HOW_THIS_ISSUE_WAS_MADE.md), then [`issue-03/ITERATION_HISTORY.md`](issue-03/ITERATION_HISTORY.md).
 
 ## These are not two versions of the same issue
 

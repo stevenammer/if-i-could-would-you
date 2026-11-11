@@ -48,7 +48,6 @@ Steven asked for typo fixes only, said to keep "alls", and to leave judgment cal
 - **Edits that added or changed words, applied as requested but worth a second look:** "my *actual* word search strategy" (adds the word "actual"), and "without any clear indication of" (was "with no clear indication of").
 
 - **"For this week's offer to the throne:"** is the author's locked Groundhog Day caption. Not changed.
-- **Personal details:** the wife's job-list anecdote and laptop automation, and the professor's name spelling, are the author's call.
 - **"Hammer Time" link:** resolved. Steven asked to link both videos, so the line now links "Super Freak" and "Can't Touch This". No side-by-side video was found; the songs are connected because "Can't Touch This" is built on the "Super Freak" riff and the dispute ended in a songwriting credit for James.
 - **Cherny link:** goes to his LinkedIn profile, which does not itself contain the "writes loops now" claim. An article link would be a better source. Not changed.
 - **Engelbart quote and page 12:** the PDF link resolves, but the quote and page number were not independently verified.

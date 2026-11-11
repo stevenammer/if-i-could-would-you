@@ -3,5 +3,8 @@
   "private": true,
   "license": "MIT",
   "type": "module",
-  "scripts": { "check:public": "node scripts/check-public.mjs" }
+  "scripts": {
+    "check:public": "node scripts/check-public.mjs",
+    "test:issue-3-explainer": "node explainers/issue-3/e2e.mjs"
+  }
 }
