@@ -1,421 +1,627 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-mode="words">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark">
 <title>The Loop | If I Could, Would You?</title>
 <style>
-:root { --bg:#0c1120; --edge:#35445b; --text:#eff4ff; --sub:#adbed7; --accent:#84ddd2; --yellow:#ffd29a; --muted:#61738c; --bad:#ff9d8f; --good:#9feac2; }
+/* Palette and shapes follow my own product theme: warm black, cream text, aurora blue / violet / green. System fonts stand in for its display, body and mono fonts so the page makes no network requests. */
+:root {
+  --bg:#0c0c0b; --panel:#111110; --card:#161614; --elev:#1d1d1b; --border:#2a2925; --border2:#3b3a35;
+  --text:#efece4; --dim:#a8a49a; --faint:#85827a; --mint:#7fd6b0; --sky:#6ea8ff; --violet:#a99ae8; --green:#9acb91; --rose:#f28b82;
+  --glass:rgba(239,236,228,.12);
+  --display:'Newsreader','Iowan Old Style',Georgia,serif; --body:'Geist',system-ui,-apple-system,'Segoe UI',sans-serif; --mono:'Geist Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+}
 * { box-sizing:border-box }
-html,body { margin:0; min-height:100%; background:var(--bg); color:var(--text); font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial,sans-serif; }
-body { background:radial-gradient(900px 550px at 90% -20%,#1e4560 0%,transparent 78%),var(--bg); }
-main { max-width:860px; margin:auto; padding:26px 18px 60px }
-.label { letter-spacing:.17em; font-size:11px; font-weight:850; color:var(--accent) }
-h1 { font-size:clamp(30px,5vw,50px); margin:7px 0 8px; line-height:1.06; letter-spacing:-.04em }
-.lede { max-width:700px; font-size:16px; line-height:1.55; color:var(--sub); margin:0 0 22px }
-section.stage { border:1px solid var(--edge); background:linear-gradient(165deg,#19233a 0,#11192b 100%); border-radius:18px; margin:0 0 18px; overflow:hidden }
-.stage > header { display:flex; align-items:center; gap:12px; background:#202b41; border-bottom:1px solid var(--edge); padding:14px 18px }
-.stage h2 { margin:0; font-size:18px; letter-spacing:-.02em }
-.num { flex:none; width:28px; height:28px; border-radius:50%; background:#2c3d58; display:grid; place-items:center; font-size:13px; font-weight:800 }
-.stage.done .num { background:#81dbcf; color:#071b24 }
-.tick { margin-left:auto; font-size:13px; font-weight:800; color:var(--good); display:none }
+html,body { margin:0; min-height:100%; background:var(--bg); color:var(--text); font-family:var(--body); }
+body { background:radial-gradient(ellipse 760px 430px at 88% -6%,rgba(169,154,232,.15),transparent 70%),radial-gradient(ellipse 620px 400px at 4% 2%,rgba(154,203,145,.07),transparent 70%),var(--bg); }
+main { max-width:880px; margin:auto; padding:18px 18px 70px }
+.bar { position:sticky; top:0; z-index:40; background:rgba(12,12,11,.88); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
+.barin { max-width:880px; margin:auto; padding:10px 18px; display:flex; align-items:center; gap:14px; flex-wrap:wrap; justify-content:space-between }
+.brand { font:500 11px var(--mono); letter-spacing:.14em; color:var(--faint); text-transform:uppercase }
+.seg { display:flex; border:1px solid var(--border2); border-radius:14px; padding:4px; background:rgba(239,236,228,.03); gap:4px }
+.seg button { border:0; background:transparent; color:var(--dim); padding:12px 22px; border-radius:10px; font:600 15px var(--body); cursor:pointer; min-height:44px }
+.seg button[aria-checked=true] { background:linear-gradient(135deg,rgba(110,168,255,.26),rgba(169,154,232,.2)); color:var(--text); box-shadow:inset 0 0 0 1px rgba(110,168,255,.55) }
+h1 { font:400 clamp(40px,7vw,66px)/1.02 var(--display); letter-spacing:-.045em; margin:26px 0 10px }
+.lede { max-width:62ch; font-size:16px; line-height:1.6; color:var(--dim); margin:0 0 24px }
+section.stage { border:1px solid var(--glass); background:linear-gradient(145deg,rgba(29,29,27,.88),rgba(17,17,16,.72)); border-radius:20px; margin:0 0 18px; overflow:clip; box-shadow:0 20px 56px rgba(0,0,0,.19),inset 0 1px 0 rgba(255,255,255,.035) }
+.stage > header { display:flex; align-items:center; gap:12px; border-bottom:1px solid var(--border); padding:15px 18px }
+.stage h2 { margin:0; font:400 24px var(--display); letter-spacing:-.025em }
+.num { flex:none; width:30px; height:30px; border-radius:50%; border:1px solid var(--border2); display:grid; place-items:center; font:500 13px var(--mono); color:var(--dim) }
+.stage.done .num { background:var(--mint); color:#06140e; border-color:var(--mint) }
+.tick { margin-left:auto; font:500 12px var(--mono); color:var(--mint); display:none; letter-spacing:.06em }
 .stage.done .tick { display:block }
-.inner { padding:16px 18px 18px; display:flex; flex-direction:column; gap:14px }
-.inner p { margin:0; font-size:15px; line-height:1.55; color:#d6e2f2 }
-button { border:1px solid #4a5e79; background:#273851; color:#fff; padding:11px 15px; border-radius:10px; font-size:13px; font-weight:750; cursor:pointer; font-family:inherit }
-button.primary { background:#81dbcf; color:#071b24; border-color:#81dbcf }
+.inner { padding:16px 18px 20px; display:flex; flex-direction:column; gap:14px }
+.inner p { margin:0; font-size:15px; line-height:1.6; color:#d9d5ca }
+.partlabel { font:500 11px var(--mono); letter-spacing:.14em; text-transform:uppercase; color:var(--violet); margin:26px 2px 10px }
+button { border:1px solid var(--border2); background:rgba(239,236,228,.04); color:var(--text); padding:11px 16px; border-radius:10px; font:600 13px var(--body); cursor:pointer; min-height:44px }
+button.primary { background:linear-gradient(135deg,rgba(110,168,255,.26),rgba(169,154,232,.2)); border-color:rgba(110,168,255,.58) }
 button[disabled] { opacity:.36; cursor:not-allowed }
-button:hover:not([disabled]) { filter:brightness(1.15) }
-button:focus-visible,input:focus-visible,select:focus-visible,.slot:focus-visible { outline:3px solid #ffcf8b; outline-offset:3px }
-select { background:#273851; color:#fff; border:1px solid #4a5e79; border-radius:8px; padding:8px; font-size:13px; font-family:inherit }
-input[type=range] { accent-color:#73d8cd; width:min(240px,100%); min-width:120px }
-.code { font:13px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; background:#0d1424; border:1px solid #2a3a52; border-radius:12px; padding:12px 0; overflow-x:auto }
-.cl { padding:0 14px; white-space:pre; min-height:1.6em }
-.slot { margin:3px 8px; padding:6px 8px; border:2px dashed #4a5e79; border-radius:9px; min-height:36px; color:#6f84a3; display:flex; flex-direction:column; justify-content:center; cursor:pointer; white-space:pre }
-.slot.empty::before { content:attr(data-label); font-size:12px; font-style:italic }
-.slot.over { border-color:#ffca84; background:#2b2a22 }
-.slot.picktarget { border-color:#84ddd2 }
-.slot.filled { border-style:solid; border-color:#3f7a5c; background:#17302a; color:#e8fff3; cursor:default }
-.slot.shake { animation:shake .35s; border-color:var(--bad) }
-.slot.nudge { border-color:#ffca84; background:#2b2a22; animation:glow 1.1s ease-in-out infinite }
-@keyframes shake { 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
-@keyframes glow { 50%{box-shadow:0 0 0 4px #ffca8455} }
-.pool { display:flex; flex-wrap:wrap; gap:8px; min-height:48px; padding:10px; border:1px dashed #34445b; border-radius:12px }
-.pool:empty::before { content:'All pieces placed.'; color:var(--muted); font-size:12px }
-.tile { font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; background:#2b3b57; border:1px solid #5a7194; border-radius:9px; padding:8px 11px; color:#fff; text-align:left; cursor:grab; touch-action:none; user-select:none; -webkit-user-select:none; white-space:pre }
-.tile.picked { outline:3px solid #ffca84; background:#3b3a2c }
-.tile.nudge { border-color:#ffca84; animation:glow 1.1s ease-in-out infinite }
+button:hover:not([disabled]) { border-color:rgba(110,168,255,.6) }
+button:focus-visible,input:focus-visible,select:focus-visible,.dz:focus-visible { outline:3px solid var(--sky); outline-offset:3px }
+select,input[type=number] { background:rgba(239,236,228,.05); color:var(--text); border:1px solid var(--border2); border-radius:8px; padding:9px; font:13px var(--body); min-height:40px }
+input[type=range] { accent-color:#6ea8ff; width:min(240px,100%); min-width:120px }
+/* code and plain-words lines */
+.code { background:rgba(8,8,7,.55); border:1px solid var(--border); border-radius:14px; padding:12px 0; overflow-x:auto; font-size:13px; line-height:1.6 }
+.cl { padding:1px 14px; min-height:1.6em }
+html[data-mode=code] .cl { font-family:var(--mono); white-space:pre }
+html[data-mode=words] .cl { font-family:var(--body); font-size:14.5px; line-height:1.55; color:#e6e2d8; white-space:normal }
+html[data-mode=words] .c, html[data-mode=code] .w { display:none !important }
+.cl.hot { background:rgba(110,168,255,.12); box-shadow:inset 3px 0 0 var(--sky) }
+.cl.bugline { background:rgba(242,139,130,.1); box-shadow:inset 3px 0 0 var(--rose) }
+.eq { background:var(--rose); color:#1b0807; border-radius:4px; padding:0 4px; font-weight:800 }
+.eqok { background:var(--mint); color:#06140e; border-radius:4px; padding:0 4px; font-weight:800 }
+.tag { display:inline-block; font:500 10.5px var(--mono); letter-spacing:.08em; text-transform:uppercase; border:1px solid var(--border2); border-radius:999px; padding:3px 9px; color:var(--dim) }
+/* blanks, chips, slots */
+.blank { display:inline-block; min-width:2.1em; text-align:center; border-bottom:2px dashed var(--sky); background:rgba(110,168,255,.08); border-radius:6px 6px 0 0; padding:0 6px; margin:0 2px; color:var(--faint); cursor:pointer; font-family:var(--mono) }
+.blank:empty::before { content:'_'; }
+.blank.over { background:rgba(110,168,255,.3) }
+.blank.picktarget { border-bottom-color:var(--mint) }
+.blank.filled { border-bottom:2px solid var(--mint); background:rgba(127,214,176,.12); color:var(--mint); cursor:default }
+.blank.shake,.slot.shake { animation:shake .35s; border-color:var(--rose) }
+.blank.nudge,.slot.nudge,.tile.nudge,.chip.nudge,.nudgebtn { animation:glow 1.1s ease-in-out infinite; border-color:var(--violet) !important }
+@keyframes shake { 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
+@keyframes glow { 50%{box-shadow:0 0 0 5px rgba(169,154,232,.32)} }
+.tray { position:sticky; top:72px; z-index:20; display:flex; flex-wrap:wrap; gap:6px; align-items:center; padding:10px; border:1px solid var(--border2); border-radius:14px; background:rgba(17,17,16,.96); backdrop-filter:blur(10px) }
+.tray .lab { font:500 10.5px var(--mono); letter-spacing:.1em; color:var(--faint); text-transform:uppercase; margin-right:4px }
+.chip { font:600 14px var(--mono); min-width:40px; min-height:40px; padding:6px 8px; border-radius:10px; background:rgba(110,168,255,.12); border:1px solid rgba(110,168,255,.4); color:var(--text); cursor:grab; touch-action:none; user-select:none; -webkit-user-select:none }
+.chip.picked,.tile.picked { outline:3px solid var(--sky); background:rgba(110,168,255,.22) }
+.chip.ghost,.tile.ghost { position:fixed; z-index:60; pointer-events:none; opacity:.95; box-shadow:0 10px 28px #000a; cursor:grabbing }
+.progress { height:6px; border-radius:6px; background:rgba(239,236,228,.08); overflow:hidden }
+.progress i { display:block; height:100%; width:0; background:linear-gradient(90deg,var(--sky),var(--mint)); transition:width .2s }
+.blk { border:1px solid var(--border); border-radius:12px; padding:6px 0 4px; background:rgba(8,8,7,.4) }
+.blkhead { font:500 10.5px var(--mono); letter-spacing:.1em; color:var(--faint); text-transform:uppercase; padding:2px 14px }
+.blks { display:flex; flex-direction:column; gap:8px }
+.blks.code { border:0; padding:0; background:none }
+.hl .blank.filled { background:rgba(169,154,232,.3); color:#fff; border-bottom-color:var(--violet); box-shadow:0 0 0 2px rgba(169,154,232,.35) }
+.hl .cl { opacity:.6 }
+.slot { margin:3px 8px; padding:6px 10px; border:2px dashed var(--border2); border-radius:10px; min-height:38px; color:var(--faint); display:flex; flex-direction:column; justify-content:center; cursor:pointer }
+.slot.empty::before { content:'drop a piece here'; font-size:12px; font-style:italic }
+.slot.over { border-color:var(--sky); background:rgba(110,168,255,.12) }
+.slot.picktarget { border-color:var(--mint) }
+.slot.filled { border-style:solid; border-color:rgba(127,214,176,.55); background:rgba(127,214,176,.09); color:var(--text); cursor:default }
+.pool { display:flex; flex-wrap:wrap; gap:8px; min-height:50px; padding:10px; border:1px dashed var(--border2); border-radius:14px }
+.pool:empty::before { content:'All pieces placed.'; color:var(--faint); font-size:12px }
+.tile { text-align:left; padding:8px 11px; border-radius:10px; background:rgba(239,236,228,.06); border:1px solid var(--border2); color:var(--text); cursor:grab; touch-action:none; user-select:none; -webkit-user-select:none; min-height:0; font-weight:500 }
+.tile .cl { padding:0; min-height:0 }
+html[data-mode=words] .tile .cl { font-size:14px }
 .tile.ghosting { opacity:.35 }
-.tile.ghost { position:fixed; z-index:50; pointer-events:none; opacity:.95; box-shadow:0 8px 24px #0009; cursor:grabbing }
-.tile.placed { cursor:default; background:transparent; border:0; padding:0; color:inherit; touch-action:auto; pointer-events:none; animation:none }
-.tl { display:block }
-.msg { font-size:14px; line-height:1.5; min-height:22px; color:var(--sub) }
-.msg.bad { color:var(--bad) } .msg.good { color:var(--good) }
-.helper { display:flex; align-items:flex-start; gap:10px; border:1px solid #6b5b36; background:#2a2519; border-radius:12px; padding:10px 12px; font-size:14px; line-height:1.5; color:#ffe5c2 }
-.helper .bulb { flex:none; font-size:18px }
-.helper button { margin-left:auto; flex:none; padding:6px 10px; font-size:12px }
+.tile.placed { cursor:default; background:transparent; border:0; padding:0; touch-action:auto; pointer-events:none; animation:none }
+.slot.filled .tile .cl { padding:0 }
+.msg { font-size:14px; line-height:1.5; min-height:22px; color:var(--dim) }
+.msg.bad { color:var(--rose) } .msg.good { color:var(--mint) }
+.helper { display:flex; gap:10px; align-items:flex-start; border:1px solid rgba(169,154,232,.45); background:rgba(169,154,232,.09); border-radius:12px; padding:10px 12px; font-size:14px; line-height:1.5; color:#e4def9 }
+.bulb { flex:none; font-size:17px }
 .hintbar { display:flex; align-items:center; gap:10px; flex-wrap:wrap }
-.hintbtn { background:#2a2519; border-color:#6b5b36; color:#ffe5c2 }
+.hintbtn { border-color:rgba(169,154,232,.5); color:#e4def9 }
 .prefs { display:flex; flex-wrap:wrap; gap:10px }
 .prefs button { padding:14px 18px; font-size:14px }
-.term { background:#06090f; border:1px solid #2a3a52; border-radius:12px; padding:12px 14px; font:13px/1.55 ui-monospace,Menlo,Consolas,monospace; color:#bff1c9; height:200px; overflow:hidden; white-space:pre }
-.big { font-size:clamp(22px,4vw,32px); font-weight:850; letter-spacing:-.03em; line-height:1.15; margin:4px 0 0 }
+.term { background:#070706; border:1px solid var(--border); border-radius:12px; padding:12px 14px; font:13px/1.55 var(--mono); color:#bff0d4; min-height:96px; white-space:pre-wrap; overflow-wrap:anywhere }
+.term.big { height:200px; overflow:hidden; white-space:pre }
+.big { font:400 clamp(26px,5vw,40px)/1.1 var(--display); letter-spacing:-.03em; margin:6px 0 0 }
 .row { display:flex; flex-wrap:wrap; gap:8px 12px; align-items:center }
-.sub { color:var(--sub); font-size:12px; line-height:1.5 }
-.toggle { display:flex; gap:8px; align-items:center; color:var(--sub); font-size:13px; cursor:pointer }
-.toggle input { accent-color:#73d8cd; width:16px; height:16px }
-.badge { display:inline-block; border-radius:7px; padding:4px 9px; font-size:11px; font-weight:800; letter-spacing:.04em }
-.badge.good { background:#1f3b2e; color:var(--good); border:1px solid #3f7a5c }
-.badge.bad { background:#3d2424; color:var(--bad); border:1px solid #8a4b44 }
-.badge.warn { background:#3b3326; color:var(--yellow); border:1px solid #8a7040 }
-.attempt { border:1px solid #34445b; background:#152238; border-radius:11px; padding:9px 12px; font-size:14px; line-height:1.45; overflow-wrap:anywhere }
-.attempt small { color:var(--sub); display:block; font-size:11px; margin-top:3px }
-.attempt.ok { border-color:#3f7a5c; background:#17302a }
-.note { border:1px solid #456079; background:#1e2d44; border-radius:14px; padding:13px 15px; font-size:14px; line-height:1.55; color:#e1ebf8 }
-.nudgebtn { animation:glow 1.1s ease-in-out infinite; border-color:#ffca84 }
-footer { margin:20px 0 0; color:var(--muted); font-size:11px; line-height:1.55 }
+.sub { color:var(--faint); font-size:12px; line-height:1.5 }
+.toggle { display:flex; gap:8px; align-items:center; color:var(--dim); font-size:13px; cursor:pointer }
+.toggle input { accent-color:#6ea8ff; width:16px; height:16px }
+.vars { display:flex; flex-wrap:wrap; gap:8px }
+.var { background:rgba(239,236,228,.05); border:1px solid var(--border2); border-radius:8px; padding:6px 10px; font:12px var(--mono); color:#d9d5ca; overflow-wrap:anywhere }
+.var.changed { border-color:var(--violet); background:rgba(169,154,232,.14) }
+.note { border:1px solid rgba(110,168,255,.3); background:rgba(110,168,255,.07); border-radius:14px; padding:13px 15px; font-size:14px; line-height:1.6; color:#dfe8f8 }
+.note b { color:#fff }
+.badge { display:inline-block; border-radius:7px; padding:4px 9px; font:600 11px var(--mono); letter-spacing:.05em }
+.badge.good { background:rgba(127,214,176,.14); color:var(--mint); border:1px solid rgba(127,214,176,.4) }
+.badge.bad { background:rgba(242,139,130,.13); color:var(--rose); border:1px solid rgba(242,139,130,.4) }
+.badge.warn { background:rgba(169,154,232,.14); color:var(--violet); border:1px solid rgba(169,154,232,.4) }
+.attempt { border:1px solid var(--border); background:rgba(8,8,7,.4); border-radius:12px; padding:10px 12px; font-size:14px; line-height:1.5; overflow-wrap:anywhere }
+.attempt small { color:var(--dim); display:block; font-size:12px; margin-top:3px }
+.attempt .why { color:var(--violet) }
+.attempt.ok { border-color:rgba(127,214,176,.45); background:rgba(127,214,176,.07) }
+.attempt.dupe { border-color:rgba(242,139,130,.4) }
+details { border:1px solid var(--border); border-radius:12px; padding:10px 14px; color:var(--dim); font-size:13px; line-height:1.6 }
+details summary { cursor:pointer; color:var(--text) }
+footer { margin:22px 0 0; color:var(--faint); font-size:11px; line-height:1.6 }
 [hidden] { display:none !important }
-@media(prefers-reduced-motion:reduce){ *,*::before,*::after{ animation:none!important; transition:none!important } .nudge,.nudgebtn{ outline:3px solid #ffca84 } }
+@media(max-width:560px){ .chip { min-width:34px; min-height:38px; padding:4px 6px } .tray { top:66px; gap:5px } .seg button { padding:12px 14px; font-size:14px } .brand { display:none } }
+@media(prefers-reduced-motion:reduce){ *,*::before,*::after{ animation:none!important; transition:none!important } .nudge,.nudgebtn{ outline:3px solid var(--violet) } }
 </style>
 </head>
 <body>
+<div class="bar"><div class="barin">
+  <div class="brand">If I Could, Would You? / Issue #3</div>
+  <div class="seg" role="radiogroup" aria-label="Show the steps as plain words or as real code" id="seg">
+    <button role="radio" aria-checked="true" data-mode="words">Plain words</button>
+    <button role="radio" aria-checked="false" data-mode="code">Real code</button>
+  </div>
+</div></div>
 <main>
 <header>
-  <div class="label">IF I COULD, WOULD YOU? &nbsp; / &nbsp; ISSUE #3</div>
   <h1>The Loop</h1>
-  <p class="lede">A loop is a circle with an off ramp. You don't need to know how to code. Drag the pieces into place. Each step opens when you get it right. If you get stuck, or sit still for a bit, a hint will show up. Nothing here calls a real AI or the internet.</p>
+  <p class="lede">A loop is a circle with an off ramp. You don't need to know how to code. The big switch at the top flips every step between plain words and real code. Drag the pieces into place, and each step opens when you get it right. If you get stuck, or sit still for a while, a hint shows up. Nothing here calls a real AI or the internet.</p>
 </header>
+
+<div class="partlabel">Part one · The idea</div>
 
 <!-- 1 -->
 <section class="stage" id="s1" aria-labelledby="h1a">
-  <header><span class="num">1</span><h2 id="h1a">Build it the long way</h2><span class="tick">✔ Done</span></header>
+  <header><span class="num">1</span><h2 id="h1a">Build it the long way</h2><span class="tick">✔ DONE</span></header>
   <div class="inner">
-    <p>This program asks a person for 5 words. Grab each piece and drop it into <b>main</b> in the order the person will see the questions. (On a phone or keyboard: tap a piece, then tap a spot.)</p>
-    <div class="code" id="code1" aria-label="main, with empty spots"></div>
-    <div class="pool" id="pool1" aria-label="Pieces to place"></div>
+    <p>The program has to ask a person for up to 16 words. The only tool is copy and paste, so you write one block for every word. Drag a number from the tray into each blank. Every block has three. <span class="tag">illustrative alternative, not Steven's 2014 code</span></p>
+    <div class="tray" id="tray1" aria-label="Number tray"><span class="lab">Numbers</span></div>
+    <div class="row"><div class="progress" style="flex:1;min-width:140px"><i id="bar1"></i></div><span class="sub" id="count1" aria-live="polite">0 of 48 blanks filled</span></div>
+    <div class="blks code" id="blks1" aria-label="Sixteen copy-pasted blocks"></div>
     <div class="hintbar"><button class="hintbtn" id="hb1">💡 Hint</button><div class="msg" id="msg1" aria-live="polite"></div></div>
-    <div class="helper" id="hp1" hidden><span class="bulb" aria-hidden="true">💡</span><span id="ht1"></span></div>
+    <div id="pat1" hidden class="row"><button class="primary" id="seePat">Do you see a pattern?</button><button id="howNow" hidden>How about now?</button></div>
+    <div class="note" id="collapse1" hidden></div>
   </div>
 </section>
 
 <!-- 2 -->
 <section class="stage" id="s2" aria-labelledby="h2a" hidden>
-  <header><span class="num">2</span><h2 id="h2a">Now build it with a loop</h2><span class="tick">✔ Done</span></header>
+  <header><span class="num">2</span><h2 id="h2a">Now build it with a loop</h2><span class="tick">✔ DONE</span></header>
   <div class="inner">
-    <p>Same five questions. This time there are only four pieces. Put them in the right order. Remember: a loop is a circle with an off ramp.</p>
-    <div class="code" id="code2" aria-label="main, with empty spots"></div>
+    <p>Same questions. Six pieces this time. Drag them into the right order. Remember: a loop is a circle with an off ramp. Find the piece that is the off ramp.</p>
+    <div class="code" id="code2"></div>
     <div class="pool" id="pool2" aria-label="Pieces to place"></div>
     <div class="hintbar"><button class="hintbtn" id="hb2">💡 Hint</button><div class="msg" id="msg2" aria-live="polite"></div></div>
-    <div class="helper" id="hp2" hidden><span class="bulb" aria-hidden="true">💡</span><span id="ht2"></span></div>
   </div>
 </section>
 
 <!-- 3 -->
 <section class="stage" id="s3" aria-labelledby="h3a" hidden>
-  <header><span class="num">3</span><h2 id="h3a">Which one do you prefer?</h2><span class="tick">✔ Done</span></header>
+  <header><span class="num">3</span><h2 id="h3a">Which one do you prefer?</h2><span class="tick">✔ DONE</span></header>
   <div class="inner">
     <p>Both programs do the exact same thing. Which would you rather write?</p>
-    <div class="prefs"><button id="pBlocks">Five copy-and-pasted blocks</button><button id="pLoop">One loop</button></div>
+    <div class="prefs"><button id="pBlocks">Sixteen copy-and-pasted blocks</button><button id="pLoop">One loop</button></div>
     <div class="msg" id="msg3" aria-live="polite"></div>
-    <div class="helper" id="hp3" hidden><span class="bulb" aria-hidden="true">💡</span><span id="ht3"></span></div>
+    <div id="typing" hidden>
+      <p>Now imagine you were typing each one. How many words does the person need to enter?</p>
+      <div class="row" style="margin:10px 0"><button class="pre" data-n="16">16</button><button class="pre" data-n="100">100</button><button class="pre" data-n="1000">1,000</button><span class="sub">Each word is 2 lines. You type every one.</span></div>
+      <div class="term big" id="term3" aria-hidden="true"></div>
+      <div class="msg" id="count3" aria-live="polite">Pick a number to start typing.</div>
+      <div class="note" id="loop3" hidden></div>
+      <div class="big" id="that" hidden>That's it. That's the whole explanation.</div>
+    </div>
   </div>
 </section>
 
+<div class="partlabel" id="partB" hidden>Part two · Go deeper</div>
+
 <!-- 4 -->
 <section class="stage" id="s4" aria-labelledby="h4a" hidden>
-  <header><span class="num">4</span><h2 id="h4a">Now imagine typing each one</h2><span class="tick">✔ Done</span></header>
+  <header><span class="num">4</span><h2 id="h4a">Step through my real 2014 loop</h2><span class="tick">✔ DONE</span></header>
   <div class="inner">
-    <p>Say the person needs to enter more than 5 words. How many?</p>
-    <div class="row"><button class="pre" data-n="16">16</button><button class="pre" data-n="100">100</button><button class="pre" data-n="1000">1,000</button><span class="sub">Each word is 2 lines. You type every one.</span></div>
-    <div class="term" id="term4" aria-label="Typing every line by hand" aria-hidden="true"></div>
-    <div class="msg" id="count4" aria-live="polite">Pick a number to start typing.</div>
-    <div class="note" id="loop4" hidden></div>
-    <div class="big" id="that" hidden>That's it. That's the whole explanation.</div>
-    <div class="helper" id="hp4" hidden><span class="bulb" aria-hidden="true">💡</span><span id="ht4"></span></div>
+    <p>This is the word-entry function I wrote in February 2014, exactly as I wrote it. Step through it and watch the circle. <span class="tag">plain-words version written for this page</span></p>
+    <div class="row"><label class="toggle" for="n4">Words to collect (1 to 16): <input type="number" id="n4" min="1" max="16" value="3" style="width:76px"></label>
+      <button id="back4" aria-label="Previous step">◀ Back</button><button class="primary" id="next4">Step ▶</button><button id="trip4">Skip to next check</button><button id="reset4">↺ Restart</button><span class="sub" id="pos4" aria-live="polite"></span></div>
+    <div class="msg bad" id="err4" aria-live="polite"></div>
+    <div class="code" id="code4" aria-label="The getWords function"></div>
+    <div class="note" id="note4" aria-live="polite"></div>
+    <div class="vars" id="vars4" aria-label="Variables"></div>
+    <div class="term" id="term4" aria-label="What the person sees on screen"></div>
+    <details><summary>A note on this 2014 code</summary>The <code>scanf("%s", userWord)</code> line has no length limit, so a long word can overflow the box. This page never runs C. It animates a model of the loop and caps typed words. <code>cls</code> and <code>flush</code> are macros from the original Windows project.</details>
   </div>
 </section>
 
 <!-- 5 -->
 <section class="stage" id="s5" aria-labelledby="h5a" hidden>
-  <header><span class="num">5</span><h2 id="h5a">Now put an AI inside the loop</h2><span class="tick">✔ Done</span></header>
+  <header><span class="num">5</span><h2 id="h5a">The loop that never ends</h2><span class="tick">✔ DONE</span></header>
   <div class="inner">
-    <p>Same shape, different job. Instead of asking a person for words, the loop asks an AI to rewrite a message until it is short enough. Build the loop.</p>
-    <div class="code" id="code5" aria-label="An agent loop, with empty spots"></div>
-    <div class="pool" id="pool5" aria-label="Pieces to place"></div>
-    <div class="hintbar"><button class="hintbtn" id="hb5">💡 Hint</button><div class="msg" id="msg5" aria-live="polite"></div></div>
-    <div class="helper" id="hp5" hidden><span class="bulb" aria-hidden="true">💡</span><span id="ht5"></span></div>
+    <p>This is the stopping condition from another loop in the same project (February 2014 snapshot). The page simulates it for at most 6 trips and then lets you stop it. <span class="tag">simulation, not the real program</span></p>
+    <div class="code" id="code5"></div>
+    <div class="row"><button class="primary" id="run5">Run one trip</button><button id="fix5">Switch to ==</button><button id="stop5">Stop simulation</button><button id="reset5">↺ Restart</button></div>
+    <div class="note" id="note5" aria-live="polite"></div>
+    <div class="vars" id="vars5"></div>
+    <div class="term" id="term5" aria-label="Simulation output"></div>
+    <details><summary>What else is in this file</summary>One character is not a repair. This archival project is unfinished, and it has other mistakes of the same kind, like <code>if (direction = 1)</code>. Changing this one <code>=</code> would only make the loop able to stop. It would not make the word search work.</details>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="stage" id="s6" aria-labelledby="h6a" hidden>
+  <header><span class="num">6</span><h2 id="h6a">Now put an AI inside the loop</h2><span class="tick">✔ DONE</span></header>
+  <div class="inner">
+    <p>Same shape, different job. Instead of asking a person for words, this loop asks an AI to keep checking a job board and tell you about new roles. Build the loop first.</p>
+    <div class="code" id="code6"></div>
+    <div class="pool" id="pool6" aria-label="Pieces to place"></div>
+    <div class="hintbar"><button class="hintbtn" id="hb6">💡 Hint</button><div class="msg" id="msg6" aria-live="polite"></div></div>
     <div id="sim" hidden>
-      <p>Now run it. These controls add or take away off ramps in the loop you just built.</p>
+      <div class="note">This is a <b>scripted example</b> with made-up postings. There is no real search and no real model. A real agent chooses its next step by reading the latest result. It does not retrain itself each trip, and a loop on its own is not everything an agent is: tools, permissions and safeguards matter too.</div>
       <div class="row" style="margin:12px 0">
-        <label class="toggle" for="limit">Goal: <b id="limitout"></b> or fewer <input type="range" id="limit" min="2" max="12" value="8"></label>
-        <label class="toggle"><input type="checkbox" id="max" checked> Max tries</label>
-        <label class="toggle">Tries <select id="maxn"><option>3</option><option selected>5</option><option>8</option></select></label>
-        <label class="toggle"><input type="checkbox" id="human"> Human approves each pass</label>
+        <label class="toggle"><input type="checkbox" id="dedupe" checked> Duplicate gate (skip postings already sent)</label>
+        <label class="toggle"><input type="checkbox" id="cap" checked> Cap: stop after <select id="capn"><option>3</option><option selected>5</option><option>8</option></select> passes</label>
       </div>
-      <div class="row" style="margin-bottom:12px"><button class="primary" id="run">▶ Run next pass</button><button id="auto">⏵ Auto-run</button><button id="reset">↺ Restart</button></div>
-      <div class="sub" id="status" aria-live="polite"></div>
-      <div id="log" style="display:flex;flex-direction:column;gap:8px;margin-top:10px" aria-live="polite"></div>
-      <div class="helper" id="hp6" hidden style="margin-top:12px"><span class="bulb" aria-hidden="true">💡</span><span id="ht6"></span></div>
-      <div class="note" style="margin-top:12px"><b>Try this:</b> Run it at 8: it finishes in a few passes. Drag the goal down to 2. The checker is never satisfied, so only the off ramps can stop it. Turn off max tries and it runs until this demo's own emergency stop at 20 passes. Turn on human approval and you are the off ramp. <b>This is a teaching simulation with pre-written attempts, not a real model.</b></div>
+      <div class="row" style="margin-bottom:12px"><button class="primary" id="run6">▶ Run next pass</button><button id="auto6">⏵ Auto-run</button><button id="human6">✋ Stop (that's you)</button><button id="reset6">↺ Restart</button></div>
+      <div class="sub" id="status6" aria-live="polite"></div>
+      <div id="log6" style="display:flex;flex-direction:column;gap:8px;margin-top:10px" aria-live="polite"></div>
+      <div class="note" style="margin-top:12px"><b>Try this:</b> Run it with everything on. It stops by itself when a pass finds nothing new. Now turn off the duplicate gate: the same list keeps coming back until the cap stops it. Turn off the cap too and nothing stops it except this page's emergency stop at 12 passes, or you.</div>
     </div>
   </div>
 </section>
 
-<footer>Made as an educational companion to “If I Could, Would You?” — Issue #3. The code is simplified and illustrative. Real agents differ in their tools, checks and limits. Everything runs in your browser and makes no network requests.</footer>
+<footer>Made as an educational companion to “If I Could, Would You?” — Issue #3. The loop in step 4 is the actual February 2014 code from my college archive. Everything else is simplified and illustrative, and every plain-words line is written for this page, not part of the newsletter. Everything runs in your browser and makes no network requests.</footer>
 </main>
 
 <script>
 const $ = id => document.getElementById(id);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const IDLE_MS = +(new URLSearchParams(location.search).get('idle')) || 12000;
+const mk = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; };
 
-/* ---------- idle and stuck hints, shared by every step ---------- */
-function helper(n) {
-  const box = $('hp' + n), text = $('ht' + n);
-  return { show(t) { text.textContent = t; box.hidden = false; }, hide() { box.hidden = true; } };
-}
-/* watch(stageId, activeFn, onIdle(level)): fires after IDLE_MS of no activity inside the stage, then again each time, escalating */
-function watch(stageId, isActive, onIdle) {
-  const stage = $(stageId); let t = null, level = 0;
-  const arm = () => { clearTimeout(t); t = setTimeout(fire, IDLE_MS); };
-  const fire = () => { if (isActive()) { level++; onIdle(level); arm(); } else arm(); };
-  ['pointerdown', 'keydown', 'input', 'click'].forEach(ev => stage.addEventListener(ev, () => arm(), true));
-  arm();
-  return { reset() { level = 0; arm(); }, bump() { level++; return level; }, get level() { return level; } };
-}
+/* ---------- words / code switch ---------- */
+document.querySelectorAll('#seg button').forEach(b => b.onclick = () => {
+  document.documentElement.dataset.mode = b.dataset.mode;
+  document.querySelectorAll('#seg button').forEach(x => x.setAttribute('aria-checked', x === b));
+});
+const MODE = () => document.documentElement.dataset.mode;
 
-/* ---------- generic drag-and-drop puzzle ---------- */
-function puzzle({ stageId, n, codeEl, poolEl, msgEl, before, after, slots, tiles, hint, onDone }) {
-  const lineEls = lines => lines.map(t => { const d = document.createElement('div'); d.className = 'cl'; d.textContent = t === '' ? ' ' : t; return d; });
-  const slotEls = slots.map((s, i) => {
-    const d = document.createElement('div'); d.className = 'slot empty'; d.tabIndex = 0; d.setAttribute('role', 'button');
-    d.dataset.label = 'drop a piece here'; d.dataset.i = i; d.setAttribute('aria-label', `Spot ${i + 1}, empty`);
-    return d;
+/* A line has both versions. ⟦key⟧ marks a blank that someone fills in. */
+function fill(el, text, blankFor) {
+  text.split(/(⟦[^⟧]+⟧)/).forEach(part => {
+    const m = part.match(/^⟦([^⟧]+)⟧$/);
+    if (m && blankFor) el.append(blankFor(m[1])); else if (part) el.append(document.createTextNode(part));
   });
-  codeEl.replaceChildren(...lineEls(before), ...slotEls, ...lineEls(after));
-  let picked = null, filled = 0, drag = null, wrong = 0, finished = false;
-  const say = (t, c) => { msgEl.textContent = t; msgEl.className = 'msg ' + (c || ''); };
-  const help = helper(n);
-  const mk = tile => {
-    const b = document.createElement('button'); b.type = 'button'; b.className = 'tile'; b.dataset.id = tile.id;
-    tile.lines.forEach(([t, ind]) => { const s = document.createElement('span'); s.className = 'tl'; s.style.paddingLeft = (ind * 2) + 'ch'; s.textContent = t; b.append(s); });
-    b.setAttribute('aria-label', tile.lines.map(l => l[0]).join(' '));
-    return b;
-  };
-  const order = [...tiles]; do { order.sort(() => Math.random() - .5); } while (tiles.length > 1 && order.every((t, i) => t === tiles[i]));
-  const tileEls = order.map(mk);
-  poolEl.replaceChildren(...tileEls);
-  const clearNudge = () => { poolEl.querySelectorAll('.nudge').forEach(e => e.classList.remove('nudge')); slotEls.forEach(s => s.classList.remove('nudge')); };
-  const unpick = () => { if (picked) picked.classList.remove('picked'); picked = null; slotEls.forEach(s => s.classList.remove('picktarget')); };
-  /* level 1: a thought question. level 2: light up the right piece. level 3: also light up where it goes and say so. */
-  function giveHint(level) {
-    clearNudge();
-    const i = slotEls.findIndex(s => s.classList.contains('empty'));
-    if (i < 0 || finished) return;
-    const tileEl = tileEls.find(t => !t.disabled && slots[i].accept.includes(t.dataset.id));
-    if (level <= 1) help.show(slots[i].clue);
-    else if (level === 2) { help.show(slots[i].clue + ' The glowing piece is the one.'); if (tileEl) tileEl.classList.add('nudge'); }
-    else { help.show(`Take the glowing piece and drop it in the glowing spot. (Spot ${i + 1}.)`); if (tileEl) tileEl.classList.add('nudge'); slotEls[i].classList.add('nudge'); }
-  }
-  const idle = watch(stageId, () => !$(stageId).hidden && !finished, level => giveHint(Math.min(level, 3)));
-  let manual = 0; $('hb' + n).onclick = () => { manual = Math.min(manual + 1, 3); giveHint(manual); };
-  function place(tileEl, slotEl) {
-    if (!slotEl.classList.contains('empty')) return;
-    const i = +slotEl.dataset.i, ok = slots[i].accept.includes(tileEl.dataset.id);
-    if (!ok) {
-      slotEl.classList.remove('shake'); void slotEl.offsetWidth; slotEl.classList.add('shake'); say(hint(tileEl.dataset.id, i), 'bad'); unpick(); wrong++;
-      if (wrong >= 2) { manual = Math.max(manual, 2); giveHint(2); }  // two misses: light up the answer
-      return;
+}
+function dual(code, words, o = {}) {
+  const d = mk('div', 'cl'); if (o.indent) d.style.paddingLeft = (14 + o.indent * 22) + 'px';
+  const c = mk('span', 'c'), w = mk('span', 'w'); fill(c, code, o.blank); fill(w, words, o.blank); d.append(c, w);
+  if (o.cls) d.classList.add(o.cls);
+  return d;
+}
+
+/* ---------- drag and drop (mouse, touch and pen), plus tap-then-tap and keyboard ---------- */
+let picked = null;
+function setPicked(p) {
+  if (picked) picked.el.classList.remove('picked'); picked = p; if (p) p.el.classList.add('picked');
+  document.querySelectorAll('.dz').forEach(z => z.classList.toggle('picktarget', !!p && z.classList.contains('open')));
+}
+function dropOn(z, p) { if (!z.classList.contains('open')) return; setPicked(null); z._drop(p.payload, p.el); }
+function zone(z, drop, onEmpty) {
+  z.classList.add('dz', 'open'); z._drop = drop; z.tabIndex = 0; z.setAttribute('role', 'button');
+  const go = () => { if (picked) dropOn(z, picked); else if (onEmpty) onEmpty(); };
+  z.addEventListener('click', go); z.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+}
+function closeZone(z) { z.classList.remove('open', 'picktarget', 'over', 'nudge'); z.tabIndex = -1; }
+function draggable(el, payload, onPick) {
+  let start = null, drag = null, just = false;
+  el.addEventListener('click', () => { if (just) { just = false; return; } if (el.disabled) return; const was = picked && picked.el === el; setPicked(was ? null : { el, payload }); if (!was && onPick) onPick(); });
+  el.addEventListener('pointerdown', e => { if (el.disabled || (e.pointerType === 'mouse' && e.button !== 0)) return; start = { x: e.clientX, y: e.clientY, id: e.pointerId }; try { el.setPointerCapture(e.pointerId); } catch {} });
+  el.addEventListener('pointermove', e => {
+    if (!start) return;
+    if (!drag && Math.hypot(e.clientX - start.x, e.clientY - start.y) > 6) {
+      setPicked(null); const g = el.cloneNode(true); g.classList.add('ghost'); g.classList.remove('picked', 'nudge'); g.style.width = el.offsetWidth + 'px'; document.body.append(g); el.classList.add('ghosting'); drag = { g, over: null, dx: el.offsetWidth / 2, dy: 16 };
     }
-    unpick(); clearNudge(); help.hide(); wrong = 0; manual = 0; idle.reset();
-    slotEl.classList.remove('empty'); slotEl.classList.add('filled'); slotEl.replaceChildren(tileEl);
-    tileEl.classList.add('placed'); tileEl.disabled = true; tileEl.tabIndex = -1; tileEl.classList.remove('picked', 'nudge');
-    slotEl.setAttribute('aria-label', `Spot ${i + 1}, filled`); slotEl.tabIndex = -1; filled++;
-    if (filled === slots.length) { finished = true; $('hb' + n).disabled = true; say('', 'good'); onDone(); } else say(`Yes. ${filled} of ${slots.length} placed.`, 'good');
+    if (drag) {
+      drag.g.style.left = (e.clientX - drag.dx) + 'px'; drag.g.style.top = (e.clientY - drag.dy) + 'px';
+      if (e.clientY < 56) scrollBy(0, -14); else if (e.clientY > innerHeight - 56) scrollBy(0, 14);  // only the true screen edges, so dragging out of the sticky tray never scrolls
+      const t = document.elementFromPoint(e.clientX, e.clientY), z = t && t.closest && t.closest('.dz');
+      if (drag.over && drag.over !== z) drag.over.classList.remove('over');
+      drag.over = z && z.classList.contains('open') ? z : null; if (drag.over) drag.over.classList.add('over');
+    }
+  });
+  const end = cancel => {
+    if (!start) return; try { el.releasePointerCapture(start.id); } catch {} start = null;
+    if (drag) { just = true; const z = drag.over; drag.g.remove(); if (z) z.classList.remove('over'); el.classList.remove('ghosting'); drag = null; if (z && !cancel) dropOn(z, { el, payload }); setTimeout(() => { just = false; }, 0); }
+  };
+  el.addEventListener('pointerup', () => end(false)); el.addEventListener('pointercancel', () => end(true));
+}
+
+/* ---------- hints: stuck, idle, and on request ---------- */
+function helperFor(stageEl) {
+  const box = mk('div', 'helper'); box.hidden = true; const t = mk('span'); box.append(mk('span', 'bulb', '💡'), t); stageEl.querySelector('.inner').append(box);
+  return { show(x) { t.textContent = x; box.hidden = false; }, hide() { box.hidden = true; } };
+}
+function watch(stageEl, isActive, onIdle) {
+  let t = null, level = 0; const arm = () => { clearTimeout(t); t = setTimeout(fire, IDLE_MS); };
+  const fire = () => { if (isActive()) { level++; onIdle(level); } arm(); };
+  ['pointerdown', 'keydown', 'input', 'click'].forEach(ev => stageEl.addEventListener(ev, arm, true)); arm();
+  return { reset() { level = 0; arm(); } };
+}
+function unlock(id) { const n = $(id); n.hidden = false; n.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' }); }
+function finish(id, next) { $(id).classList.add('done'); if (next) unlock(next); }
+const visible = els => els.find(e => e.offsetParent !== null) || els[0];
+
+/* ---------- 1: sixteen blocks, 48 blanks ---------- */
+const blanks = {}, expected = {}; let filled1 = 0, wrong1 = 0, done1 = false;
+const KEYS = []; for (let k = 1; k <= 16; k++) ['t', 'a', 's'].forEach(r => KEYS.push(k + r));
+function blank1(key) {
+  const b = mk('span', 'blank'); b.dataset.key = key; (blanks[key] = blanks[key] || []).push(b);
+  zone(b, n => { if (n === expected[key]) setBlank(key, n); else miss(key, n); });
+  return b;
+}
+function setBlank(key, n) {
+  blanks[key].forEach(b => { b.textContent = n; b.classList.add('filled'); closeZone(b); });
+  filled1++; wrong1 = 0; idle1.reset(); help1.hide(); clearNudge1();
+  $('bar1').style.width = (filled1 / 48 * 100) + '%'; $('count1').textContent = `${filled1} of 48 blanks filled`;
+  const blocksDone = Math.floor(filled1 / 3); $('msg1').className = 'msg good';
+  $('msg1').textContent = filled1 % 3 === 0 && filled1 < 48 ? `Block ${blocksDone} of 16 done. ${16 - blocksDone} to go.` : '';
+  if (filled1 === 48 && !done1) { done1 = true; $('msg1').textContent = 'All 16 blocks. That was annoying on purpose.'; $('hb1').disabled = true; $('pat1').hidden = false; }
+}
+const roleText = { t: 'how many words this check needs to be true', a: 'the word number the person sees', s: 'the list spot. Lists start counting at 0, so it is one less than the word number' };
+function miss(key, n) {
+  const z = blanks[key]; z.forEach(b => { b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake'); });
+  $('msg1').className = 'msg bad'; $('msg1').textContent = `Not ${n}. In block ${parseInt(key)}, this blank is ${roleText[key.slice(-1)]}.`;
+  wrong1++; if (wrong1 >= 2) hint1(2);
+}
+for (let k = 1; k <= 16; k++) {
+  expected[k + 't'] = k; expected[k + 'a'] = k; expected[k + 's'] = k - 1;
+  const blk = mk('div', 'blk'); blk.append(mk('div', 'blkhead', `Block ${k} of 16`));
+  blk.append(
+    dual(`if (numberOfWords >= ⟦${k}t⟧) {`, `If they asked for at least ⟦${k}t⟧ words:`, { blank: blank1 }),
+    dual(`printf("Enter word ⟦${k}a⟧:");`, `Ask: "Enter word ⟦${k}a⟧:"`, { blank: blank1, indent: 1 }),
+    dual(`scanf("%19s", words[⟦${k}s⟧]);`, `Save what they type in spot ⟦${k}s⟧ of the list.`, { blank: blank1, indent: 1 }),
+    dual('}', 'That is all for this check.'));
+  $('blks1').append(blk);
+}
+const tray = $('tray1');
+for (let n = 0; n <= 16; n++) { const c = mk('button', 'chip', String(n)); c.type = 'button'; c.dataset.n = n; draggable(c, n); tray.append(c); }
+const help1 = helperFor($('s1'));
+const nextKey1 = () => KEYS.find(k => !blanks[k][0].classList.contains('filled'));
+function clearNudge1() { document.querySelectorAll('#s1 .nudge').forEach(e => e.classList.remove('nudge')); }
+function hint1(level) {
+  clearNudge1(); const key = nextKey1(); if (!key || done1) return;
+  const b = visible(blanks[key]), want = expected[key];
+  help1.show(`Block ${parseInt(key)}: this blank is ${roleText[key.slice(-1)]}.` + (level >= 2 ? ` The glowing number is the one.` : ''));
+  if (level >= 2) { blanks[key].forEach(x => x.classList.add('nudge')); const chip = tray.querySelector(`.chip[data-n="${want}"]`); chip.classList.add('nudge'); if (level >= 3) b.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' }); }
+}
+let manual1 = 0; $('hb1').onclick = () => { manual1 = Math.min(manual1 + 1, 3); hint1(manual1); };
+const idle1 = watch($('s1'), () => !done1, lv => hint1(Math.min(lv, 3)));
+$('seePat').onclick = () => { $('blks1').classList.add('hl'); $('seePat').disabled = true; $('howNow').hidden = false; $('msg1').className = 'msg good'; $('msg1').textContent = 'Everything is the same except the numbers.'; };
+$('howNow').onclick = () => {
+  $('howNow').disabled = true; $('blks1').classList.remove('hl');
+  const c = $('collapse1'); c.hidden = false; c.replaceChildren(mk('span', 'tag', 'explainer note, not article text'));
+  const l = dual('do { /* ask for word count + 1, save it, count++ */ } while (count < numberOfWords);', 'Keep a counter. Ask for a word, save it, add 1 to the counter, and go around again while the counter is still less than however many words they asked for.'); l.style.padding = '8px 0 0'; c.append(l);
+  finish('s1', 's2');
+};
+
+/* ---------- ordering puzzles (steps 2 and 6) ---------- */
+function puzzle({ stage, codeEl, poolEl, msgEl, hb, before, after, slots, tiles, hint, onDone }) {
+  const slotEls = slots.map((s, i) => { const d = mk('div', 'slot empty'); d.dataset.i = i; d.setAttribute('aria-label', `Spot ${i + 1}, empty`); if (s.indent) d.style.marginLeft = (8 + s.indent * 22) + 'px'; return d; });
+  codeEl.replaceChildren(...before, ...slotEls, ...after);
+  let filled = 0, wrong = 0, finished = false, manual = 0; const help = helperFor(stage);
+  const say = (t, c) => { msgEl.textContent = t; msgEl.className = 'msg ' + (c || ''); };
+  const order = [...tiles]; do { order.sort(() => Math.random() - .5); } while (tiles.length > 1 && order.every((t, i) => t === tiles[i]));
+  const tileEls = order.map(t => { const b = mk('button', 'tile'); b.type = 'button'; b.dataset.id = t.id; t.lines.forEach(l => b.append(dual(l[0], l[1]))); b.setAttribute('aria-label', 'Piece: ' + t.lines.map(l => l[1]).join(' ')); draggable(b, t.id); return b; });
+  poolEl.replaceChildren(...tileEls);
+  const clearN = () => { poolEl.querySelectorAll('.nudge').forEach(e => e.classList.remove('nudge')); slotEls.forEach(s => s.classList.remove('nudge')); };
+  function giveHint(level) {
+    clearN(); const i = slotEls.findIndex(s => s.classList.contains('empty')); if (i < 0 || finished) return;
+    const t = tileEls.find(x => !x.disabled && slots[i].accept.includes(x.dataset.id));
+    if (level <= 1) help.show(slots[i].clue);
+    else if (level === 2) { help.show(slots[i].clue + ' The glowing piece is the one.'); t && t.classList.add('nudge'); }
+    else { help.show(`Take the glowing piece and drop it in the glowing spot (spot ${i + 1}).`); t && t.classList.add('nudge'); slotEls[i].classList.add('nudge'); }
   }
-  slotEls.forEach(s => {
-    const go = () => { if (picked) place(picked, s); else say('Pick up a piece first: tap or press Enter on one below.', ''); };
-    s.addEventListener('click', go); s.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
-  });
-  tileEls.forEach(t => {
-    let start = null, just = false;
-    t.addEventListener('click', () => { if (just) { just = false; return; } if (t.disabled) return; const was = picked === t; unpick(); if (!was) { picked = t; t.classList.add('picked'); slotEls.forEach(s => s.classList.contains('empty') && s.classList.add('picktarget')); say('Now tap the spot where it goes.', ''); } });
-    t.addEventListener('pointerdown', e => { if (t.disabled || (e.pointerType === 'mouse' && e.button !== 0)) return; start = { x: e.clientX, y: e.clientY, id: e.pointerId }; try { t.setPointerCapture(e.pointerId); } catch {} });
-    t.addEventListener('pointermove', e => {
-      if (!start) return;
-      if (!drag && Math.hypot(e.clientX - start.x, e.clientY - start.y) > 6) {
-        unpick(); const g = t.cloneNode(true); g.classList.add('ghost'); g.classList.remove('picked', 'nudge'); g.style.width = t.offsetWidth + 'px'; document.body.append(g); t.classList.add('ghosting'); drag = { g, over: null, dx: t.offsetWidth / 2, dy: 14 };
-      }
-      if (drag) {
-        drag.g.style.left = (e.clientX - drag.dx) + 'px'; drag.g.style.top = (e.clientY - drag.dy) + 'px';
-        if (e.clientY < 70) scrollBy(0, -14); else if (e.clientY > innerHeight - 70) scrollBy(0, 14);  // keep far-away spots reachable while dragging
-        const el = document.elementFromPoint(e.clientX, e.clientY), s = el && el.closest && el.closest('.slot');
-        if (drag.over && drag.over !== s) drag.over.classList.remove('over');
-        drag.over = s && s.classList.contains('empty') ? s : null; if (drag.over) drag.over.classList.add('over');
-      }
-    });
-    const end = cancel => {
-      if (!start) return; try { t.releasePointerCapture(start.id); } catch {} start = null;
-      if (drag) { just = true; const s = drag.over; drag.g.remove(); if (s) s.classList.remove('over'); t.classList.remove('ghosting'); drag = null; if (s && !cancel) place(t, s); setTimeout(() => { just = false; }, 0); }
-    };
-    t.addEventListener('pointerup', () => end(false)); t.addEventListener('pointercancel', () => end(true));
-  });
+  const idle = watch(stage, () => !stage.hidden && !finished, lv => giveHint(Math.min(lv, 3)));
+  hb.onclick = () => { manual = Math.min(manual + 1, 3); giveHint(manual); };
+  slotEls.forEach((s, i) => zone(s, (id, tileEl) => {
+    if (!slots[i].accept.includes(id)) {
+      s.classList.remove('shake'); void s.offsetWidth; s.classList.add('shake'); say(hint(id, i), 'bad'); wrong++; if (wrong >= 2) { manual = Math.max(manual, 2); giveHint(2); } return;
+    }
+    clearN(); help.hide(); wrong = 0; manual = 0; idle.reset(); closeZone(s); s.classList.remove('empty'); s.classList.add('filled'); s.replaceChildren(tileEl);
+    tileEl.classList.add('placed'); tileEl.disabled = true; tileEl.tabIndex = -1; tileEl.classList.remove('picked', 'nudge'); s.setAttribute('aria-label', `Spot ${i + 1}, filled`); s.tabIndex = -1; filled++;
+    if (filled === slots.length) { finished = true; hb.disabled = true; say('', 'good'); onDone(); } else say(`Yes. ${filled} of ${slots.length} placed.`, 'good');
+  }, () => say('Pick up a piece first: drag one, or tap one and then tap a spot.', '')));
   say('');
 }
 
-function finish(id, next) {
-  $(id).classList.add('done');
-  if (next) { const n = $(next); n.hidden = false; n.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' }); }
-}
-
-/* ---------- 1: the long way ---------- */
-const head = ['#include <stdio.h>', '', 'int main() {', '    char words[5][20];'], tail = ['', '    return 0;', '}'];
-const ord = ['first', 'second', 'third', 'fourth', 'fifth'];
-puzzle({
-  stageId: 's1', n: 1, codeEl: $('code1'), poolEl: $('pool1'), msgEl: $('msg1'), before: head, after: tail,
-  slots: [1, 2, 3, 4, 5].map(k => ({ accept: ['w' + k], clue: `Which question does the person see ${ord[k - 1]}? Look for the piece that says word ${k}.` })),
-  tiles: [1, 2, 3, 4, 5].map(k => ({ id: 'w' + k, lines: [[`printf("Enter word ${k}:");`, 0], [`scanf("%19s", words[${k - 1}]);`, 0]] })),
-  hint: (id, i) => `Not there. That spot is the ${ord[i]} question the person sees.`,
-  onDone: () => { $('msg1').textContent = 'That works. Every word got its own lines.'; $('msg1').className = 'msg good'; finish('s1', 's2'); }
-});
-
 /* ---------- 2: the loop ---------- */
+const head = () => [dual('#include <stdio.h>', 'Bring in the toolbox for typing and printing.'), dual('int main() {', 'The program starts here.'), dual('char words[5][20];', 'Make room for 5 words, up to 19 letters each.', { indent: 1 })];
+const tail = () => [dual('return 0;', 'Finish.', { indent: 1 }), dual('}', 'The end.')];
 puzzle({
-  stageId: 's2', n: 2, codeEl: $('code2'), poolEl: $('pool2'), msgEl: $('msg2'), before: head, after: tail,
+  stage: $('s2'), codeEl: $('code2'), poolEl: $('pool2'), msgEl: $('msg2'), hb: $('hb2'), before: head(), after: tail(),
   slots: [
-    { accept: ['for'], clue: 'Which line starts the circle? Nothing can repeat until the circle begins.' },
-    { accept: ['ask'], clue: 'Inside the circle, what does the program do first: ask the question, or wait for the answer?' },
-    { accept: ['read'], clue: 'The question has been asked. Now the program has to wait for what the person types.' },
-    { accept: ['end'], clue: 'What closes the circle? Everything that repeats goes before it.' },
+    { accept: ['count'], indent: 1, clue: 'Something has to be set up before the circle begins: a counter that starts at 0.' },
+    { accept: ['do'], indent: 1, clue: 'Which piece begins the circle? Nothing can repeat until it starts.' },
+    { accept: ['ask'], indent: 2, clue: 'Inside the circle, what comes first: asking the question, or waiting for the answer?' },
+    { accept: ['read'], indent: 2, clue: 'The question has been asked. Now the program waits for what the person types.' },
+    { accept: ['inc'], indent: 2, clue: 'One word is done. How does the counter find out?' },
+    { accept: ['while'], indent: 1, clue: 'The last piece asks: are we done yet? It is the off ramp. It also closes the circle.' },
   ],
   tiles: [
-    { id: 'for', lines: [['for (int i = 0; i < 5; i++) {', 0]] },
-    { id: 'ask', lines: [['printf("Enter word %d:", i + 1);', 0]] },
-    { id: 'read', lines: [['scanf("%19s", words[i]);', 0]] },
-    { id: 'end', lines: [['}', 0]] },
+    { id: 'count', lines: [['int count = 0;', 'Start a counter at 0.']] },
+    { id: 'do', lines: [['do {', 'Begin the circle. Everything down to the last check repeats.']] },
+    { id: 'ask', lines: [['printf("Enter word %d:", count + 1);', 'Ask: "Enter word" and the number count + 1.']] },
+    { id: 'read', lines: [['scanf("%19s", words[count]);', 'Save what they type in spot count of the list.']] },
+    { id: 'inc', lines: [['count++;', 'Add 1 to the counter.']] },
+    { id: 'while', lines: [['} while (count < 5);', 'Is the counter still less than 5? If yes, back to the top. If no, leave the circle.']] },
   ],
-  hint: (id, i) => id === 'end' ? 'The closing brace ends the circle. Everything that repeats goes before it.'
-    : id === 'for' ? 'The loop line has to come first. Nothing can repeat until the circle starts.'
-    : id === 'read' ? 'Ask the question before you wait for the answer.'
-    : i === 0 ? 'The circle has to start before anything inside it can repeat.' : 'Not there. Ask first, then listen, then close the circle.',
-  onDone: () => { $('msg2').textContent = 'Same five questions. Four lines.'; $('msg2').className = 'msg good'; finish('s2', 's3'); }
+  hint: (id, i) => id === 'while' ? 'This is the off ramp, so it comes last. Everything that repeats goes before it.' : id === 'count' ? 'The counter has to exist before the circle starts.' : id === 'do' ? 'The circle starts after the counter is set up and before anything repeats.' : id === 'read' ? 'Ask the question before you wait for the answer.' : id === 'inc' ? 'Count the word after it has been asked and saved, just before the check.' : 'Not there. Order matters: set up, begin the circle, ask, save, count, check.',
+  onDone: () => { $('msg2').textContent = 'Same questions. Six lines, and they never grow.'; $('msg2').className = 'msg good'; finish('s2', 's3'); }
 });
-$('code2').querySelectorAll('.slot').forEach((s, i) => { if (i === 1 || i === 2) s.style.paddingLeft = '28px'; });
 
-/* ---------- 3: preference ---------- */
-const h3 = helper(3);
+/* ---------- 3: preference, then typing it ---------- */
+const help3 = helperFor($('s3'));
 function choose(loop) {
-  $('pBlocks').disabled = $('pLoop').disabled = true; h3.hide();
-  $('msg3').textContent = loop ? 'Same. So does every programmer who has ever lived. Hold on to that.' : "Respect for the commitment. Hold that thought, because we're about to test it.";
-  $('msg3').className = 'msg good'; finish('s3', 's4');
+  $('pBlocks').disabled = $('pLoop').disabled = true; help3.hide(); $('pLoop').classList.remove('nudgebtn');
+  $('msg3').className = 'msg good'; $('msg3').textContent = loop ? 'Same. So does every programmer who has ever lived. Hold on to that.' : "Respect for the commitment. Hold that thought, because we're about to test it.";
+  $('typing').hidden = false;
 }
 $('pBlocks').onclick = () => choose(false); $('pLoop').onclick = () => choose(true);
-watch('s3', () => !$('s3').hidden && !$('s3').classList.contains('done'), level => {
-  h3.show(level === 1 ? "There's no wrong answer here. Pick the one you'd actually rather write." : 'Just click one. You can feel it either way.');
-  $('pLoop').classList.toggle('nudgebtn', level >= 2);
-});
-
-/* ---------- 4: imagine typing it ---------- */
-let typing = null; const h4 = helper(4);
+let typing = null, done3 = false;
 document.querySelectorAll('.pre').forEach(b => b.onclick = () => {
-  if (typing) cancelAnimationFrame(typing);
-  h4.hide(); document.querySelectorAll('.pre').forEach(x => x.classList.remove('nudgebtn'));
-  const n = +b.dataset.n, total = n * 2, term = $('term4'); let k = 0; const buf = [];
-  $('loop4').hidden = true; $('that').hidden = true;
+  if (typing) cancelAnimationFrame(typing); help3.hide(); document.querySelectorAll('.pre').forEach(x => x.classList.remove('nudgebtn'));
+  const n = +b.dataset.n, total = n * 2, term = $('term3'); let k = 0; const buf = [];
   const line = j => (j % 2 === 0 ? `printf("Enter word ${j / 2 + 1}:");` : `scanf("%19s", words[${(j - 1) / 2}]);`);
   const done = () => {
-    term.textContent = buf.slice(-9).join('\n');
-    $('count4').textContent = `Typed ${total.toLocaleString()} lines by hand, for ${n.toLocaleString()} words.`;
-    $('loop4').hidden = false; $('loop4').innerHTML = `With the loop, you change one number: <code>for (int i = 0; i &lt; <b>${n}</b>; i++) {</code>. Same 4 lines.`;
-    $('that').hidden = false; finish('s4', 's5');
+    term.textContent = buf.slice(-9).join('\n'); $('count3').textContent = `Typed ${total.toLocaleString()} lines by hand, for ${n.toLocaleString()} words.`;
+    $('loop3').hidden = false; $('loop3').innerHTML = `With the loop, you change one number: <code>} while (count &lt; <b>${n}</b>);</code>. Same 6 lines.`;
+    $('that').hidden = false; done3 = true; $('partB').hidden = false; if (!$('s3').classList.contains('done')) { $('s3').classList.add('done'); unlock('s4'); }
   };
+  $('that').hidden = true; $('loop3').hidden = true;
   if (reduced) { for (let j = Math.max(0, total - 9); j < total; j++) buf.push(line(j)); done(); return; }
   const step = Math.max(1, Math.ceil(total / 200));
-  const tick = () => {
-    for (let c = 0; c < step && k < total; c++, k++) { buf.push(line(k)); if (buf.length > 9) buf.shift(); }
-    term.textContent = buf.join('\n'); $('count4').textContent = `Typing… line ${k.toLocaleString()} of ${total.toLocaleString()}`;
-    if (k < total) typing = requestAnimationFrame(tick); else { typing = null; done(); }
-  };
+  const tick = () => { for (let c = 0; c < step && k < total; c++, k++) { buf.push(line(k)); if (buf.length > 9) buf.shift(); } term.textContent = buf.join('\n'); $('count3').textContent = `Typing… line ${k.toLocaleString()} of ${total.toLocaleString()}`; if (k < total) typing = requestAnimationFrame(tick); else { typing = null; done(); } };
   typing = requestAnimationFrame(tick);
 });
-watch('s4', () => !$('s4').hidden && !typing && $('that').hidden, level => {
-  h4.show(level === 1 ? 'Press one of the number buttons. Then watch what typing every line by hand feels like.' : 'Try 1,000. Watch the counter.');
-  document.querySelector('.pre[data-n="1000"]').classList.toggle('nudgebtn', level >= 2);
+watch($('s3'), () => !$('s3').hidden && !$('s3').classList.contains('done') && !typing, lv => {
+  if ($('typing').hidden) { help3.show(lv === 1 ? "There's no wrong answer here. Pick the one you'd actually rather write." : 'Just click one. You can feel it either way.'); $('pLoop').classList.toggle('nudgebtn', lv >= 2); }
+  else { help3.show(lv === 1 ? 'Press one of the number buttons and watch what typing every line by hand feels like.' : 'Try 1,000. Watch the counter.'); document.querySelector('.pre[data-n="1000"]').classList.toggle('nudgebtn', lv >= 2); }
 });
 
-/* ---------- 5: an AI inside the loop ---------- */
+/* ---------- 4: step through the real getWords ---------- */
+const G = [
+  ['void getWords(char words[][20], int numberOfWords) {', 'Collect words. This takes the empty list and how many words to collect.', 0],
+  ['int count = 0;', 'Start a counter at 0.', 1], ['char userWord [20];', 'Make a small box to hold the word being typed.', 1],
+  ['do {', 'Begin the circle. Everything down to the last check repeats.', 1], ['cls;', 'Clear the screen.', 2],
+  ['printf("Enter word %i:", count + 1);', 'Ask for word number count + 1.', 2], ['scanf("%s", userWord);', 'Wait for a typed word and put it in the box.', 2],
+  ['flush;', 'Clear out leftover keystrokes.', 2], ['printf("You entered %s. \\n", userWord);', 'Show them what we heard.', 2],
+  ['enterUserWord(words, userWord, count);', 'Put the word in spot count of the list.', 2], ['count++;', 'Add 1 to the counter.', 2],
+  ['} while (count < numberOfWords);', 'Is the counter still less than the number of words? If yes, back to the top. If no, leave the circle.', 1],
+  ['return;', 'Done. Hand control back.', 1], ['}', 'End.', 0],
+];
+const SAMPLE = ['tiger', 'maple', 'orbit', 'lemon', 'river', 'cedar', 'amber', 'delta', 'harbor', 'violet', 'meadow', 'summit', 'canyon', 'lantern', 'pebble', 'willow'];
+let tr4 = [], at4 = 0;
+function trace4(total) {
+  const t = []; let count = 0, userWord = '', stored = [], screen = '';
+  const push = (line, note) => t.push({ line, note, count, userWord, stored: [...stored], screen });
+  push(0, `<b>Start.</b> The function is asked to collect <b>${total}</b> ${total === 1 ? 'word' : 'words'}.`);
+  push(1, 'Make a counter called <b>count</b> and set it to 0. It tracks how many words we have collected.');
+  push(2, 'Set aside a small box, <b>userWord</b>, for whatever the person types.');
+  do {
+    push(3, '<b>Begin the circle.</b> Everything between here and the last check repeats.');
+    screen = ''; push(4, 'Clear the screen so each question starts fresh.');
+    screen = `Enter word ${count + 1}:`; push(5, `Ask for word number <b>${count + 1}</b> (count plus one, because people start at 1 and computers start at 0).`);
+    userWord = SAMPLE[count]; screen += ` ${userWord}`; push(6, `Wait for the person to type. They typed <b>${userWord}</b>. (Sample word.)`);
+    push(7, 'Clear leftover keystrokes so a stray Enter does not sneak into the next question.');
+    screen += `\nYou entered ${userWord}.`; push(8, 'Show them what we heard.');
+    stored[count] = userWord; push(9, `Put the word in spot <b>${count}</b> of the list.`);
+    count++; push(10, `Add 1 to <b>count</b>. It is now <b>${count}</b>.`);
+    const more = count < total;
+    push(11, more ? `Is <b>${count}</b> less than <b>${total}</b>? <b>Yes.</b> Back to the top of the circle.` : `Is <b>${count}</b> less than <b>${total}</b>? <b>No.</b> Take the off ramp.`);
+  } while (count < total);
+  push(12, `<b>Done.</b> ${total} ${total === 1 ? 'word was' : 'words were'} asked for, then the loop ended on its own.`);
+  return t;
+}
+function render4() {
+  const s = tr4[at4], p = tr4[at4 - 1];
+  $('code4').replaceChildren(...G.map((g, i) => dual(g[0], g[1], { indent: g[2], cls: i === s.line ? 'hot' : '' })));
+  $('note4').innerHTML = s.note;
+  const v = (name, val, was) => `<span class="var${was !== undefined && was !== val ? ' changed' : ''}">${name} = ${val}</span>`;
+  const q = x => x ? `"${x}"` : '""', lst = a => '[' + a.map(q).join(', ') + ']';
+  $('vars4').innerHTML = v('count', s.count, p?.count) + v('numberOfWords', $('n4').value) + v('userWord', q(s.userWord), p ? q(p.userWord) : undefined) + v('words', lst(s.stored), p ? lst(p.stored) : undefined);
+  $('term4').textContent = s.screen || '(screen cleared)';
+  $('pos4').textContent = `step ${at4 + 1} of ${tr4.length}`; $('back4').disabled = at4 === 0; $('next4').disabled = at4 === tr4.length - 1; $('trip4').disabled = at4 === tr4.length - 1;
+  if (at4 === tr4.length - 1 && !$('s4').classList.contains('done')) { $('s4').classList.add('done'); unlock('s5'); }
+}
+function reset4() {
+  const n = $('n4').value.trim(), v = Number(n);
+  if (!Number.isInteger(v) || v < 1 || v > 16) { $('err4').textContent = 'Pick a whole number from 1 to 16. (This cap is a safety choice for the simulation.)'; return; }
+  $('err4').textContent = ''; tr4 = trace4(v); at4 = 0; render4();
+}
+$('next4').onclick = () => { if (at4 < tr4.length - 1) { at4++; render4(); } };
+$('back4').onclick = () => { if (at4 > 0) { at4--; render4(); } };
+$('trip4').onclick = () => { do { at4++; } while (at4 < tr4.length - 1 && tr4[at4].line !== 11); render4(); };
+$('reset4').onclick = reset4; $('n4').onchange = reset4; reset4();
+const help4 = helperFor($('s4'));
+watch($('s4'), () => !$('s4').hidden && !$('s4').classList.contains('done'), lv => help4.show(lv === 1 ? 'Press Step and watch the highlighted line move.' : 'Try Skip to next check to jump around the circle one trip at a time.'));
+
+/* ---------- 5: the = bug, bounded ---------- */
+let eq5 = true, trips5 = 0, fit5 = 'N', saw = { bug: false, fix: false }, stopped5 = false, out5 = [];
+const CAP5 = 6;
+function render5() {
+  const cond = eq5 ? "doesItFit = 'N'" : "doesItFit == 'N'";
+  const mark = d => { d.querySelectorAll('.eqmark').forEach(e => e.className = 'eqmark ' + (eq5 ? 'eq' : 'eqok')); return d; };
+  const line = dual(`} while (doesItFit ${eq5 ? '=' : '=='} 'N'); //End inner do while.`, eq5 ? "Keep going while: set doesItFit to 'N', and 'N' counts as true." : "Keep going while doesItFit is equal to 'N'.", { cls: eq5 ? 'bugline' : 'hot' });
+  line.querySelector('.c').innerHTML = `} while (doesItFit <span class="eqmark ${eq5 ? 'eq' : 'eqok'}">${eq5 ? '=' : '=='}</span> 'N'); //End inner do while.`;
+  $('code5').replaceChildren(line);
+  $('vars5').innerHTML = `<span class="var">doesItFit = '${fit5}'</span><span class="var">trips = ${trips5}</span><span class="var">condition = ${cond}</span>`;
+  $('term5').textContent = out5.join('\n') || '(press Run one trip)';
+  $('run5').disabled = stopped5 || (!eq5 && trips5 > 0 && out5.at(-1)?.includes('exit')) || (eq5 && trips5 >= CAP5);
+  $('stop5').disabled = stopped5 || trips5 === 0;
+  if (saw.bug && saw.fix && !$('s5').classList.contains('done')) { $('s5').classList.add('done'); unlock('s6'); }
+}
+function note5(h) { $('note5').innerHTML = h; }
+function reset5(keepMode) { trips5 = 0; fit5 = 'N'; out5 = []; stopped5 = false; if (!keepMode) eq5 = true; note5(eq5 ? "This loop is supposed to keep going while the answer is still 'N' (no). Press <b>Run one trip</b>." : 'Now the condition compares instead of assigns. Press <b>Run one trip</b>.'); render5(); }
+$('run5').onclick = () => {
+  trips5++; fit5 = 'Y'; out5.push(`Trip ${trips5}: the word fit. doesItFit = 'Y'.`);
+  if (eq5) {
+    out5.push(`   check: doesItFit = 'N' puts 'N' back in, and 'N' is not zero, so it counts as true. Go again.`); fit5 = 'N';
+    if (trips5 >= CAP5) { saw.bug = true; note5(`<span class="badge bad">STILL TRUE</span> Even though the word fit, the check set the answer back to 'N' every time. It would keep repeating. This page stops at ${CAP5} trips. Press <b>Stop simulation</b>, then try <b>Switch to ==</b>.`); out5.push('', 'Still true, so it would keep repeating...'); }
+    else note5(`Trip ${trips5}. The word fit, but the check <b>sets</b> the answer back to 'N' and carries on. Keep pressing, or switch the condition.`);
+  } else {
+    out5.push(`   check: doesItFit == 'N' asks "is it still N?" It is 'Y', so false. Leave the loop.`); out5.push('', 'Loop ended (exit).'); saw.fix = true;
+    note5(`<span class="badge good">OFF RAMP TAKEN</span> With <b>==</b> the loop compares instead of assigns, so a fit finally ends it. This is a conceptual simulation only.`);
+  }
+  if (trips5 >= 3 && eq5) saw.bug = true;
+  render5();
+};
+$('stop5').onclick = () => { stopped5 = true; saw.bug = true; out5.push('', '[simulation stopped by you]'); note5('You stopped it. A real program would still be going. Try <b>Switch to ==</b> and run it again.'); render5(); };
+$('fix5').onclick = () => { eq5 = !eq5; $('fix5').textContent = eq5 ? 'Switch to ==' : 'Switch back to ='; reset5(true); };
+$('reset5').onclick = () => { $('fix5').textContent = 'Switch to =='; reset5(false); };
+reset5(false);
+const help5 = helperFor($('s5'));
+watch($('s5'), () => !$('s5').hidden && !$('s5').classList.contains('done'), lv => help5.show(!saw.bug ? 'Press Run one trip a few times. Does it ever get out?' : 'Now press Switch to ==, then run it.'));
+
+/* ---------- 6: an AI inside the loop ---------- */
 puzzle({
-  stageId: 's5', n: 5, codeEl: $('code5'), poolEl: $('pool5'), msgEl: $('msg5'),
-  before: ['message = "I would like to kindly ask whether you might possibly be able to help me today"', 'limit = 8 words', 'tries = 0', ''], after: [],
+  stage: $('s6'), codeEl: $('code6'), poolEl: $('pool6'), msgEl: $('msg6'), hb: $('hb6'),
+  before: [dual('goal = "find new remote roles I have not seen"', 'The goal: find new remote roles I have not seen.'), dual('seen = [ ]; tries = 0', 'Start with nothing seen and zero passes.')],
+  after: [],
   slots: [
-    { accept: ['while'], clue: 'Which piece starts the circle?' },
-    { accept: ['ai', 'count'], clue: 'Inside the circle: either the AI makes an attempt, or the try counter goes up. Which feels like the next move?' },
-    { accept: ['ai', 'count'], clue: 'One more piece belongs before the checks: the AI attempt, or the try counter.' },
-    { accept: ['goal', 'max'], clue: 'Now the off ramps. After the AI has tried, we check. Pick either check.' },
-    { accept: ['goal', 'max'], clue: 'The other off ramp goes here.' },
+    { accept: ['do'], clue: 'Which piece starts the circle?' },
+    { accept: ['choose'], indent: 1, clue: 'First the AI looks at the last result and picks its next step.' },
+    { accept: ['run'], indent: 1, clue: 'Once the AI has picked a step, a tool has to actually do it.' },
+    { accept: ['dedupe'], indent: 1, clue: 'Before telling anyone anything: which results are really new? Filter out what was already sent.' },
+    { accept: ['empty', 'cap'], indent: 1, clue: 'Now an off ramp. Either stop when nothing is new, or stop after too many passes.' },
+    { accept: ['show'], indent: 1, clue: 'If there was something new, show it and remember it.' },
+    { accept: ['empty', 'cap'], indent: 1, clue: 'The other off ramp goes here.' },
     { accept: ['end'], clue: 'What closes the circle?' },
   ],
   tiles: [
-    { id: 'while', lines: [['while (true) {', 0]] },
-    { id: 'ai', lines: [['attempt = ai.rewrite(message)', 1]] },
-    { id: 'count', lines: [['tries = tries + 1', 1]] },
-    { id: 'goal', lines: [['if (words(attempt) <= limit) break    // off ramp: goal met', 1]] },
-    { id: 'max', lines: [['if (tries >= maxTries) break         // off ramp: give up', 1]] },
-    { id: 'end', lines: [['}', 0]] },
+    { id: 'do', lines: [['do {', 'Begin the circle.']] },
+    { id: 'choose', lines: [['action = ai.chooseNextStep(goal, lastResult)', 'The AI reads the last result and picks the next step.']] },
+    { id: 'run', lines: [['result = tool.run(action)', 'A tool carries out that step (a job board search).']] },
+    { id: 'dedupe', lines: [['new = result minus seen', 'Keep only postings I have not seen yet.']] },
+    { id: 'empty', lines: [['if (new is empty) break', 'Off ramp: nothing new, so stop.']] },
+    { id: 'show', lines: [['show(new); seen = seen + new', 'Tell me about the new ones and remember them.']] },
+    { id: 'cap', lines: [['if (++tries >= maxTries) break', 'Off ramp: count this pass. If it is too many, stop.']] },
+    { id: 'end', lines: [['} while (true);', 'Back to the top. The off ramps are the checks above.']] },
   ],
-  hint: (id, i) => id === 'end' ? 'The closing brace ends the circle, so it goes last.'
-    : id === 'while' ? 'Start the circle first.'
-    : (id === 'goal' || id === 'max') ? 'Let the AI try first, then check what it made. The checks come after the attempt.'
-    : i === 0 ? 'The circle has to start before anything inside it can repeat.' : 'The off ramps are checks. They come after the AI has tried.',
-  onDone: () => { $('msg5').textContent = 'That is the whole shape: try, check, go around again, with off ramps.'; $('msg5').className = 'msg good'; $('s5').classList.add('done'); $('sim').hidden = false; $('sim').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'nearest' }); renderSim(); }
+  hint: (id, i) => id === 'end' ? 'The closing piece ends the circle, so it goes last.' : id === 'do' ? 'Start the circle first.' : (id === 'empty' || id === 'cap') ? 'The off ramps are checks. They come after the AI has acted.' : i === 0 ? 'The circle has to start before anything inside it can repeat.' : 'Not there. Think: choose a step, do it, filter, check, show, check, close.',
+  onDone: () => { $('msg6').textContent = 'That is the whole shape: choose, act, check, go around again, with off ramps.'; $('msg6').className = 'msg good'; $('s6').classList.add('done'); $('sim').hidden = false; reset6(); }
 });
-$('code5').querySelectorAll('.slot').forEach((s, i) => { if (i >= 1 && i <= 4) s.style.paddingLeft = '28px'; });
-
-const GOAL_TEXT = 'I would like to kindly ask whether you might possibly be able to help me today';
-const ATTEMPTS = ['I would like to ask if you could help me today', 'Would you be able to help me today please', 'Could you please help me today', 'Please help me today', 'Help me today'];
-const CAP = 20; let pass = 0, over = null, log = [], timer = null, waiting = false; const h6 = helper(6);
-const words = s => s.split(/\s+/).filter(Boolean).length;
-function renderSim() {
-  $('limitout').textContent = $('limit').value + ' words';
-  const l = $('log'); l.replaceChildren();
-  const g = document.createElement('div'); g.className = 'attempt'; const b = document.createElement('b'); b.textContent = `Starting message (${words(GOAL_TEXT)} words)`; const sm = document.createElement('small'); sm.textContent = GOAL_TEXT; g.append(b, sm); l.append(g);
-  log.forEach(r => { const d = document.createElement('div'); d.className = 'attempt' + (r.ok ? ' ok' : ''); d.textContent = `Pass ${r.n}: ${r.text}`; const s = document.createElement('small'); s.textContent = `${r.count} words · ${r.ok ? 'goal met' : 'still over ' + r.limit}${r.repeat ? ' · nothing new to try, repeating itself' : ''}`; d.append(s); l.append(d); });
-  if (over) { const d = document.createElement('div'); d.className = 'note'; d.innerHTML = over; l.append(d); }
-  $('run').disabled = !!over || waiting; $('auto').disabled = !!over;
+/* scripted mock job board: each pass the "AI" reads the last result to pick its next search */
+const SCRIPT = [
+  { act: 'search "sales trainer, remote"', why: 'No last result yet, so start broad.', res: ['Sales Trainer, Acme Co', 'Training Lead, Northwind', 'Enablement Rep, Globex', 'Sales Coach, Initech', 'Training Mgr, Umbrella', 'Onboarding Lead, Hooli'] },
+  { act: 'search "sales trainer, remote, posted today"', why: 'The last search returned 6, which is a lot. Narrow it to today.', res: ['Sales Coach, Initech', 'Training Mgr, Umbrella', 'Field Trainer, Stark'] },
+  { act: 'search "enablement manager, remote"', why: 'Only 1 new result last time. Try a nearby job title.', res: ['Enablement Mgr, Wayne Ent.', 'Field Trainer, Stark'] },
+  { act: 'search "sales trainer, remote, posted today"', why: 'Last time brought 1 new result. Check the narrow search again.', res: ['Field Trainer, Stark', 'Enablement Mgr, Wayne Ent.'] },
+];
+let pass6 = 0, seen6 = [], over6 = null, timer6 = null, log6 = []; const CAP6 = 12;
+function reset6() { clearInterval(timer6); timer6 = null; pass6 = 0; seen6 = []; over6 = null; log6 = []; $('status6').textContent = 'Ready. Press Run next pass.'; $('auto6').textContent = '⏵ Auto-run'; render6(); }
+function render6() {
+  const l = $('log6'); l.replaceChildren();
+  log6.forEach(r => {
+    const d = mk('div', 'attempt' + (r.new.length ? ' ok' : r.dupes.length ? ' dupe' : ''));
+    d.append(mk('b', '', `Pass ${r.n}: AI chose ${r.act}`)); const w = mk('small', 'why', 'Why: ' + r.why); d.append(w);
+    const s = mk('small', '', `Tool returned ${r.res.length}: ${r.res.join('; ')}`); d.append(s);
+    const c = mk('small', '', r.gate ? `Duplicate gate: ${r.new.length} new, ${r.res.length - r.new.length} already sent. ${r.new.length ? 'Showing: ' + r.new.join('; ') : 'Nothing new.'}` : `No duplicate gate: sending all ${r.res.length}${r.dupes.length ? `, including ${r.dupes.length} you already got` : ''}.`); d.append(c);
+    l.append(d);
+  });
+  if (over6) { const d = mk('div', 'note'); d.innerHTML = over6; l.append(d); }
+  $('run6').disabled = !!over6 || !$('sim').hidden === false; $('auto6').disabled = !!over6; $('human6').disabled = !!over6 || pass6 === 0;
 }
-function stopAuto() { if (timer) { clearInterval(timer); timer = null; } waiting = false; $('auto').textContent = '⏵ Auto-run'; }
-function resetSim() { stopAuto(); pass = 0; over = null; log = []; h6.hide(); $('status').textContent = 'Ready. Press Run next pass.'; $('run').textContent = '▶ Run next pass'; renderSim(); }
-function runPass() {
-  if (over) return false;
-  pass++; h6.hide(); $('run').classList.remove('nudgebtn');
-  const limit = +$('limit').value, text = ATTEMPTS[Math.min(pass - 1, ATTEMPTS.length - 1)], repeat = pass > ATTEMPTS.length, count = words(text), ok = count <= limit;
-  log.push({ n: pass, text, count, ok, limit, repeat });
-  if (ok) over = `<span class="badge good">OFF RAMP: GOAL MET</span> It took ${pass} ${pass === 1 ? 'pass' : 'passes'}.`;
-  else if ($('max').checked && pass >= +$('maxn').value) over = `<span class="badge warn">OFF RAMP: MAX TRIES</span> It never met the goal, so the limit of ${$('maxn').value} tries stopped it. You get its best attempt and a clear failure.`;
-  else if (pass >= CAP) over = `<span class="badge bad">NO OFF RAMP</span> Nothing stopped it. The demo pulled its own emergency stop at ${CAP} passes. A real one keeps going, and keeps spending, until something outside stops it.`;
-  $('status').textContent = over ? 'Loop finished.' : `Pass ${pass} done. Goal not met yet, so it goes around again.`;
-  renderSim(); return !over;
+function pass() {
+  if (over6) return;
+  const s = SCRIPT[Math.min(pass6, SCRIPT.length - 1)], gate = $('dedupe').checked; pass6++;
+  const res = pass6 > SCRIPT.length ? SCRIPT.at(-1).res : s.res, why = pass6 > SCRIPT.length ? 'Nothing new came back, so it tries the same narrow search again.' : s.why;
+  const dupes = res.filter(x => seen6.includes(x)), fresh = res.filter(x => !seen6.includes(x));
+  const sent = gate ? fresh : res; log6.push({ n: pass6, act: s.act, why, res, new: sent, dupes, gate });
+  sent.forEach(x => { if (!seen6.includes(x)) seen6.push(x); });
+  if (gate && !fresh.length) over6 = '<span class="badge good">OFF RAMP: NOTHING NEW</span> The last pass found nothing you have not already seen, so the loop stopped itself.';
+  else if ($('cap').checked && pass6 >= +$('capn').value) over6 = `<span class="badge warn">OFF RAMP: CAP</span> It hit the limit of ${$('capn').value} passes and stopped, even though it might have kept going.`;
+  else if (pass6 >= CAP6) over6 = `<span class="badge bad">NO OFF RAMP</span> Nothing stopped it. This page pulled its own emergency stop at ${CAP6} passes. ${gate ? '' : 'And look at the log: it kept sending the same postings. That is the stale-list problem. '}A real loop keeps going until something outside stops it.`;
+  $('status6').textContent = over6 ? 'Loop finished.' : `Pass ${pass6} done. Going around again.`; render6();
 }
-$('run').onclick = () => { if (waiting) { waiting = false; $('run').textContent = '▶ Run next pass'; } runPass(); };
-$('auto').onclick = () => {
-  if (timer) { stopAuto(); renderSim(); return; }
-  $('auto').textContent = '⏸ Pause';
-  timer = setInterval(() => {
-    if (over) { stopAuto(); return; }
-    if ($('human').checked) { clearInterval(timer); timer = null; waiting = true; $('auto').textContent = '⏵ Auto-run'; $('status').textContent = 'Waiting for you. Press Approve to allow one more pass.'; $('run').textContent = '✔ Approve one more pass'; $('run').disabled = false; return; }
-    runPass();
-  }, 900);
-};
-$('reset').onclick = resetSim;
-['limit', 'max', 'maxn', 'human'].forEach(id => $(id).addEventListener('input', () => { if (!log.length) renderSim(); else resetSim(); }));
-watch('s5', () => !$('sim').hidden && !over && !timer, level => {
-  if (!log.length) { h6.show('Press Run next pass to send the message around the loop once.'); $('run').classList.add('nudgebtn'); }
-  else h6.show(level < 3 ? 'The goal is not met yet. Press Run next pass again, or drag the goal to see what changes.' : 'Try dragging the goal down to 2 and running it. What stops it?');
-});
-resetSim();
+$('run6').onclick = pass;
+$('auto6').onclick = () => { if (timer6) { clearInterval(timer6); timer6 = null; $('auto6').textContent = '⏵ Auto-run'; return; } $('auto6').textContent = '⏸ Pause'; timer6 = setInterval(() => { if (over6) { clearInterval(timer6); timer6 = null; $('auto6').textContent = '⏵ Auto-run'; return; } pass(); }, 1100); };
+$('human6').onclick = () => { if (over6) return; clearInterval(timer6); timer6 = null; over6 = '<span class="badge warn">OFF RAMP: YOU</span> You stopped it. A person can always be the off ramp. That is what "human in the loop" means.'; $('status6').textContent = 'Stopped by you.'; $('auto6').textContent = '⏵ Auto-run'; render6(); };
+$('reset6').onclick = reset6; ['dedupe', 'cap', 'capn'].forEach(id => $(id).addEventListener('input', () => { if (log6.length) reset6(); }));
+const help6 = helperFor($('s6'));
+watch($('s6'), () => !$('sim').hidden && !over6 && !timer6, lv => { help6.show(!log6.length ? 'Press Run next pass to send the AI around the loop once.' : lv < 3 ? 'Press Run next pass again. What does the AI choose next, and why?' : 'Try turning off the duplicate gate and running it. What comes back?'); if (!log6.length) $('run6').classList.add('nudgebtn'); });
+$('run6').addEventListener('click', () => { $('run6').classList.remove('nudgebtn'); help6.hide(); });
 
-if (location.hash === '#unlock') { ['s2', 's3', 's4', 's5'].forEach(id => { $(id).hidden = false; }); $('sim').hidden = false; }
+if (location.hash === '#unlock') { ['s2', 's3', 's4', 's5', 's6', 'partB'].forEach(id => { $(id).hidden = false; }); $('typing').hidden = false; $('sim').hidden = false; reset6(); }
 </script>
 </body>
 </html>
