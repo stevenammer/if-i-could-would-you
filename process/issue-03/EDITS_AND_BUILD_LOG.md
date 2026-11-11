@@ -4,7 +4,7 @@ Written Nov 11, 2026. `ASSISTANT` here means Claude Code. Nothing below is pushe
 
 ## Edits made to the article text (author-approved typo pass)
 
-Steven asked for typo fixes only, said to keep "alls", and to leave judgment calls alone. These are the only changes to `issues/issue-03-working-draft.md` compared with the handoff copy `issue-03-prepublish.md`. Everything else is the handoff text, unchanged.
+Steven asked for typo fixes only, said to keep "alls", and to leave judgment calls alone. These are the only changes to `issues/issue-03.md` compared with the handoff copy `issue-03-prepublish.md`. Everything else is the handoff text, unchanged.
 
 | # | Before | After | Why |
 |---|---|---|---|
@@ -63,3 +63,12 @@ Decisions that came from Steven: my product's visual theme (warm black, cream, a
 Safety and honesty choices: it never runs the original C; word counts are capped 1 to 16; the `=` simulation stops after 6 trips and has a Stop button; the AI loop is scripted with made-up job postings and says so; it makes no network requests; it uses system fonts instead of the theme's web fonts for that reason.
 
 Tests: a real-Chrome script (desktop and phone widths) exercises every step, the wrong-drop paths, hints, the Words/Code switch keeping filled blanks, input limits, the endless-loop caps, and checks for console errors, network requests and sideways overflow.
+
+## Posting (Nov 11, 2026)
+
+Steven approved the post in chat, and the assistant published it to his LinkedIn newsletter through his logged-in browser. The article text in the editor was checked block by block against `issues/issue-03.md` (71 blocks, all identical before the images went in). Two things differ on LinkedIn because its editor can't do them as text:
+
+- The busted loop is a picture of the real code with the single `=` highlighted in red, with alt text, because a code block can't highlight one character and the article says "look at the highlighted portion."
+- The editor turned `*gasp*` into italics when pasted, so the asterisks were put back by hand to keep them visible.
+
+A cover image in the same style as Issue 2's was added (`covers/issue-03-cover.png`). No intro text was added to the post. Published: https://www.linkedin.com/pulse/i-could-would-you-issue-3-steven-ammer-i0ane

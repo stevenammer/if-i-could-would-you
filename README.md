@@ -24,6 +24,7 @@ This repo is the workshop behind the newsletter. The newsletter is where you rea
 
 1. [Issue 1](issues/issue-01.md), October 28, 2026. Can I outsource the thing that's most me, my writing? ([on LinkedIn](https://www.linkedin.com/pulse/i-could-would-you-steven-ammer-kj0ne))
 2. [Issue 2](issues/issue-02.md), November 4, 2026. Last week was a miss, so back to basics: what actually happens when you hit Send. ([on LinkedIn](https://www.linkedin.com/pulse/i-could-would-you-issue-2-steven-ammer-yzz5e))
+3. [Issue 3](issues/issue-03.md), November 11, 2026. The Loop: a loop is a circle with an off ramp, my 2014 college code, and what happens when you put an AI in one. ([on LinkedIn](https://www.linkedin.com/pulse/i-could-would-you-issue-3-steven-ammer-i0ane))
 
 ## Connected projects
 

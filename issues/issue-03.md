@@ -1,11 +1,12 @@
 ---
-title: "If I Could, Would You? — Issue #3: The Loop"
-status: "working draft; not published; not pushed"
-updated: "2026-11-11"
-author: "Steven Ammer"
+title: If I Could, Would You? Issue #3
+date: 2026-11-11
+source: https://www.linkedin.com/pulse/i-could-would-you-issue-3-steven-ammer-i0ane
 ---
 
-# If I Could, Would You?
+# If I Could, Would You? Issue #3
+
+_Published 2026-11-11 on LinkedIn. Text copied from the published edition. On LinkedIn, the busted-loop code is an image with the single = highlighted; here it is plain code. The comic is in [`../assets/issue-03/`](../assets/issue-03)._
 
 Where I find out what I can do, then find out if I can teach it away, in a way, that inspires others.
 
