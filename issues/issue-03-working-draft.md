@@ -7,7 +7,7 @@ author: "Steven Ammer"
 
 # If I Could, Would You?
 
-Where I see if I can figure something out and then teach it away... In a way... That inspires others.
+Where I find out what I can do, then find out if I can teach it away in a way that inspires others.
 
 ## Issue #3: The Loop
 
@@ -155,7 +155,7 @@ Well, here is another example of my super amazing meat fingers clicking away:
 
 I'm not even gonna bother translating this one guys. Look at the highlighted portion. 
 
-You see that = there? Most people would read that as "Equals." Most people, including me when I wrote it, would be wrong. That, in computer speak, means "gets." Which just means that whatever thing you're referring to gets changed into whatever you say next. So instead of me creating a loop that only continues round and round while the answer to my question is still no, my loop started each trip around by setting the answer to no, so there was no escape and it would continue to loop around time and time again until every one of us is [devoured by the bloodthirsty claws of inescapable death!](https://clip.cafe/moana-2016/the-ocean-chose-you/t/156)
+You see that = there? Most people would read that as "Equals." Most people, including me when I wrote it, would be wrong. That, in computer speak, means "gets." Which just means that whatever thing you're referring to gets changed into whatever you say next. So instead of me creating a loop that only continues round and round while the answer to my question is still no, my loop started each trip around by setting the answer to no, so there was no escape and it would continue to loop around time and time again until every one of us is [devoured by the bloodthirsty jaws of inescapable death!](https://clip.cafe/moana-2016/the-ocean-chose-you/t/156)
 
 As you can see loops can be scary powerful!
 

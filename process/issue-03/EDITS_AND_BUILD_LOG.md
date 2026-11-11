@@ -21,12 +21,12 @@ Steven asked for typo fixes only, said to keep "alls", and to leave judgment cal
 | 11 | `![The AI Loop. Locked seven-panel comic.](../assets/the-ai-loop-locked.png)` | `![The AI Loop. Locked seven-panel comic.](../assets/issue-03/the-ai-loop-locked.png)` | asset path adapted to this repository |
 | 12 | `See also: ["Hammer Time"](...otCpCn0l4Wo)` | `See also: ["Super Freak"](...QYHxGBH6o4M) to ["Can't Touch This"](...otCpCn0l4Wo)` | requested: link both videos. Both titles verified as the official uploads: "Rick James - Super Freak (Official Music Video)" and "M.C. Hammer - U Can't Touch This". |
 | 13 | (HTML build comment about the interactive demonstration) | `TL;DR` line, then `Try it yourself: The Loop (interactive explainer)` | requested: link the explainer as TL;DR, matching Issue 2. Placed right before Word of the Week. The link is a repo path until the explainer is hosted. |
+| 14 | `Where I see if I can figure something out and then teach it away... In a way... That inspires others.` | `Where I find out what I can do, then find out if I can teach it away in a way that inspires others.` | requested: use the same tagline wording as Issue 1 (where "teach it away" is the author's own phrase). |
+| 15 | `bloodthirsty claws of inescapable death!` | `bloodthirsty jaws of inescapable death!` | requested: matches the film line. |
 
 ## Left alone on purpose (author-wording or judgment calls, flagged for review)
 
-- **"Moana" clip:** the article says "claws"; the linked film line is "jaws". Not changed.
 - **"For this week's offer to the throne:"** is the author's locked Groundhog Day caption. Not changed.
-- **Opening line:** "teach it away... In a way... That inspires others." May be a dictation slip for "teach it. In a way..." Not changed.
 - **Personal details:** the wife's job-list anecdote and laptop automation, and the professor's name spelling, are the author's call.
 - **"Hammer Time" link:** resolved. Steven asked to link both videos, so the line now links "Super Freak" and "Can't Touch This". No side-by-side video was found; the songs are connected because "Can't Touch This" is built on the "Super Freak" riff and the dispute ended in a songwriting credit for James.
 - **Cherny link:** goes to his LinkedIn profile, which does not itself contain the "writes loops now" claim. An article link would be a better source. Not changed.
