@@ -93,6 +93,8 @@ function start() {
     const question = $('question').value.trim(); first = await ask(question); show($('answer1'), 'Answer 1: no context', first); $('question2').value = question;
   }));
   $('ask2').addEventListener('click', () => run($('ask2'), $('status5'), async () => {
+    // A cold visitor who skips the interview would get the same generic answer under a "with your file" label. Say so instead.
+    if (!dirty && !Object.values(answers()).some((value) => String(value).trim())) throw new Error('Your file is empty. Answer a few questions in step 2 first (even two or three), then ask again.');
     const question = $('question2').value.trim(); const second = await ask(question, currentFile());
     show($('answer2'), 'Answer 2: with your file', second);
     if (!first) { $('status5').textContent = 'Ask with no context in step 1 to compare.'; }

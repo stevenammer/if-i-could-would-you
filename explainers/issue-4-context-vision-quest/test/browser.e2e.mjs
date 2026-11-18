@@ -21,6 +21,10 @@ try {
   await page.goto(origin);
   await page.getByRole('button', { name: 'Ask with no context' }).click();
   await page.getByText('Answer 1: no context').waitFor(); await page.locator('#answer1 strong', { hasText: 'generic' }).waitFor(); assert.doesNotMatch(await page.locator('#answer1').innerText(), /\*\*/, 'bold markers are shown as bold, not as asterisks');
+  // A visitor who skips the interview is told to answer something first, and no second call is spent.
+  await page.getByRole('button', { name: 'Ask with my context file' }).click();
+  await page.getByText('Your file is empty. Answer a few questions').waitFor();
+  assert.equal(await page.locator('#answer2').isVisible(), false, 'no answer is shown for an empty file');
   await page.locator('#a-who').fill('Sam, in Orlando. <img src=x onerror=window.__pwn=1>');
   await page.locator('#a-rules').fill('Never use em dashes. Email me at sam@example.com');
   const file = await page.locator('#file').inputValue();
