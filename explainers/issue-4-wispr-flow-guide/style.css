@@ -1,0 +1,5 @@
+body{margin:0;background:#0e1116;color:#e8edf3;font:18px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:720px;margin:0 auto;padding:28px 18px 60px}
+h1{font-size:2rem;line-height:1.15;margin:0 0 10px}h2{font-size:1.3rem;margin:32px 0 8px}
+a{color:#7cb7ff}.lead{font-size:1.1rem}.fine{color:#9aa7b8;font-size:.9rem}
+li{margin:8px 0}:focus-visible{outline:3px solid #7cb7ff;outline-offset:2px}
