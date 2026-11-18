@@ -1,0 +1,58 @@
+// A real-browser run against the real page and the real handler, with a stand-in for the AI.
+// PLAYWRIGHT_DIR=/path/to/node_modules node test/browser.e2e.mjs
+import assert from 'node:assert/strict';
+import { createRequire } from 'node:module';
+import { join } from 'node:path';
+import { readFileSync } from 'node:fs';
+import { makeServer } from '../dev-server.mjs';
+
+const require = createRequire(import.meta.url);
+const { chromium } = require(join(process.env.PLAYWRIGHT_DIR || '', 'playwright'));
+const calls = [];
+const model = async ({ user }) => { calls.push(user); return { text: user.includes('USER CONTEXT FILE') ? 'Since you have 25 minutes and no peanuts, use one pan.' : 'Here is a generic dinner idea.', usage: { inputTokens: 50, outputTokens: 20 } }; };
+const server = makeServer({ model }); await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+const origin = `http://127.0.0.1:${server.address().port}`;
+const browser = await chromium.launch({ headless: true, executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome', args: ['--no-sandbox'] });
+const errors = [];
+try {
+  const context = await browser.newContext({ viewport: { width: 390, height: 844 }, acceptDownloads: true });
+  const page = await context.newPage(); page.on('pageerror', e => errors.push(e.message));
+  page.on('request', r => { if (!r.url().startsWith(origin) && !r.url().startsWith('blob:') && !r.url().startsWith('data:')) errors.push(`outside request ${r.url()}`); });
+  await page.goto(origin);
+  await page.getByRole('button', { name: 'Ask with no context' }).click();
+  await page.getByText('Answer 1: no context').waitFor(); await page.getByText('Here is a generic dinner idea.').waitFor();
+  await page.locator('#a-who').fill('Sam, in Orlando. <img src=x onerror=window.__pwn=1>');
+  await page.locator('#a-rules').fill('Never use em dashes. Email me at sam@example.com');
+  const file = await page.locator('#file').inputValue();
+  assert.match(file, /## Who I am\nSam, in Orlando/); assert.match(file, /## Rules and pet peeves/);
+  await page.getByText(/may contain an email address/).waitFor();
+  assert.ok((await page.locator('#short').inputValue()).includes('Never use em dashes'));
+  // Editing the file by hand is kept, and the rebuild button appears.
+  await page.locator('#file').fill(`${file}\n## Added by hand\nI have 25 minutes.`);
+  await page.getByRole('button', { name: 'Rebuild from my answers' }).waitFor();
+  await page.locator('#a-work').fill('Support lead.');
+  assert.match(await page.locator('#file').inputValue(), /Added by hand/, 'typing in the interview does not wipe a hand edit');
+  await page.getByRole('button', { name: 'Rebuild from my answers' }).click();
+  assert.doesNotMatch(await page.locator('#file').inputValue(), /Added by hand/);
+  assert.match(await page.locator('#file').inputValue(), /## My work\nSupport lead\./);
+  // Downloads in every format.
+  for (const kind of ['md', 'txt', 'json', 'docx', 'pdf']) {
+    const [download] = await Promise.all([page.waitForEvent('download'), page.locator(`[data-download=${kind}]`).click()]);
+    assert.equal(download.suggestedFilename(), `master-context-file.${kind}`);
+    const bytes = readFileSync(await download.path()); assert.ok(bytes.length > 100, kind);
+    if (kind === 'pdf') assert.equal(bytes.subarray(0, 5).toString(), '%PDF-'); if (kind === 'docx') assert.equal(bytes.subarray(0, 2).toString(), 'PK');
+  }
+  // Ask again with the file, then compare.
+  await page.getByRole('button', { name: 'Ask with my context file' }).click();
+  await page.getByText('Answer 2: with your file').waitFor();
+  await page.locator('#step6').waitFor({ state: 'visible' });
+  assert.match(await page.locator('#c2').innerText(), /25 minutes and no peanuts/); assert.match(await page.locator('#c1').innerText(), /generic dinner/);
+  assert.ok(calls[0] === 'Help me plan dinner tonight.' && calls[1].includes('USER CONTEXT FILE'), 'first call has no file, second has it');
+  assert.equal(await page.evaluate(() => window.__pwn), undefined, 'hostile text stayed text');
+  assert.equal(await page.locator('img').count(), 0);
+  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, 'no sideways scroll on a phone');
+  await page.locator('summary', { hasText: 'Steal the interview prompt' }).click();
+  assert.match(await page.locator('#prompt').innerText(), /interview me and then write my master context file/);
+  assert.deepEqual(errors, []);
+  console.log('PASS: the Context Vision Quest in a real browser at 390px: ask, interview, edit, export five ways, ask again, compare, hostile text inert.');
+} finally { await browser.close(); server.close(); }
