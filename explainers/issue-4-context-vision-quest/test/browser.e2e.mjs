@@ -9,7 +9,7 @@ import { makeServer } from '../dev-server.mjs';
 const require = createRequire(import.meta.url);
 const { chromium } = require(join(process.env.PLAYWRIGHT_DIR || '', 'playwright'));
 const calls = [];
-const model = async ({ user }) => { calls.push(user); return { text: user.includes('USER CONTEXT FILE') ? 'Since you have 25 minutes and no peanuts, use one pan.' : 'Here is a generic dinner idea.', usage: { inputTokens: 50, outputTokens: 20 } }; };
+const model = async ({ user }) => { calls.push(user); return { text: user.includes('USER CONTEXT FILE') ? 'Since you have 25 minutes and no peanuts, use one pan.' : 'Here is a **generic** dinner idea.', usage: { inputTokens: 50, outputTokens: 20 } }; };
 const server = makeServer({ model }); await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
 const origin = `http://127.0.0.1:${server.address().port}`;
 const browser = await chromium.launch({ headless: true, executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome', args: ['--no-sandbox'] });
@@ -20,7 +20,7 @@ try {
   page.on('request', r => { if (!r.url().startsWith(origin) && !r.url().startsWith('blob:') && !r.url().startsWith('data:')) errors.push(`outside request ${r.url()}`); });
   await page.goto(origin);
   await page.getByRole('button', { name: 'Ask with no context' }).click();
-  await page.getByText('Answer 1: no context').waitFor(); await page.getByText('Here is a generic dinner idea.').waitFor();
+  await page.getByText('Answer 1: no context').waitFor(); await page.locator('#answer1 strong', { hasText: 'generic' }).waitFor(); assert.doesNotMatch(await page.locator('#answer1').innerText(), /\*\*/, 'bold markers are shown as bold, not as asterisks');
   await page.locator('#a-who').fill('Sam, in Orlando. <img src=x onerror=window.__pwn=1>');
   await page.locator('#a-rules').fill('Never use em dashes. Email me at sam@example.com');
   const file = await page.locator('#file').inputValue();

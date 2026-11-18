@@ -9,10 +9,16 @@ const SAMPLE = { question: 'Help me plan dinner tonight.',
   tailored: 'Sample only (the live demo is resting): with a file that says you have 25 minutes, a $25 budget and a kid with a peanut allergy, an answer would skip peanut oil, use chicken thighs and rice you already have, and give you one pan and a shopping list under $25.' };
 let dirty = false; let busy = false; let first = '';
 
+// Answers sometimes carry **bold** markers. Show them as bold, built from text nodes, never parsed as markup.
+function formatted(text) {
+  const out = document.createDocumentFragment();
+  String(text).split(/\*\*(.+?)\*\*/g).forEach((part, index) => { if (!part) return; if (index % 2) { const strong = document.createElement('strong'); strong.textContent = part; out.append(strong); } else out.append(document.createTextNode(part)); });
+  return out;
+}
 function show(box, tag, text) {
   box.hidden = false; box.replaceChildren();
   const label = document.createElement('span'); label.className = 'tag'; label.textContent = tag;
-  box.append(label, document.createTextNode(text));
+  box.append(label, formatted(text));
 }
 const words = text => (text.trim().match(/\S+/g) || []).length;
 
@@ -90,7 +96,7 @@ function start() {
     const question = $('question2').value.trim(); const second = await ask(question, currentFile());
     show($('answer2'), 'Answer 2: with your file', second);
     if (!first) { $('status5').textContent = 'Ask with no context in step 1 to compare.'; }
-    else { $('c1').textContent = first; $('c2').textContent = second; $('m1').textContent = `${words(first)} words`; $('m2').textContent = `${words(second)} words`; $('step6').hidden = false; $('step6').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); }
+    else { $('c1').replaceChildren(formatted(first)); $('c2').replaceChildren(formatted(second)); $('m1').textContent = `${words(first)} words`; $('m2').textContent = `${words(second)} words`; $('step6').hidden = false; $('step6').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); }
   }));
   $('question2').value = $('question').value;
   refresh();
