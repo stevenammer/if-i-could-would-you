@@ -67,7 +67,8 @@ try {
   assert.equal(await page.locator('img').count(), 0);
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, 'no sideways scroll on a phone');
   await page.locator('summary', { hasText: 'Steal the interview prompt' }).click();
-  assert.match(await page.locator('#prompt').innerText(), /interview me and then write my master context file/);
+  const stolen = await page.locator('#prompt').innerText();
+  assert.match(stolen, /build my master context file/); assert.match(stolen, /list the assumptions you're already making about me/); assert.match(stolen, /One question at a time/); assert.match(stolen, /Be critical of your own draft/); assert.match(stolen, /Never ask for passwords/);
   assert.deepEqual(errors, []);
   console.log('PASS: the Context Vision Quest in a real browser at 390px: ask, interview, edit, export five ways, ask again, compare, hostile text inert.');
 } finally { await browser.close(); server.close(); }
