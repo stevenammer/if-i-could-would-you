@@ -70,6 +70,53 @@ async function copy(text, status, done) {
   catch { status.className = 'status bad'; status.textContent = 'Your browser blocked copying. Select the text and copy it yourself.'; }
 }
 
+// Voice typing: record a short clip, send it to be written down, put the words in the box. Nothing is kept.
+const MAX_CLIP_SECONDS = 60;
+const clipMime = () => ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg;codecs=opus'].find(type => window.MediaRecorder && MediaRecorder.isTypeSupported(type)) || '';
+function micIcon() {
+  const ns = 'http://www.w3.org/2000/svg'; const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('viewBox', '0 0 24 24'); svg.setAttribute('width', '18'); svg.setAttribute('height', '18'); svg.setAttribute('aria-hidden', 'true');
+  const path = document.createElementNS(ns, 'path'); path.setAttribute('fill', 'currentColor');
+  path.setAttribute('d', 'M12 14a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v5a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2Z'); svg.append(path); return svg;
+}
+function addMic(area, holder) {
+  if (!navigator.mediaDevices?.getUserMedia || !clipMime()) return;
+  const button = document.createElement('button'); button.type = 'button'; button.className = 'mic'; button.setAttribute('aria-pressed', 'false');
+  const label = document.createElement('span'); label.textContent = 'Talk instead';
+  const note = document.createElement('span'); note.className = 'status mic-note'; note.setAttribute('role', 'status'); note.setAttribute('aria-live', 'polite');
+  button.append(micIcon(), label); holder.append(button, note);
+  let recorder = null; let stream = null; let timer = null; let started = 0;
+  const idle = () => { button.classList.remove('live'); button.setAttribute('aria-pressed', 'false'); label.textContent = 'Talk instead'; button.disabled = false; clearInterval(timer); };
+  const stop = () => { if (recorder && recorder.state !== 'inactive') recorder.stop(); };
+  button.addEventListener('click', async () => {
+    if (recorder && recorder.state === 'recording') { stop(); return; }
+    note.className = 'status mic-note'; note.textContent = '';
+    try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); }
+    catch { note.className = 'status bad mic-note'; note.textContent = "I can't use your microphone. Allow it for this page, or use the microphone button on your keyboard."; return; }
+    const mime = clipMime(); const chunks = [];
+    recorder = new MediaRecorder(stream, { mimeType: mime });
+    recorder.addEventListener('dataavailable', event => { if (event.data.size) chunks.push(event.data); });
+    recorder.addEventListener('stop', async () => {
+      stream.getTracks().forEach(track => track.stop()); idle();
+      if (!chunks.length) return;
+      button.disabled = true; note.textContent = 'Writing it down...';
+      try {
+        const blob = new Blob(chunks, { type: mime.split(';')[0] });
+        const audio = await new Promise((resolve, reject) => { const reader = new FileReader(); reader.onload = () => resolve(String(reader.result).split(',')[1] || ''); reader.onerror = reject; reader.readAsDataURL(blob); });
+        const response = await fetch('/api/transcribe', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ audio, mime: blob.type }) });
+        let data = {}; try { data = await response.json(); } catch { /* handled below */ }
+        if (!response.ok) throw new Error(data.error || 'I could not hear that one. Try again, or type it.');
+        if (!data.text) { note.textContent = "I didn't catch anything. Try again a little closer."; }
+        else { area.value = (area.value.trim() ? area.value.trimEnd() + ' ' : '') + data.text; area.dispatchEvent(new Event('input', { bubbles: true })); note.textContent = 'Added. Edit it however you like.'; }
+      } catch (error) { note.className = 'status bad mic-note'; note.textContent = error.message; }
+      finally { button.disabled = false; }
+    });
+    recorder.start(); started = Date.now(); button.classList.add('live'); button.setAttribute('aria-pressed', 'true');
+    timer = setInterval(() => { const seconds = Math.floor((Date.now() - started) / 1000); label.textContent = `Stop (${seconds}s)`; if (seconds >= MAX_CLIP_SECONDS) stop(); }, 250);
+    label.textContent = 'Stop (0s)';
+  });
+}
+
 function start() {
   const chips = $('chips');
   for (const example of EXAMPLES) { const chip = document.createElement('button'); chip.type = 'button'; chip.textContent = example; chip.addEventListener('click', () => { $('question').value = example; }); chips.append(chip); }
@@ -80,8 +127,9 @@ function start() {
     const hint = document.createElement('p'); hint.textContent = section.hint;
     const area = document.createElement('textarea'); area.id = `a-${section.id}`; area.rows = 2; area.maxLength = 1200;
     area.addEventListener('input', refresh);
-    wrap.append(label, hint, area); holder.append(wrap);
+    wrap.append(label, hint, area); const tools = document.createElement('div'); tools.className = 'row tools'; wrap.append(tools); addMic(area, tools); holder.append(wrap);
   }
+  addMic($('question'), $('mic1')); addMic($('question2'), $('mic5'));
   $('prompt').textContent = INTERVIEW_PROMPT;
   $('copyPrompt').addEventListener('click', () => copy(INTERVIEW_PROMPT, $('promptStatus'), 'Copied.'));
   $('file').addEventListener('input', () => { dirty = true; refresh(); });

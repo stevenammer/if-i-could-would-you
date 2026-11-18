@@ -3,9 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; connect-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <title>The Context Vision Quest | If I Could, Would You?</title>
+<link rel="stylesheet" href="fonts.css">
 <link rel="stylesheet" href="style.css">
 <script type="module" src="app.js"></script>
 </head>
@@ -16,21 +17,22 @@
   <section class="intro">
     <h1>The Context Vision Quest</h1>
     <p>Ask an AI something. Get an answer that could have been written for anyone. Then answer nine questions about yourself, get a context file you own, and ask the same thing again.</p>
-    <p class="fine">The two answers come from a real AI (Google's Gemini) running on a small budget I set. What you type in step 1 and step 5 is sent to it to get an answer. Nothing is saved on my side, and there are no accounts. Your file is built in your browser, and it only travels in step 5. If the daily budget runs out, the rest of the page still works.</p>
+    <p class="fine">The two answers come from a real AI (Google's Gemini) running on a small budget I set. What you type in step 1 and step 5 is sent to it to get an answer. If you use the Talk button, that short recording is sent to the same AI to be written down. Nothing is saved on my side, and there are no accounts. Your file is built in your browser, and it only travels in step 5. If the daily budget runs out, the rest of the page still works.</p>
   </section>
 
   <section class="card" id="step1" aria-labelledby="h1">
-    <h2 id="h1"><span class="num">1</span>Ask your AI something</h2>
+    <h2 id="h1"><span class="num">Step 1</span>Ask your AI something</h2>
     <label for="question">Your question</label>
     <textarea id="question" maxlength="400" rows="3">Help me plan dinner tonight.</textarea>
+    <div class="row tools" id="mic1"></div>
     <div class="row chips" id="chips" aria-label="Example questions"></div>
     <div class="row"><button type="button" id="ask1" class="primary">Ask with no context</button><span id="status1" class="status" role="status" aria-live="polite"></span></div>
     <div id="answer1" class="answer" hidden></div>
   </section>
 
   <section class="card" id="step2" aria-labelledby="h2">
-    <h2 id="h2"><span class="num">2</span>The interview</h2>
-    <p class="fine">Skip anything you don't want to share. Everything stays in this page. Talk to it if typing is a pain (most phones have a microphone button on the keyboard).</p>
+    <h2 id="h2"><span class="num">Step 2</span>The interview</h2>
+    <p class="fine">Skip anything you don't want to share. Your answers stay in this page. Typing a pain? Hit Talk instead under any question and just say it. Ramble. It writes it down, and you can edit it after. (Wispr Flow or your keyboard's microphone button work in these boxes too.)</p>
     <div id="questions"></div>
     <details class="steal"><summary>Steal the interview prompt and run it in your own AI instead</summary>
       <p class="fine">Paste this into any chat AI. It interviews you one question at a time and writes the file for you.</p>
@@ -39,7 +41,7 @@
   </section>
 
   <section class="card" id="step3" aria-labelledby="h3">
-    <h2 id="h3"><span class="num">3</span>Your master context file</h2>
+    <h2 id="h3"><span class="num">Step 3</span>Your master context file</h2>
     <p class="fine">This builds as you answer. Edit it however you like. It's yours.</p>
     <label for="file">Your file</label>
     <textarea id="file" rows="14"></textarea>
@@ -48,7 +50,7 @@
   </section>
 
   <section class="card" id="step4" aria-labelledby="h4">
-    <h2 id="h4"><span class="num">4</span>Take it with you</h2>
+    <h2 id="h4"><span class="num">Step 4</span>Take it with you</h2>
     <div class="row"><button type="button" id="copyFile" class="primary">Copy the file</button>
       <button type="button" data-download="md">Markdown</button><button type="button" data-download="txt">Text</button><button type="button" data-download="json">JSON</button><button type="button" data-download="docx">Word (.docx)</button><button type="button" data-download="pdf">PDF</button>
       <span id="status4" class="status" role="status" aria-live="polite"></span></div>
@@ -57,16 +59,17 @@
   </section>
 
   <section class="card" id="step5" aria-labelledby="h5">
-    <h2 id="h5"><span class="num">5</span>Ask again, with your file</h2>
+    <h2 id="h5"><span class="num">Step 5</span>Ask again, with your file</h2>
     <p class="fine">Same question. This time your file goes along with it.</p>
     <label for="question2">The question</label>
     <textarea id="question2" maxlength="400" rows="2"></textarea>
+    <div class="row tools" id="mic5"></div>
     <div class="row"><button type="button" id="ask2" class="primary">Ask with my context file</button><span id="status5" class="status" role="status" aria-live="polite"></span></div>
     <div id="answer2" class="answer" hidden></div>
   </section>
 
   <section class="card" id="step6" aria-labelledby="h6" hidden>
-    <h2 id="h6"><span class="num">6</span>Compare</h2>
+    <h2 id="h6"><span class="num">Step 6</span>Compare</h2>
     <div class="compare"><div><h3>No context</h3><p id="c1"></p><p class="fine" id="m1"></p></div><div><h3>With your file</h3><p id="c2"></p><p class="fine" id="m2"></p></div></div>
     <p class="fine">Look for your name, your rules, your tools, and what it stopped suggesting. That difference is the whole lesson. Context isn't about sharing more. It's about sharing what's relevant.</p>
   </section>

@@ -10,12 +10,14 @@ const require = createRequire(import.meta.url);
 const { chromium } = require(join(process.env.PLAYWRIGHT_DIR || '', 'playwright'));
 const calls = [];
 const model = async ({ user }) => { calls.push(user); return { text: user.includes('USER CONTEXT FILE') ? 'Since you have 25 minutes and no peanuts, use one pan.' : 'Here is a **generic** dinner idea.', usage: { inputTokens: 50, outputTokens: 20 } }; };
-const server = makeServer({ model }); await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+const heard = [];
+const listen = async ({ mime, audio }) => { heard.push({ mime, bytes: audio.length }); return 'I am Sam, a support lead in Orlando.'; };
+const server = makeServer({ model, listen }); await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
 const origin = `http://127.0.0.1:${server.address().port}`;
-const browser = await chromium.launch({ headless: true, executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome', args: ['--no-sandbox'] });
+const browser = await chromium.launch({ headless: true, executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome', args: ['--no-sandbox', '--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream'] });
 const errors = [];
 try {
-  const context = await browser.newContext({ viewport: { width: 390, height: 844 }, acceptDownloads: true });
+  const context = await browser.newContext({ viewport: { width: 390, height: 844 }, acceptDownloads: true, permissions: ['microphone'] });
   const page = await context.newPage(); page.on('pageerror', e => errors.push(e.message));
   page.on('request', r => { if (!r.url().startsWith(origin) && !r.url().startsWith('blob:') && !r.url().startsWith('data:')) errors.push(`outside request ${r.url()}`); });
   await page.goto(origin);
@@ -25,6 +27,15 @@ try {
   await page.getByRole('button', { name: 'Ask with my context file' }).click();
   await page.getByText('Your file is empty. Answer a few questions').waitFor();
   assert.equal(await page.locator('#answer2').isVisible(), false, 'no answer is shown for an empty file');
+  // Voice typing: press Talk, speak (a fake microphone), press Stop, and the words land in the box.
+  const talk = page.locator('#questions .q').first().getByRole('button', { name: /Talk instead/ });
+  await talk.click(); await page.getByRole('button', { name: /^Stop/ }).waitFor();
+  assert.equal(await page.getByRole('button', { name: /^Stop/ }).getAttribute('aria-pressed'), 'true');
+  await page.waitForTimeout(1200); await page.getByRole('button', { name: /^Stop/ }).click();
+  await page.getByText('Added. Edit it however you like.').waitFor({ timeout: 15000 });
+  assert.match(await page.locator('#a-who').inputValue(), /I am Sam, a support lead in Orlando\./);
+  assert.equal(heard.length, 1); assert.ok(heard[0].mime.startsWith('audio/') && heard[0].bytes > 100, 'a real recording reached the handler');
+  await page.locator('#a-who').fill('');
   await page.locator('#a-who').fill('Sam, in Orlando. <img src=x onerror=window.__pwn=1>');
   await page.locator('#a-rules').fill('Never use em dashes. Email me at sam@example.com');
   const file = await page.locator('#file').inputValue();
