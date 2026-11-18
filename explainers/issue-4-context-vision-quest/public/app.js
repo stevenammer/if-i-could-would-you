@@ -1,5 +1,5 @@
 // Page wiring. Everything a visitor types is put on the page as text, never as markup.
-import { INTERVIEW_PROMPT, SECTIONS, buildFile, customInstructions, privacyFlags } from './lib/context.js';
+import { INTERVIEW_PROMPT, OPENER, customInstructions, privacyFlags } from './lib/context.js';
 import { docx, pdf } from './lib/files.js';
 
 const $ = id => document.getElementById(id);
@@ -7,7 +7,7 @@ const EXAMPLES = ['Help me plan dinner tonight.', 'Write a short reply to a cust
 const SAMPLE = { question: 'Help me plan dinner tonight.',
   plain: 'Here is a simple plan: pick a protein, a vegetable and a starch. For example, baked chicken, roasted broccoli and rice. Check what you already have, shop for what is missing, and aim to start cooking by 6 so you eat by 7. Want a vegetarian or quicker option?',
   tailored: 'Sample only (the live demo is resting): with a file that says you have 25 minutes, a $25 budget and a kid with a peanut allergy, an answer would skip peanut oil, use chicken thighs and rice you already have, and give you one pan and a shopping list under $25.' };
-let dirty = false; let busy = false; let first = '';
+let busy = false; let first = ''; let messages = [{ role: 'assistant', content: OPENER }]; let built = false;
 
 // Answers sometimes carry **bold** markers. Show them as bold, built from text nodes, never parsed as markup.
 function formatted(text) {
@@ -42,22 +42,19 @@ function useSample() {
 }
 
 function currentFile() { return $('file').value; }
-function answers() { const out = {}; for (const section of SECTIONS) out[section.id] = $(`a-${section.id}`).value; return out; }
 function refresh() {
-  if (!dirty) $('file').value = buildFile(answers());
   const text = currentFile();
   $('count').textContent = `${text.length.toLocaleString('en-US')} characters`;
   $('short').value = customInstructions(text);
   const flags = privacyFlags(text); const box = $('flags');
   box.hidden = flags.length === 0; box.textContent = flags.length ? `Before you share or paste this anywhere, look at it again. It may contain ${flags.join(', ')}.` : '';
-  $('rebuild').hidden = !dirty;
 }
 
 function download(kind) {
   const text = currentFile(); let blob; let name = 'master-context-file';
   if (kind === 'md') blob = new Blob([text], { type: 'text/markdown' });
   else if (kind === 'txt') blob = new Blob([text.replace(/^#+\s*/gm, '')], { type: 'text/plain' });
-  else if (kind === 'json') blob = new Blob([JSON.stringify({ updated: new Date().toISOString().slice(0, 10), answers: answers(), file: text }, null, 2)], { type: 'application/json' });
+  else if (kind === 'json') blob = new Blob([JSON.stringify({ updated: new Date().toISOString().slice(0, 10), file: text, interview: messages }, null, 2)], { type: 'application/json' });
   else if (kind === 'docx') blob = new Blob([docx(text)], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
   else blob = new Blob([pdf(text)], { type: 'application/pdf' });
   const url = URL.createObjectURL(blob); const link = document.createElement('a');
@@ -117,23 +114,60 @@ function addMic(area, holder) {
   });
 }
 
+// ---- The interview chat -----------------------------------------------------------------------------------------
+async function converse(mode) {
+  const response = await fetch('/api/chat', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ mode, messages }) });
+  let data = {}; try { data = await response.json(); } catch { /* handled below */ }
+  if (!response.ok) { const error = new Error(data.error || 'Something went wrong. Try again.'); error.resting = Boolean(data.resting); throw error; }
+  return data;
+}
+function bubble(role, text, extra = '') {
+  const node = document.createElement('div'); node.className = `msg ${role === 'user' ? 'me' : 'ai'} ${extra}`.trim(); node.textContent = text;
+  $('chat').append(node); $('chat').scrollTop = $('chat').scrollHeight; return node;
+}
+const userTurns = () => messages.filter(message => message.role === 'user').length;
+function syncChat() { $('makeFile').disabled = busy || userTurns() < 3; $('send').disabled = busy; $('restart').hidden = userTurns() === 0; $('makeFile').textContent = built ? 'Rewrite from the chat' : 'Write my file'; }
+function setupChat() {
+  bubble('assistant', OPENER); syncChat();
+  const send = async () => {
+    const text = $('say').value.trim();
+    if (!text || busy) return;
+    const flags = privacyFlags(text); $('chatStatus').className = 'status';
+    messages.push({ role: 'user', content: text }); bubble('user', text); $('say').value = ''; busy = true; syncChat();
+    const wait = bubble('assistant', 'Thinking...', 'wait'); $('chatStatus').textContent = flags.length ? `Heads up: that looks like ${flags.join(', ')}. You can leave it out of your file.` : '';
+    try { const data = await converse('chat'); wait.remove(); messages.push({ role: 'assistant', content: data.reply }); bubble('assistant', data.reply); }
+    catch (error) {
+      wait.remove(); messages.pop(); $('chat').lastElementChild?.remove(); $('say').value = text;
+      $('chatStatus').className = 'status bad'; $('chatStatus').textContent = error.message || 'Something went wrong.';
+    } finally { busy = false; syncChat(); }
+  };
+  $('send').addEventListener('click', send);
+  $('say').addEventListener('keydown', event => { if (event.key === 'Enter' && (event.ctrlKey || event.metaKey)) { event.preventDefault(); send(); } });
+  $('makeFile').addEventListener('click', async () => {
+    if (busy || userTurns() < 3) return;
+    busy = true; syncChat(); $('chatStatus').className = 'status'; $('chatStatus').textContent = 'Writing your file...';
+    try {
+      const data = await converse('file');
+      $('file').value = data.file; built = true; refresh();
+      const list = $('guessList'); list.replaceChildren(...data.guesses.map(guess => { const item = document.createElement('li'); item.textContent = guess; return item; }));
+      $('guesses').hidden = data.guesses.length === 0; $('chatStatus').textContent = 'Done. Your file is in step 3.';
+      $('step3').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+    } catch (error) { $('chatStatus').className = 'status bad'; $('chatStatus').textContent = error.message || 'Something went wrong.'; }
+    finally { busy = false; syncChat(); }
+  });
+  $('restart').addEventListener('click', () => {
+    if (busy) return; built = false; messages = [{ role: 'assistant', content: OPENER }]; $('chat').replaceChildren(); bubble('assistant', OPENER); $('chatStatus').textContent = ''; syncChat();
+  });
+}
+
 function start() {
   const chips = $('chips');
   for (const example of EXAMPLES) { const chip = document.createElement('button'); chip.type = 'button'; chip.textContent = example; chip.addEventListener('click', () => { $('question').value = example; }); chips.append(chip); }
-  const holder = $('questions');
-  for (const section of SECTIONS) {
-    const wrap = document.createElement('div'); wrap.className = 'q';
-    const label = document.createElement('label'); label.htmlFor = `a-${section.id}`; label.textContent = section.question;
-    const hint = document.createElement('p'); hint.textContent = section.hint;
-    const area = document.createElement('textarea'); area.id = `a-${section.id}`; area.rows = 2; area.maxLength = 1200;
-    area.addEventListener('input', refresh);
-    wrap.append(label, hint, area); const tools = document.createElement('div'); tools.className = 'row tools'; wrap.append(tools); addMic(area, tools); holder.append(wrap);
-  }
-  addMic($('question'), $('mic1')); addMic($('question2'), $('mic5'));
+  addMic($('question'), $('mic1')); addMic($('question2'), $('mic5')); addMic($('say'), $('micSay'));
+  setupChat();
   $('prompt').textContent = INTERVIEW_PROMPT;
   $('copyPrompt').addEventListener('click', () => copy(INTERVIEW_PROMPT, $('promptStatus'), 'Copied.'));
-  $('file').addEventListener('input', () => { dirty = true; refresh(); });
-  $('rebuild').addEventListener('click', () => { dirty = false; refresh(); });
+  $('file').addEventListener('input', refresh);
   $('copyFile').addEventListener('click', () => copy(currentFile(), $('status4'), 'Copied your file.'));
   $('copyShort').addEventListener('click', () => copy($('short').value, $('status4'), 'Copied the short version.'));
   for (const button of document.querySelectorAll('[data-download]')) button.addEventListener('click', () => download(button.dataset.download));
@@ -142,7 +176,7 @@ function start() {
   }));
   $('ask2').addEventListener('click', () => run($('ask2'), $('status5'), async () => {
     // A cold visitor who skips the interview would get the same generic answer under a "with your file" label. Say so instead.
-    if (!dirty && !Object.values(answers()).some((value) => String(value).trim())) throw new Error('Your file is empty. Answer a few questions in step 2 first (even two or three), then ask again.');
+    if (!currentFile().trim()) throw new Error('Your file is empty. Do the interview in step 2 and press Write my file, then ask again.');
     const question = $('question2').value.trim(); const second = await ask(question, currentFile());
     show($('answer2'), 'Answer 2: with your file', second);
     if (!first) { $('status5').textContent = 'Ask with no context in step 1 to compare.'; }

@@ -1,26 +1,5 @@
-// The interview questions, the file they become, and a check for things people usually don't mean to share.
-export const SECTIONS = [
-  { id: 'who', title: 'Who I am', question: 'What should the AI call you, and who are you in a sentence or two?', hint: 'Your name or nickname, where you are, anything that frames the rest.' },
-  { id: 'work', title: 'My work', question: 'What do you do for work, and what does a good day look like?', hint: 'Your role, the kind of problems you solve, who you do it for.' },
-  { id: 'goals', title: 'What I am working on right now', question: 'What are the one to three things you are working toward this month or this quarter?', hint: 'Projects, deadlines, goals. The stuff you keep re-explaining.' },
-  { id: 'style', title: 'How I like answers', question: 'How do you like answers to look?', hint: 'Short or thorough, plain or technical, bullets or paragraphs, formal or casual.' },
-  { id: 'rules', title: 'Rules and pet peeves', question: 'What should it always or never do?', hint: 'Things like "search before answering", "no em dashes", "ask me a question if you are unsure".' },
-  { id: 'tools', title: 'Tools I use', question: 'What software and tools do you use every day?', hint: 'So it stops suggesting things you can not use.' },
-  { id: 'life', title: 'Life outside work (only what I choose to share)', question: 'Anything about your life outside work that would help? Skip it if you like.', hint: 'Family, time, money, health, hobbies. Only what you are comfortable with.' },
-  { id: 'never', title: 'Boundaries', question: 'What should it never bring up, assume, or ask about?', hint: 'This is how you set the privacy line.' },
-  { id: 'extra', title: 'Anything else', question: 'What else would you regret not mentioning?', hint: 'The thing you wish it already knew.' },
-];
-
-export function buildFile(answers, { now = new Date() } = {}) {
-  const day = now.toISOString().slice(0, 10);
-  const parts = [`# Master context file`, `Updated ${day}. Edit this any time something changes, and paste it at the start of a new chat.`];
-  for (const section of SECTIONS) {
-    const text = String(answers[section.id] || '').trim();
-    if (text) parts.push(`## ${section.title}\n${text}`);
-  }
-  if (parts.length === 2) parts.push('(Nothing here yet. Answer one question above and it shows up.)');
-  return parts.join('\n\n') + '\n';
-}
+// The first thing the interviewer says. The rest of the interview is a live chat.
+export const OPENER = "Hi. I'm going to interview you so your AI finally knows who you are. I ask one question at a time, you answer however you like, and you can skip anything or talk instead of type. First one: what do you want your AI to help you with?";
 
 // Things worth a second look before a file is shared or pasted into a tool. A hint, never a promise that it caught everything.
 export function privacyFlags(text) {

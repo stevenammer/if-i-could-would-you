@@ -16,8 +16,8 @@
 <main>
   <section class="intro">
     <h1>The Context Vision Quest</h1>
-    <p>Ask an AI something. Get an answer that could have been written for anyone. Then answer nine questions about yourself, get a context file you own, and ask the same thing again.</p>
-    <p class="fine">The two answers come from a real AI (Google's Gemini) running on a small budget I set. What you type in step 1 and step 5 is sent to it to get an answer. If you use the Talk button, that short recording is sent to the same AI to be written down. Nothing is saved on my side, and there are no accounts. Your file is built in your browser, and it only travels in step 5. If the daily budget runs out, the rest of the page still works.</p>
+    <p>Ask an AI something. Get an answer that could have been written for anyone. Then let an AI interview you in a chat, get a context file you own, and ask the same thing again.</p>
+    <p class="fine">The two answers come from a real AI (Google's Gemini) running on a small budget I set. What you type in steps 1, 2 and 5 is sent to it so it can answer and ask its next question. If you use the Talk button, that short recording is sent to the same AI to be written down. Nothing is saved on my side, and there are no accounts. If the daily budget runs out, you can still paste the interview prompt into your own AI, and the exports still work.</p>
   </section>
 
   <section class="card" id="step1" aria-labelledby="h1">
@@ -32,8 +32,13 @@
 
   <section class="card" id="step2" aria-labelledby="h2">
     <h2 id="h2"><span class="num">Step 2</span>The interview</h2>
-    <p class="fine">Skip anything you don't want to share. Your answers stay in this page. Typing a pain? Hit Talk instead under any question and just say it. Ramble. It writes it down, and you can edit it after. (Wispr Flow or your keyboard's microphone button work in these boxes too.)</p>
-    <div id="questions"></div>
+    <p class="fine">It's a chat. The AI asks one question at a time and you answer however you like. Skip anything you don't want to share. Typing a pain? Hit Talk and just say it. Ramble. It writes it down.</p>
+    <div id="chat" class="chat" role="log" aria-live="polite" aria-label="Your interview"></div>
+    <label for="say" class="sr">Your answer</label>
+    <textarea id="say" rows="3" maxlength="1500" placeholder="Type your answer, or press Talk and say it."></textarea>
+    <div class="row tools" id="micSay"></div>
+    <div class="row"><button type="button" id="send" class="primary">Send</button><button type="button" id="makeFile" disabled>Write my file</button><button type="button" id="restart" hidden>Start over</button><span id="chatStatus" class="status" role="status" aria-live="polite"></span></div>
+    <p class="fine" id="chatHint">Answer a few and the "Write my file" button wakes up. Your answers go to the AI so it can ask the next question. Nothing is saved.</p>
     <details class="steal"><summary>Steal the interview prompt and run it in your own AI instead</summary>
       <p class="fine">Paste this into any chat AI and fill in the one bracket. It interviews you one question at a time, then writes the file for you and tears its own draft apart.</p>
       <pre id="prompt" tabindex="0"></pre><div class="row"><button type="button" id="copyPrompt">Copy the prompt</button><span id="promptStatus" class="status" role="status" aria-live="polite"></span></div>
@@ -42,10 +47,11 @@
 
   <section class="card" id="step3" aria-labelledby="h3">
     <h2 id="h3"><span class="num">Step 3</span>Your master context file</h2>
-    <p class="fine">This builds as you answer. Edit it however you like. It's yours.</p>
+    <p class="fine">It shows up here when you press "Write my file". Edit it however you like. It's yours. (Used your own AI instead? Paste its file in here.)</p>
+    <div id="guesses" class="guesses" hidden><h3>Things it guessed. Fix any that are wrong.</h3><ul id="guessList"></ul></div>
     <label for="file">Your file</label>
     <textarea id="file" rows="14"></textarea>
-    <div class="row"><span id="count" class="fine"></span><button type="button" id="rebuild" hidden>Rebuild from my answers</button></div>
+    <div class="row"><span id="count" class="fine"></span></div>
     <div id="flags" class="flags" role="status" aria-live="polite" hidden></div>
   </section>
 

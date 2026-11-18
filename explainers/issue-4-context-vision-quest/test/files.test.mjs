@@ -5,7 +5,7 @@ import { mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { crc32, docx, pdf, zip } from '../public/lib/files.js';
-import { SECTIONS, buildFile, customInstructions, privacyFlags } from '../public/lib/context.js';
+import { OPENER, INTERVIEW_PROMPT, customInstructions, privacyFlags } from '../public/lib/context.js';
 
 test('crc32 matches the standard check value', () => { assert.equal(crc32(new TextEncoder().encode('123456789')), 0xcbf43926); });
 
@@ -41,13 +41,9 @@ test('the PDF is well formed: header, xref offsets that point at real objects, a
   try { const check = execFileSync('python3', ['-c', 'import sys\ntry:\n import pypdf\n r=pypdf.PdfReader(sys.argv[1]); print(len(r.pages), "Heading" in r.pages[0].extract_text())\nexcept ImportError:\n print("skip")', file]).toString().trim(); if (check !== 'skip') assert.match(check, /^[3-9]\d* True$/); } catch (error) { if (error.status) throw error; }
 });
 
-test('the file builds from answers, leaves out empty sections, and says so when everything is empty', () => {
-  const now = new Date('2026-11-18T12:00:00Z');
-  const file = buildFile({ who: 'Sam, Orlando', rules: 'No em dashes.' }, { now });
-  assert.match(file, /^# Master context file\n\nUpdated 2026-11-18/); assert.match(file, /## Who I am\nSam, Orlando/); assert.match(file, /## Rules and pet peeves\nNo em dashes\./);
-  assert.doesNotMatch(file, /## My work/);
-  assert.match(buildFile({}, { now }), /Nothing here yet/);
-  assert.equal(SECTIONS.length, 9);
+test('the interviewer opens by asking what the person wants help with, and the stealable prompt keeps its commitments', () => {
+  assert.match(OPENER, /what do you want your AI to help you with/i); assert.doesNotMatch(OPENER, /[\u2013\u2014]/);
+  for (const part of [/One question at a time/, /list the assumptions you're already making/, /ask me why I want it/, /Be critical of your own draft/, /Never ask for passwords/]) assert.match(INTERVIEW_PROMPT, part);
 });
 
 test('privacy flags catch the usual accidents and nothing in an ordinary file', () => {
@@ -57,7 +53,7 @@ test('privacy flags catch the usual accidents and nothing in an ordinary file', 
 });
 
 test('the short version fits the limit, drops the title line, and ends cleanly', () => {
-  const file = buildFile({ who: 'a '.repeat(2000) });
+  const file = `# Master context file\nUpdated 2026-01-01\n\n## Who I am\n${'a '.repeat(2000)}`;
   const short = customInstructions(file, 1500);
   assert.ok(short.length <= 1500); assert.ok(short.endsWith('…')); assert.doesNotMatch(short, /Master context file|^## /m);
   assert.equal(customInstructions('# Master context file\nUpdated 2026-01-01\n\n## A\nshort'), 'A\nshort');

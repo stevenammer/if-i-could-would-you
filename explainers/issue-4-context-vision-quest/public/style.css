@@ -50,3 +50,11 @@ pre{white-space:pre-wrap;background:var(--panel);border:1px solid var(--line);bo
 @media (max-width:640px){.compare{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 ol.steps{margin:10px 0 6px;padding-left:1.3em}ol.steps li{margin:12px 0;padding-left:4px}ol.steps li::marker{font-family:var(--mono);color:var(--live)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.chat{display:grid;gap:10px;margin:14px 0 12px;max-height:440px;overflow:auto;padding:2px}
+.msg{max-width:88%;padding:12px 16px;border-radius:16px;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg.ai{background:var(--panel);border:1px solid var(--line);border-top-left-radius:6px}
+.msg.me{margin-left:auto;background:var(--elev);border:1px solid var(--line-strong);border-top-right-radius:6px}
+.msg.wait{color:var(--faint);font-style:italic}
+.guesses{margin:12px 0;padding:12px 16px;border-radius:12px;background:rgba(110,168,255,.07);border:1px solid rgba(110,168,255,.35)}
+.guesses h3{color:var(--live)}.guesses ul{margin:6px 0 0;padding-left:1.2em}.guesses li{margin:4px 0}
