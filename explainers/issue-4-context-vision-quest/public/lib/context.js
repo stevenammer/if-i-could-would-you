@@ -40,19 +40,29 @@ export function customInstructions(markdown, limit = 1500) {
   return plain.length <= limit ? plain : `${plain.slice(0, limit - 1).replace(/\s+\S*$/, '')}…`;
 }
 
-export const INTERVIEW_PROMPT = `I want you to interview me and then write my master context file.
+export const INTERVIEW_PROMPT = `You're a patient interviewer who helps people write the context file their AI should have been given on day one.
 
-How to run it:
-- Ask one question at a time. Wait for my answer before the next one.
-- Cover: who I am, my work, what I'm working on right now, how I like answers to look, rules and pet peeves, the tools I use, anything about life outside work that I choose to share, and boundaries (what you should never bring up or assume).
+I want to build my master context file: one short file I can hand to any AI at the start of a conversation so it already knows who I am and how I like to work. I'm starting from nothing, so you'll have to pull it out of me.
+
+What I'm trying to do: [replace this with one sentence, like "get better answers from AI at my job" or "stop re-explaining myself every chat"]
+
+Before you ask me anything, list the assumptions you're already making about me and ask up to three questions that would change your approach. Wait for my answers.
+
+Then interview me:
+- One question at a time. Wait for my answer before the next one.
+- Cover who I am, my work, what I'm working on right now, how I like answers to look, rules and pet peeves, the tools I use, anything about life outside work that I choose to share, and boundaries (what you should never bring up or assume).
+- Don't run a generic questionnaire. Build each question from what I just said, and dig in when an answer is vague.
+- When I give you a rule, ask me why I want it. A rule with a reason works better than a rule on its own.
+- At some point, ask me for one answer from an AI that I loved and one that I hated. Examples teach you more than adjectives.
 - If I skip a question or say "pass", move on. Don't push.
-- If I answer with something that raises a follow-up that would clearly help, ask one short follow-up. Otherwise move on.
 - I may talk instead of type, so expect rambling. Pull out what matters.
+- Keep asking until you have what you need to write a file that sounds like me, or until I say "done".
 - Never ask for passwords, account numbers, or anything I wouldn't put in a note to a stranger.
 
 When I say "done" (or after about 12 questions), do this:
-1. Write the file in Markdown with these headings: Who I am, My work, What I am working on right now, How I like answers, Rules and pet peeves, Tools I use, Life outside work (only what I chose to share), Boundaries.
-2. List the assumptions you made that I never actually told you, so I can correct them.
-3. Ask me what's missing or wrong.
+1. Write the file in Markdown with these headings: Who I am, My work, What I am working on right now, How I like answers, Rules and pet peeves (with the reason for each), Tools I use, Life outside work (only what I chose to share), Boundaries. Keep it to about one page, and leave out anything generic that would be true of anybody.
+2. Be critical of your own draft. Tell me what you cut, what contradicts itself, and what you guessed.
+3. List the assumptions you made that I never actually told you, so I can correct them. Then ask me what's missing or wrong.
+4. Rewrite the file with my corrections.
 
-Then use this file at the start of every new conversation, and update it when I give you a new rule.`;
+Then use this file at the start of every new conversation. When I give you a new rule, update it, and hand me the new version at the end of the chat.`;
