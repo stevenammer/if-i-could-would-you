@@ -15,7 +15,7 @@ This repo is the workshop behind the newsletter. The newsletter is where you rea
 | [`issues/`](issues) | Every issue as plain text, copied from what I published on LinkedIn. |
 | [`prompts/`](prompts) | The Voice Workshop prompt from Issue 1, ready to copy, as markdown, PDF and Word. |
 | [`sites/`](sites) | The Voice Workshop Prompt web page, source and build script, ready to host yourself. Live at [if-i-could-would-you.netlify.app](https://if-i-could-would-you.netlify.app). |
-| [`explainers/`](explainers) | The interactive explainers: "what happens when you hit Send" from Issue 2 ([live](https://if-i-could-issue-2.netlify.app/send-button/)), plus the animation behind it, and the drag-and-drop loop explainer from Issue 3 ([live](https://if-i-could-issue-3.netlify.app/loop/)). |
+| [`explainers/`](explainers) | The interactive explainers: "what happens when you hit Send" from Issue 2 ([live](https://if-i-could-issue-2.netlify.app/send-button/)), plus the animation behind it, the drag-and-drop loop explainer from Issue 3 ([live](https://if-i-could-issue-3.netlify.app/loop/)), and from Issue 4 the Context Vision Quest ([live](https://if-i-could-issue-4.netlify.app/)), where you interview with an AI to build a context file, and a short [Wispr Flow guide](https://if-i-could-issue-4.netlify.app/wispr-flow-guide/). |
 | [`process/`](process) | How an issue actually gets made, including an AI first draft for an issue I ended up scrapping, and the AI's own list of what it couldn't verify. |
 | [`coming-next/`](coming-next) | An earlier idea for Issue 3 (context management) that I parked. Unfinished and labeled that way. |
 | [`covers/`](covers) | The cover art. |
@@ -25,6 +25,7 @@ This repo is the workshop behind the newsletter. The newsletter is where you rea
 1. [Issue 1](issues/issue-01.md), October 28, 2026. Can I outsource the thing that's most me, my writing? ([on LinkedIn](https://www.linkedin.com/pulse/i-could-would-you-steven-ammer-kj0ne))
 2. [Issue 2](issues/issue-02.md), November 4, 2026. Back to basics: what actually happens when you hit Send. ([on LinkedIn](https://www.linkedin.com/pulse/i-could-would-you-issue-2-steven-ammer-yzz5e))
 3. [Issue 3](issues/issue-03.md), November 11, 2026. The Loop: a loop is a circle with an off ramp, my 2014 college code, and what happens when you put an AI in one. ([on LinkedIn](https://www.linkedin.com/pulse/i-could-would-you-issue-3-steven-ammer-i0ane))
+4. [Issue 4](issues/issue-04.md), November 19, 2026. Context Management: make your AI a master context file, and a poisoned agent toolkit. ([on LinkedIn](https://www.linkedin.com/pulse/i-could-would-you-issue-4-context-management-steven-ammer-wfmoe/))
 
 ## Connected projects
 
