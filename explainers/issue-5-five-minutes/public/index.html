@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Be me for five minutes | If I Could, Would You? Issue 5</title>
+<meta name="description" content="A replay of the real terminal session behind Issue 5: one guy, a coding agent, and a 1904 picture book.">
+<style>
+  :root { --bg:#0d1014; --panel:#12161c; --ink:#d9dee5; --dim:#8b95a3; --you:#7fd1ff; --ok:#8be28b; --warn:#ffcf6b; --bad:#ff8a8a; --accent:#c7a6ff; --chip:#1d232c; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; background:var(--bg); color:var(--ink); }
+  body { font: 15px/1.55 ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace; }
+  header { max-width: 900px; margin: 0 auto; padding: 22px 16px 6px; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header h1 { font-size: 1.35rem; margin: 0 0 6px; }
+  header p { margin: 4px 0; color: var(--dim); font-size: .95rem; }
+  .legend { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+  .chip { font: 12px/1 system-ui, sans-serif; background:var(--chip); border:1px solid #2a323d; color:var(--dim); padding:5px 8px; border-radius:999px; }
+  .chip.exact { color:var(--you); border-color:#24506a; }
+  .chip.recon { color:var(--warn); border-color:#5c4b1f; }
+  .term { max-width: 900px; margin: 10px auto 0; background: var(--panel); border:1px solid #232a33; border-radius: 10px; overflow: hidden; }
+  .bar { display:flex; align-items:center; gap:8px; padding:8px 12px; background:#171c23; border-bottom:1px solid #232a33; font: 12px system-ui, sans-serif; color: var(--dim); }
+  .dot { width:11px; height:11px; border-radius:50%; background:#3a4350; }
+  .bar .title { margin-left: 6px; }
+  #screen { padding: 14px 14px 4px; min-height: 55vh; max-height: 70vh; overflow-y: auto; scroll-behavior: smooth; }
+  .line { white-space: pre-wrap; word-break: break-word; margin: 0; }
+  .prompt { color: var(--you); margin-top: 14px; }
+  .prompt .ps { color: var(--ok); user-select: none; }
+  .sys { color: var(--dim); }
+  .ok { color: var(--ok); }
+  .warn { color: var(--warn); }
+  .bad { color: var(--bad); }
+  .acc { color: var(--accent); }
+  .note { font: 13px/1.5 system-ui, sans-serif; color: var(--dim); border-left: 2px solid #2a323d; padding: 2px 0 2px 10px; margin: 8px 0; }
+  .tag { display:inline-block; margin: 10px 0 2px; }
+  figure { margin: 10px 0; }
+  figure img { max-width: 100%; border-radius: 6px; border: 1px solid #2a323d; display:block; }
+  figcaption { font: 12px system-ui, sans-serif; color: var(--dim); margin-top: 4px; }
+  .controls { max-width: 900px; margin: 0 auto; display: flex; gap: 8px; flex-wrap: wrap; padding: 10px 12px 16px; position: sticky; bottom: 0; background: linear-gradient(transparent, var(--bg) 30%); }
+  button { font: 600 14px system-ui, sans-serif; color: #0d1014; background: var(--you); border: 0; border-radius: 8px; padding: 11px 16px; cursor: pointer; }
+  button.secondary { background: #232a33; color: var(--ink); }
+  button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  button[disabled] { opacity: .45; cursor: default; }
+  .typing::after { content: "▌"; animation: blink 1s steps(1) infinite; color: var(--you); }
+  @keyframes blink { 50% { opacity: 0; } }
+  footer { max-width: 900px; margin: 6px auto 40px; padding: 0 16px; font: 13px/1.6 system-ui, sans-serif; color: var(--dim); }
+  footer a { color: var(--you); }
+  @media (prefers-reduced-motion: reduce) { #screen { scroll-behavior: auto; } .typing::after { animation: none; } }
+  @media (max-width: 600px) { body { font-size: 13.5px; } #screen { max-height: 64vh; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Be me for five minutes</h1>
+  <p>This is a replay of the real terminal session where I handed my plan to a coding agent and tried to animate a 1904 picture book for my wife. No shell runs here and nothing calls an AI. You press the button, my real prompt gets typed, and you watch what came back, sped way up.</p>
+  <div class="legend"><span class="chip exact">blue prompt = what I actually typed</span><span class="chip recon">yellow tag = shortened or reconstructed from the logs</span><span class="chip">about 2 days of build, about 5 minutes here</span></div>
+</header>
+
+<div class="term" role="region" aria-label="Replayed terminal session">
+  <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="title">~/bright-beginnings-video &nbsp;·&nbsp; claude</span></div>
+  <div id="screen" aria-live="polite"></div>
+</div>
+
+<div class="controls">
+  <button id="next" type="button">Type my next prompt (Enter)</button>
+  <button id="all" class="secondary" type="button">Skip to the end</button>
+  <button id="replay" class="secondary" type="button">Replay</button>
+</div>
+
+<footer>
+  <p><strong>What's real here:</strong> every blue prompt is copied from my session, word for word, except two names swapped for privacy and one word bleeped. Agent output is shortened from the actual session, build logs and commit history; anything tagged yellow is a summary, not a quote. The pictures are real frames from the real drafts.</p>
+  <p><strong>Why this book:</strong> L. Leslie Brooke's <em>The Story of the Three Little Pigs</em> (1904) is public domain. The scans come from the Library of Congress, Rare Book and Special Collections Division, which lists its Children's Book Selections as free to use and reuse. The voice is a labeled AI placeholder until the real narrator records it. A few action shots were made with Google Flow from those same public-domain pages.</p>
+</footer>
+
+<script>
+const S = [
+  { note: "Day 1, about 3 PM. I've done my planning in free chats. I paste the plan file into Claude Code in plan mode and let it look at the real laptop before it touches anything." },
+  { tag: "recon", out: [
+    ["sys", "● Reading the 85-file planning bundle..."],
+    ["sys", "● Watching the reference video with free Gemini (10:32, no cost)"],
+    ["sys", "● Pulling the 1904 book from the Library of Congress (28 pages)"],
+    ["", "Plan: one scene first, \"The Brick House.\" Cut-out puppets from the real scan, a generic AI voice"],
+    ["", "labeled as a placeholder, word-by-word highlighted text. Budget: $0. Nothing uploaded."],
+    ["warn", "It won't: publish anything, imitate anyone's voice, or spend money."] ] },
+  { you: "Full send spin up sonnett to orchestrate you ping me if my input is needed. Write a loop so it keeps working and using codex when it becomes available or taking over when it's not." },
+  { tag: "recon", out: [
+    ["ok", "● Loop started. Every few minutes a cheaper model (Sonnet) wakes up, checks the work, hands build jobs to Codex,"],
+    ["ok", "  verifies what comes back, and writes its notes to a file. It pings you only if it's stuck."],
+    ["sys", "  tick 1 ... tick 2 ... Codex: build the scene skeleton ... Codex: cut the pig out of the scan ..."],
+    ["ok", "✓ v1 rendered. 16:00. A brick slides into place, the pig blinks, the text highlights."] ],
+    img: ["img/v1.jpg", "v1, the first draft. Technically it works. That's about all you can say for it."] },
+  { you: "Watch it again with [my wife]'s eyes" },
+  { tag: "recon", out: [
+    ["warn", "Honest read: the motion is too small to notice on a phone. The wolf barely moves. Nothing sounds like anything."],
+    ["", "Fix list: bigger moves, sound on every action, a real ending beat."] ] },
+  { you: "Dude does this look impressive?" },
+  { out: [["bad", "No. It looks like a slideshow with a twitch."]], tag: "recon" },
+  { you: "Do 2 and 3. We did a whole lot of research for this to land on mediocre. Keep iterating until it looks like Disney animated one of their books" },
+  { tag: "recon", out: [
+    ["sys", "● Codex designs a puppet rig for the wolf. Sonnet loops. A stricter reviewer (me, Opus) grades every round."],
+    ["bad", "✗ Round after round the wolf shows up doubled, like a ghost. Three fix attempts miss it."],
+    ["ok", "✓ Found it: four separate bugs, including see-through cut-outs and a leftover head under the new one."],
+    ["ok", "✓ v3 shipped at 2:20 AM after 78 loop cycles. 25.8 seconds. $0."] ],
+    img: ["img/v3.jpg", "v3. The wolf finally huffs, puffs and flops."] },
+  { you: "The timing seems off and sure color them  just keep iterating  I want the whole book to send them." },
+  { tag: "recon", out: [
+    ["warn", "Measured it: the highlighted words ran about a third of a second ahead of the voice, and the narrator rushed."],
+    ["", "New plan: all 13 scenes, every sentence placed on its own with pauses for the action, black and white pages colored."] ] },
+  { you: "And I think the whole thing could be slowed down a tad too. [Her business partner] is gonna probably read it with more emphasis" },
+  { out: [["ok", "✓ Slower narrator, emphasis words on their own, and every action tied to the words so a real read drops right in."]], tag: "recon" },
+  { note: "This is where it gets messy. The agent builds one scene at a time, perfectly, while the rest of the book sits there. Then the quotas start running out." },
+  { tag: "recon", out: [
+    ["bad", "✗ Codex: usage limit reached. Back in 3 hours."],
+    ["bad", "✗ Claude: 5-hour limit reached. The loop read that as a crash and stopped itself."] ] },
+  { you: "Are we still just working on the brick scene? We haven't done the rest of the book? What is taking so long?" },
+  { tag: "recon", out: [
+    ["warn", "Yes, and that's my fault. I made every scene wait on the first one. 11 scenes untouched for 6.5 hours."],
+    ["ok", "Changing it now: rough cut of the whole book first, polish after."] ] },
+  { you: "Keep working. I want to show my wife the whole story with [her business partner] tonight and to be able to write the newsletter and post it tomorrow." },
+  { out: [["ok", "✓ 4:57 PM. All 13 scenes, start to finish. Rough, but whole."]], tag: "recon", img: ["img/rough.jpg", "The first whole-book rough cut. The pages literally breathed."] },
+  { you: "nah keep going\nContinue. And that last one, I couldn't show her. the video was black, just the audio." },
+  { out: [["bad", "✗ Found it: saved in a video format phones can't play. Sound over a black screen."], ["ok", "✓ Re-saved for phones. Every future file gets checked for it."]], tag: "recon" },
+  { you: "I think you need to look back at the original video my wife sent me and make this more like it. It seems like the pages just breathe a lot. And the words cover the pictures on mobile at least. Keep iterating" },
+  { tag: "recon", out: [
+    ["sys", "● Re-watching the reference with Gemini: the page never moves, only the characters do. Words sit in a white box in empty space."],
+    ["ok", "✓ Still pages. Text boxes off the art. Current word in blue. Speech bubbles for the wolf."] ],
+    img: ["img/v4.jpg", "v4. Closer. Still pretty stiff."] },
+  { you: "Make sure the subtitles line up they seem glitchy." },
+  { out: [["bad", "✗ Two bugs: the box flashed back to the start of the sentence between words, and 7 scenes had sloppy timing."], ["ok", "✓ Both fixed. Timing check passes on all 13 scenes."]], tag: "recon" },
+  { you: "Okay enough screwing around. every page must be colored. If you are gonna cut something out and make it move, make sure it's only that thing. I don't want to see a pig stomping and the fence around it moving too. And each part where the the wolf hufs and puffs and blows I need the air to come out of the wolf's mouth and jesus, can't we have that f***er blow the house away? Like blowing noise and then the house blows off the page and then off to the next page... Don't I have some free Google flow to use or something?" },
+  { tag: "recon", out: [
+    ["sys", "● New cut-outs: Gemini finds each object, a free Segment Anything model traces its exact outline."],
+    ["sys", "● Google Flow: you have 250 credits. One test clip from the actual book page: 24 credits."] ],
+    img: ["img/flow_test.jpg", "The first Flow test, straight from Brooke's straw-house page."] },
+  { you: "Yup" },
+  { out: [["ok", "✓ 6 more action clips: stick house, brick house, apple, butter churn, chimney, splash. Each one timed to its words."]], tag: "recon", img: ["img/v32_straw.jpg", "WHOOSH. Brooke's page, with the air actually coming out of the wolf's mouth."] },
+  { you: "I swear I already saved them all twice..." },
+  { out: [["warn", "You did. My own tweak to the browser tab was swallowing your downloads. Undone."]], tag: "recon" },
+  { you: "3 pigs on first screen look stupid moving around their ears are cut off and stuff, the pig in the second scene isn't completely colored. or  lot of them... You gotta get eyes on it some isn't coloed.... and the bricks don't even clunk anymore..." },
+  { tag: "recon", out: [
+    ["bad", "✗ Clunk: the sound mixes were a day old, and every sound effect got ducked under the narrator."],
+    ["ok", "✓ Impacts cut through again. All 15 black and white pages recolored with Flow's free image editor."] ],
+    img: ["img/v32_huff.jpg", "The brick house that would not budge."] },
+  { note: "And that's how it went. Not hands-free. But I never opened an editing app, never drew a frame, and never paid for anything beyond subscriptions I already had." },
+  { tag: "recon", out: [
+    ["ok", "Totals: 296 loop cycles · 95 Codex jobs · 166 commits · 32+ full versions · 0 dollars of new spend"],
+    ["acc", "The result is in the newsletter, right under the TL/DR."] ],
+    img: ["img/v32_chimney.jpg", "Down the chimney he goes."] }
+];
+
+const screen = document.getElementById("screen");
+const nextBtn = document.getElementById("next"), allBtn = document.getElementById("all"), replayBtn = document.getElementById("replay");
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let i = 0, busy = false;
+
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
+const wait = ms => new Promise(r => setTimeout(r, reduce ? 0 : ms));
+function scroll() { screen.scrollTop = screen.scrollHeight; }
+
+async function typeInto(node, text, speed) {
+  if (reduce || speed === 0) { node.textContent = text; return; }
+  node.classList.add("typing");
+  for (let k = 0; k < text.length; k += 2) { node.textContent = text.slice(0, k + 2); if (k % 12 === 0) scroll(); await wait(speed); }
+  node.classList.remove("typing");
+}
+
+async function render(step, fast) {
+  if (step.note) { screen.appendChild(el("p", "note", step.note)); }
+  if (step.you) {
+    const p = el("p", "line prompt"); const ps = el("span", "ps", "❯ "); const t = el("span"); p.append(ps, t); screen.appendChild(p);
+    await typeInto(t, step.you, fast ? 0 : 9);
+  }
+  if (step.out) {
+    if (step.tag === "recon") screen.appendChild(Object.assign(el("span", "chip recon tag", "shortened from the logs"), {}));
+    for (const [cls, text] of step.out) { await wait(fast ? 0 : 260); screen.appendChild(el("p", "line " + cls, text)); scroll(); }
+  }
+  if (step.img) {
+    const f = el("figure"); const im = el("img"); im.src = step.img[0]; im.alt = step.img[1]; im.loading = "lazy";
+    f.append(im, el("figcaption", "", step.img[1])); screen.appendChild(f);
+  }
+  scroll();
+}
+
+async function next() {
+  if (busy || i >= S.length) return;
+  busy = true; nextBtn.disabled = true;
+  // play notes and agent output on their own; stop before the next thing I typed
+  do { await render(S[i], false); i++; } while (i < S.length && !S[i].you);
+  busy = false; nextBtn.disabled = i >= S.length;
+  nextBtn.textContent = i >= S.length ? "That's the whole session" : "Type my next prompt (Enter)";
+  if (i < S.length) nextBtn.focus({ preventScroll: true });
+}
+async function all() { if (busy) return; busy = true; while (i < S.length) { await render(S[i], true); i++; } busy = false; nextBtn.disabled = true; nextBtn.textContent = "That's the whole session"; }
+function replay() { if (busy) return; screen.innerHTML = ""; i = 0; nextBtn.disabled = false; nextBtn.textContent = "Type my next prompt (Enter)"; next(); }
+
+nextBtn.addEventListener("click", next); allBtn.addEventListener("click", all); replayBtn.addEventListener("click", replay);
+document.addEventListener("keydown", e => { if (e.key === "Enter" && !e.target.closest("button")) { e.preventDefault(); next(); } });
+next();
+</script>
+</body>
+</html>
