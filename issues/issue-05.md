@@ -1,12 +1,12 @@
 ---
 title: "If I Could, Would You? Issue #5: Bright Beginnings"
 date: 2026-11-25
-status: assembled draft, not published
-source_manuscript: Drive ISSUE_5_NEWSLETTER_WORKING_CURRENT_2026-11-25_1500ET.md (author copy, locked)
-approved_edits: "Pessimism minimal fix (Steven, Nov 25); MVP definition uses Eric Ries's exact words (Steven, Nov 25); her request screenshot included (Steven, Nov 25)"
+source: https://www.linkedin.com/pulse/i-could-would-you-issue-5-bright-beginnings-steven-ammer-npbue/
 ---
 
-# If I Could, Would You? Issue #5
+# If I Could, Would You? Issue #5: Bright Beginnings
+
+_Published 2026-11-25 on LinkedIn. Text copied from the published edition. The two images are in [`../assets/issue-05/`](../assets/issue-05), the cover is in [`../covers/`](../covers/issue-05-cover.png), and how the issue was made is in [`../process/how-issue-5-was-made.md`](../process/how-issue-5-was-made.md)._
 
 ## The Main Story: Bright Beginnings
 
@@ -21,7 +21,7 @@ And I'm not gonna reach for something easy that I know will give us the success 
 But anyway, the wife and her bestie have recently been working on starting up their own business getting little ones ready for pre-school.
 And this week my wife has tasked me with this: (see attached)
 
-[[IMAGE: her request screenshot, private details cropped]]
+![A text message: a link to the Santa Bruce animated read-aloud book on YouTube, then "Can you make the pages come alive a little like this?"](../assets/issue-05/her-request.png)
 
 So full disclosure, I have no experience in creating YouTube videos, animating children's books, IP law, or how to go about any of this. I have no animating software, no editing tools, and frankly, very little patience for the type of detail work this really takes. I'm a big picture guy. If you asked me what color shirt I'm wearing, I have to look down.
 
@@ -53,11 +53,11 @@ Then, and only then, am I'm finally ready to start spending real resources. So I
 
 ## Interactive Explainer: What If You Were Me for Five Minutes?
 
-[[LINK: https://if-i-could-issue-5.netlify.app/ ]]
+[Be me for five minutes: replay the real build session](https://if-i-could-issue-5.netlify.app/)
 
 ## TL/DR
 
-[[VIDEO: https://if-i-could-issue-5.netlify.app/watch/ ]]
+[Watch The Story of the Three Little Pigs (about 5 minutes)](https://if-i-could-issue-5.netlify.app/watch/)
 
 ## The Poll Toll!
 
@@ -108,7 +108,7 @@ And for our throne video this week, I give you the hottest new game being played
 
 **The $200/Hour Trash Run**
 
-[[IMAGE: comics/final/this_weeks_laugh_the_200_dollar_trash_run_FINAL_CLAUDE.png (v04)]]
+![The $200/Hour Trash Run, a six-panel comic about running out of AI messages and asking a maxed-out model to change a button color.](../assets/issue-05/this-weeks-laugh-200-dollar-trash-run.png)
 
 ## Wrap Up
 

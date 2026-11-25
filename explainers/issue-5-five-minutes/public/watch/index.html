@@ -20,6 +20,15 @@
   .facts { margin-top: 18px; color: var(--dim); font: 14px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
   .facts p { margin: 6px 0; }
   a { color: var(--accent); }
+  .compare h2 { font-size: 1.25rem; margin: 30px 0 4px; }
+  .compare p { color: var(--dim); margin: 0 0 12px; font: 14px/1.6 system-ui, sans-serif; }
+  .pair { margin: 0 0 22px; }
+  .pair figcaption { font-weight: bold; margin-bottom: 6px; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: center; }
+  .two img { width: 100%; max-height: 340px; object-fit: contain; border-radius: 6px; display: block; }
+  .two span { display: block; font: 12px system-ui, sans-serif; color: var(--dim); margin-top: 3px; }
+  @media (max-width: 560px) { .two { grid-template-columns: 1fr; } }
+
 </style>
 </head>
 <body>
@@ -33,9 +42,28 @@
   <div class="facts">
     <p><strong>A first shareable draft.</strong> The narration is a labeled AI placeholder voice; a real reader will record it.</p>
     <p><strong>The book:</strong> L. Leslie Brooke, <em>The Story of the Three Little Pigs</em> (Frederick Warne, 1904), public domain. Page scans: Library of Congress, Rare Book and Special Collections Division, which lists its Children's Book Selections as free to use and reuse. The retelling is gentler than the 1904 original: nobody gets eaten.</p>
-    <p><strong>How it was made:</strong> the pages were cut into puppets and animated by AI coding agents (Claude Code and Codex). The black and white pages were colored and seven action moments animated with Google Flow, using these same public-domain pages as the starting frames. Music and sound effects were synthesized for this project.</p>
+    <p><strong>How it was made:</strong> the pages were cut into puppets and animated by AI coding agents (Claude Code and Codex). The black and white pages were colored and eight action moments animated with Google Flow, using these same public-domain pages as the starting frames. Music and sound effects were synthesized for this project.</p>
     <p><a href="../">Replay the build session (be me for five minutes)</a></p>
   </div>
+  <section class="compare">
+    <h2>The book we started with, side by side</h2>
+    <p>Left: L. Leslie Brooke's 1904 pages as scanned by the Library of Congress. Right: the same moment in the animated version.</p>
+<figure class="pair"><figcaption>The cover</figcaption><div class="two"><div><img src="compare/p01_1904.jpg" alt="The cover: L. Leslie Brooke, 1904 page" loading="lazy"><span>1904 page</span></div><div><img src="compare/p01_now.jpg" alt="The cover: the animated version" loading="lazy"><span>animated</span></div></div></figure>
+<figure class="pair"><figcaption>The mother pig</figcaption><div class="two"><div><img src="compare/p04_1904.jpg" alt="The mother pig: L. Leslie Brooke, 1904 page" loading="lazy"><span>1904 page</span></div><div><img src="compare/p04_now.jpg" alt="The mother pig: the animated version" loading="lazy"><span>animated</span></div></div></figure>
+<figure class="pair"><figcaption>The first little pig</figcaption><div class="two"><div><img src="compare/p06_1904.jpg" alt="The first little pig: L. Leslie Brooke, 1904 page" loading="lazy"><span>1904 page</span></div><div><img src="compare/p06_now.jpg" alt="The first little pig: the animated version" loading="lazy"><span>animated</span></div></div></figure>
+<figure class="pair"><figcaption>The straw house</figcaption><div class="two"><div><img src="compare/p08_1904.jpg" alt="The straw house: L. Leslie Brooke, 1904 page" loading="lazy"><span>1904 page</span></div><div><img src="compare/p08_now.jpg" alt="The straw house: the animated version" loading="lazy"><span>animated</span></div></div></figure>
+<figure class="pair"><figcaption>The stick house</figcaption><div class="two"><div><img src="compare/p09_1904.jpg" alt="The stick house: L. Leslie Brooke, 1904 page" loading="lazy"><span>1904 page</span></div><div><img src="compare/p09_now.jpg" alt="The stick house: the animated version" loading="lazy"><span>animated</span></div></div></figure>
+<figure class="pair"><figcaption>One brick, two bricks, clunk</figcaption><div class="two"><div><img src="compare/p11_1904.jpg" alt="One brick, two bricks, clunk: L. Leslie Brooke, 1904 page" loading="lazy"><span>1904 page</span></div><div><img src="compare/p11_now.jpg" alt="One brick, two bricks, clunk: the animated version" loading="lazy"><span>animated</span></div></div></figure>
+<figure class="pair"><figcaption>The brick house</figcaption><div class="two"><div><img src="compare/p12_1904.jpg" alt="The brick house: L. Leslie Brooke, 1904 page" loading="lazy"><span>1904 page</span></div><div><img src="compare/p12_now.jpg" alt="The brick house: the animated version" loading="lazy"><span>animated</span></div></div></figure>
+<figure class="pair"><figcaption>The turnips</figcaption><div class="two"><div><img src="compare/p13_1904.jpg" alt="The turnips: L. Leslie Brooke, 1904 page" loading="lazy"><span>1904 page</span></div><div><img src="compare/p13_now.jpg" alt="The turnips: the animated version" loading="lazy"><span>animated</span></div></div></figure>
+<figure class="pair"><figcaption>Too late</figcaption><div class="two"><div><img src="compare/p15_1904.jpg" alt="Too late: L. Leslie Brooke, 1904 page" loading="lazy"><span>1904 page</span></div><div><img src="compare/p15_now.jpg" alt="Too late: the animated version" loading="lazy"><span>animated</span></div></div></figure>
+<figure class="pair"><figcaption>The apple tree</figcaption><div class="two"><div><img src="compare/p18_1904.jpg" alt="The apple tree: L. Leslie Brooke, 1904 page" loading="lazy"><span>1904 page</span></div><div><img src="compare/p18_now.jpg" alt="The apple tree: the animated version" loading="lazy"><span>animated</span></div></div></figure>
+<figure class="pair"><figcaption>The butter churn</figcaption><div class="two"><div><img src="compare/p21_1904.jpg" alt="The butter churn: L. Leslie Brooke, 1904 page" loading="lazy"><span>1904 page</span></div><div><img src="compare/p21_now.jpg" alt="The butter churn: the animated version" loading="lazy"><span>animated</span></div></div></figure>
+<figure class="pair"><figcaption>The roof</figcaption><div class="two"><div><img src="compare/p23_1904.jpg" alt="The roof: L. Leslie Brooke, 1904 page" loading="lazy"><span>1904 page</span></div><div><img src="compare/p23_now.jpg" alt="The roof: the animated version" loading="lazy"><span>animated</span></div></div></figure>
+<figure class="pair"><figcaption>The pot</figcaption><div class="two"><div><img src="compare/p24_1904.jpg" alt="The pot: L. Leslie Brooke, 1904 page" loading="lazy"><span>1904 page</span></div><div><img src="compare/p24_now.jpg" alt="The pot: the animated version" loading="lazy"><span>animated</span></div></div></figure>
+<figure class="pair"><figcaption>Happily ever after</figcaption><div class="two"><div><img src="compare/p26_1904.jpg" alt="Happily ever after: L. Leslie Brooke, 1904 page" loading="lazy"><span>1904 page</span></div><div><img src="compare/p26_now.jpg" alt="Happily ever after: the animated version" loading="lazy"><span>animated</span></div></div></figure>
+  </section>
+
 </main>
 </body>
 </html>
