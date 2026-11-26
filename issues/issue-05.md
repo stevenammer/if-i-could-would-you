@@ -49,13 +49,19 @@ Still, I haven't really learned or invested anything, I'm just accumulating info
 
 Then I do that little "I'm gonna get a second opinion, doc" trick again on the final version just to make sure we didn't go too far off the reservation. I let my main chat go through each critique for me, taking what's good, dropping what's off base, asking me about what's genuinely still up for interpretation.
 
-Then, and only then, am I'm finally ready to start spending real resources. So I take my upgraded file and prompt and I dump it into my coding agent and I tell it to make it's own plan based off the actual environment with this plan as the starting off point. And at this point, I purposely took a hands off approach for most of the build so that you can put yourself in my shoes and see how easy this stuff is:
+Then, and only then, am I finally ready to start spending real resources. So I take my upgraded file and prompt and I dump it into my coding agent and I tell it to make its own plan based off the actual environment with this plan as the starting off point. And at this point, I purposely took a hands off approach for most of the build so that you can put yourself in my shoes and see how easy this stuff is:
 
 ## Interactive Explainer: What If You Were Me for Five Minutes?
 
 [Be me for five minutes: replay the real build session](https://if-i-could-issue-5.netlify.app/)
 
-## TL/DR
+## TL;DR
+
+![Left: L. Leslie Brooke's 1904 page of the wolf at the stick house. Right: the same moment in the animated version, the house blowing apart with the pig flying out.](../assets/issue-05/then-and-now-stick-house.jpg)
+
+_Left: Brooke's 1904 page. Right: the same moment in our version._
+
+It's L. Leslie Brooke's The Story of the Three Little Pigs from 1904, which is public domain, so we're in the clear.
 
 [Watch The Story of the Three Little Pigs (about 5 minutes)](https://if-i-could-issue-5.netlify.app/watch/)
 
@@ -90,19 +96,17 @@ If you've made it this far, give me a vote in the comments or in the actual poll
 
 ## Dose of Optimism
 
-Dose of optimism: Scientists have created a pill that can help fight pancreatic cancer. What's more this one has actually been approved by the FDA just this August. The most recent trial shows the results alongside chemotherapy because these are real people fighting for their life. But still the results are promising: over 90% achieved "disease control" and over 60% had the tumors actual shrink or disappear. [Source: November combination study](https://event.eortc.org/ena2026/2026/11/20/metastatic-pancreatic-cancer-responds-well-to-initial-treatment/)
+Scientists have created a pill that can help fight pancreatic cancer. What's more this one has actually been approved by the FDA just this August. [The most recent trial](https://event.eortc.org/ena2026/2026/11/20/metastatic-pancreatic-cancer-responds-well-to-initial-treatment/) shows the results alongside chemotherapy because these are real people fighting for their life. But still the results are promising: over 90% achieved "disease control" and over 60% had the tumors actually shrink or disappear.
 
-And in the larger study that led to the FDA approval, the median survival went from 6.7 months to 13.2 months with daraxonrasib. [Source: separate FDA approval trial](https://www.fda.gov/news-events/press-announcements/fda-approves-first-class-targeted-therapy-metastatic-pancreatic-cancer)
+And in [the larger study that led to the FDA approval](https://www.fda.gov/news-events/press-announcements/fda-approves-first-class-targeted-therapy-metastatic-pancreatic-cancer), the median survival went from 6.7 months to 13.2 months with daraxonrasib.
 
 ## Dash of Pessimism
 
-Apparently I missed the heist of the century this month when hackers used a company's own AI tool to Ocean's Eleven more than $6 billion. Dr. Evil would be blushing. Dario wouldn't blink. But still, more than $6 billion in crypto stolen. Some mistakes cannot be undone. [Binance's incident findings](https://www.binance.com/en/blog/community/3229153443759566763) | [U.S. Justice Department recovery action](https://www.justice.gov/opa/pr/united-states-files-action-recover-more-1-billion-cryptocurrency-assets-stolen-north-korean)
+Apparently I missed the heist of the century this month when [hackers used a company's own AI tool](https://www.binance.com/en/blog/community/3229153443759566763) to Ocean's Eleven more than $6 billion. Dr. Evil would be blushing. Dario wouldn't blink. But still, [more than $6 billion in crypto stolen](https://www.justice.gov/opa/pr/united-states-files-action-recover-more-1-billion-cryptocurrency-assets-stolen-north-korean). Some mistakes cannot be undone.
 
 ## Video for the Throne
 
-And for our throne video this week, I give you the hottest new game being played by this dude's brainwaves...
-
-[Watch the selected Neuralink brain-computer interface gaming video](https://x.com/neuralink/status/2123890949029818800)
+And for our throne video this week, I give you [the hottest new game being played by this dude's brainwaves](https://x.com/neuralink/status/2123890949029818800)...
 
 ## This Week's Laugh
 
@@ -112,4 +116,4 @@ And for our throne video this week, I give you the hottest new game being played
 
 ## Wrap Up
 
-So you have the vaguely illegal request from the Mrs. And the end result. You can decide for yourself if you think learning to use these tools is worth it. Maybe you're not lucky enough to have a genius wife challenging you every day like me, but I think we've all asked ourselves "what if I tried...?" Enough times in our life to be pretty excited about the possibility of not having to wonder ever again. And in a year that has otherwise been pretty bleak, that is one thing I am thankful for. Happy thanksgiving.
+So you have the vaguely illegal request from the Mrs. And the end result. You can decide for yourself if you think learning to use these tools is worth it. Maybe you're not lucky enough to have a genius wife challenging you every day like me, but I think we've all asked ourselves "what if I tried...?" enough times in our life to be pretty excited about the possibility of not having to wonder ever again. And in a year that has otherwise been pretty bleak, that is one thing I am thankful for. Happy Thanksgiving.
