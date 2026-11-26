@@ -20,6 +20,14 @@
   .chip { font: 12px/1 system-ui, sans-serif; background:var(--chip); border:1px solid #2a323d; color:var(--dim); padding:5px 8px; border-radius:999px; }
   .chip.exact { color:var(--you); border-color:#24506a; }
   .chip.recon { color:var(--warn); border-color:#5c4b1f; }
+  .chip.ask { color:var(--accent); border-color:#4a3d6b; }
+  .who { margin-top: 10px; background: var(--panel); border: 1px solid #232a33; border-radius: 8px; padding: 8px 12px; }
+  .who summary { cursor: pointer; color: var(--ink); font-weight: 600; }
+  .who ul { margin: 8px 0 4px; padding-left: 18px; color: var(--dim); font-size: .92rem; }
+  .who li { margin: 4px 0; }
+  .who strong { color: var(--ink); }
+  .q { font: 14px/1.5 system-ui, sans-serif; color: var(--ink); background: #1b1626; border: 1px solid #4a3d6b; border-radius: 8px; padding: 8px 12px; margin: 12px 0 4px; white-space: pre-wrap; }
+  .q b { color: var(--accent); display: block; font-size: 12px; letter-spacing: .02em; margin-bottom: 2px; }
   .term { max-width: 900px; margin: 10px auto 0; background: var(--panel); border:1px solid #232a33; border-radius: 10px; overflow: hidden; }
   .bar { display:flex; align-items:center; gap:8px; padding:8px 12px; background:#171c23; border-bottom:1px solid #232a33; font: 12px system-ui, sans-serif; color: var(--dim); }
   .dot { width:11px; height:11px; border-radius:50%; background:#3a4350; }
@@ -54,8 +62,19 @@
 <body>
 <header>
   <h1>Be me for five minutes</h1>
-  <p>This is a replay of the real terminal session where I handed my plan to a coding agent and tried to animate a 1904 picture book for my wife. No shell runs here and nothing calls an AI. You press the button, my real prompt gets typed, and you watch what came back, sped way up.</p>
-  <div class="legend"><span class="chip exact">blue prompt = what I actually typed</span><span class="chip recon">yellow tag = shortened or reconstructed from the logs</span><span class="chip">about 2 days of build, about 5 minutes here</span></div>
+  <p>My wife asked me to make a 1904 picture book come alive for her preschool business. I've never animated anything. So I asked an AI to do it, and this is a replay of how that actually went. You don't need to read any code. You're sitting in my seat: the AI tells you what it did or asks you something, you press the button, and what I really typed back appears. About two days of work, squeezed into about five minutes.</p>
+  <details class="who" open>
+    <summary>Who's who (30 seconds, worth it)</summary>
+    <ul>
+      <li><strong>Claude Code:</strong> an AI that works right on my laptop. Instead of just chatting, it can open files, run programs and build things. The dark window below is where I type to it.</li>
+      <li><strong>Sonnet and Opus:</strong> two sizes of Claude. Sonnet is cheaper, so it did the babysitting. Opus is the pricier one, so it did the reviewing.</li>
+      <li><strong>Codex:</strong> OpenAI's coding AI. Claude handed it the building jobs, like a foreman with a crew.</li>
+      <li><strong>The loop:</strong> an alarm clock that woke the AI every few minutes to check the work and keep going, even while I slept or was at my day job.</li>
+      <li><strong>Gemini and Google Flow:</strong> Google's AIs. Gemini watched videos for us for free. Flow makes short video clips, and some came with my Google plan.</li>
+      <li><strong>Usage limits:</strong> every AI plan only gives you so much per day or week. When it runs out, the AI stops until it resets.</li>
+    </ul>
+  </details>
+  <div class="legend"><span class="chip ask">purple = what the AI asked me</span><span class="chip exact">blue = what I actually typed</span><span class="chip recon">yellow tag = shortened from the logs</span></div>
 </header>
 
 <div class="term" role="region" aria-label="Replayed terminal session">
@@ -64,26 +83,26 @@
 </div>
 
 <div class="controls">
-  <button id="next" type="button">Type my next prompt (Enter)</button>
+  <button id="next" type="button">Type what I said back (Enter)</button>
   <button id="all" class="secondary" type="button">Skip to the end</button>
   <button id="replay" class="secondary" type="button">Replay</button>
 </div>
 
 <footer>
-  <p><strong>What's real here:</strong> every blue prompt is copied from my session, word for word, except two names swapped for privacy and one word bleeped. Agent output is shortened from the actual session, build logs and commit history; anything tagged yellow is a summary, not a quote. The pictures are real frames from the real drafts.</p>
+  <p><strong>What's real here:</strong> every blue prompt is copied from my session, word for word, except two names swapped for privacy and one word bleeped. The purple boxes are the AI's real questions from that session, shortened. Its other output is shortened from the actual session, build logs and commit history; anything tagged yellow is a summary, not a quote. The pictures are real frames from the real drafts.</p>
   <p><strong>Why this book:</strong> L. Leslie Brooke's <em>The Story of the Three Little Pigs</em> (1904) is public domain. The scans come from the Library of Congress, Rare Book and Special Collections Division, which lists its Children's Book Selections as free to use and reuse. The voice is a labeled AI placeholder until the real narrator records it. A few action shots were made with Google Flow from those same public-domain pages.</p>
 </footer>
 
 <script>
 const S = [
-  { note: "Day 1, about 3 PM. I've done my planning in free chats. I paste the plan file into Claude Code in plan mode and let it look at the real laptop before it touches anything." },
+  { note: "Day 1, about 3 PM. I've already worked out a plan in free chat apps like ChatGPT. Now I hand that plan to Claude Code. First it only looks around: at the plan, at the video my wife sent, at the old book, and at what my laptop can handle. It doesn't build anything yet." },
   { tag: "recon", out: [
-    ["sys", "● Reading the 85-file planning bundle..."],
-    ["sys", "● Watching the reference video with free Gemini (10:32, no cost)"],
-    ["sys", "● Pulling the 1904 book from the Library of Congress (28 pages)"],
-    ["", "Plan: one scene first, \"The Brick House.\" Cut-out puppets from the real scan, a generic AI voice"],
-    ["", "labeled as a placeholder, word-by-word highlighted text. Budget: $0. Nothing uploaded."],
+    ["sys", "● Reading the plan from my chats (85 files of notes and research)"],
+    ["sys", "● Watching the video my wife sent, using Google's free Gemini (10 minutes long, no cost)"],
+    ["sys", "● Downloading the 1904 book from the Library of Congress (28 pages)"],
+    ["", "Plan: one scene first, \"The Brick House.\" Cut the characters out of the real book pages like paper puppets and move them. A free AI voice, clearly labeled as a stand-in. Words light up as they're read. Budget: $0. Nothing uploaded."],
     ["warn", "It won't: publish anything, imitate anyone's voice, or spend money."] ] },
+  { ask: "That's the plan. Approve it and I'll start building the first scene?" },
   { you: "Full send spin up sonnett to orchestrate you ping me if my input is needed. Write a loop so it keeps working and using codex when it becomes available or taking over when it's not." },
   { tag: "recon", out: [
     ["ok", "● Loop started. Every few minutes a cheaper model (Sonnet) wakes up, checks the work, hands build jobs to Codex,"],
@@ -91,12 +110,16 @@ const S = [
     ["sys", "  tick 1 ... tick 2 ... Codex: build the scene skeleton ... Codex: cut the pig out of the scan ..."],
     ["ok", "✓ v1 rendered. 16:00. A brick slides into place, the pig blinks, the text highlights."] ],
     img: ["img/v1.jpg", "v1, the first draft. Technically it works. That's about all you can say for it."] },
+  { ask: "Two things need you:\n1. Pick the voice by ear. I can't hear audio.\n2. Decide whether to send it to [my wife] and [her business partner]." },
   { you: "Watch it again with [my wife]'s eyes" },
   { tag: "recon", out: [
     ["warn", "Honest read: the motion is too small to notice on a phone. The wolf barely moves. Nothing sounds like anything."],
     ["", "Fix list: bigger moves, sound on every action, a real ending beat."] ] },
+  { out: [["ok", "✓ v2: the brick lands on \"Clunk!\", dust puffs up, puffs of air drift from the wolf, soft music underneath."]], tag: "recon" },
+  { ask: "Your two jobs before anyone sees it:\n1. Pick the voice.\n2. Listen to the music level. I could only measure it, not hear it." },
   { you: "Dude does this look impressive?" },
-  { out: [["bad", "No. It looks like a slideshow with a twitch."]], tag: "recon" },
+  { out: [["bad", "Honestly? No. It looks like an old book page twitching politely."]], tag: "recon" },
+  { ask: "If you want her to say \"whoa,\" three things would matter most:\n1. A real voice ([her business partner]'s, or yours as a stand-in)\n2. A wolf that actually performs\n3. Sound that sells it: a growl, a big whoosh, a creak\nWhich one?" },
   { you: "Do 2 and 3. We did a whole lot of research for this to land on mediocre. Keep iterating until it looks like Disney animated one of their books" },
   { tag: "recon", out: [
     ["sys", "● Codex designs a puppet rig for the wolf. Sonnet loops. A stricter reviewer (me, Opus) grades every round."],
@@ -104,6 +127,7 @@ const S = [
     ["ok", "✓ Found it: four separate bugs, including see-through cut-outs and a leftover head under the new one."],
     ["ok", "✓ v3 shipped at 2:20 AM after 78 loop cycles. 25.8 seconds. $0."] ],
     img: ["img/v3.jpg", "v3. The wolf finally huffs, puffs and flops."] },
+  { ask: "v3 is done. Your three calls:\n1. Voice: record a real one, or pick a stand-in by ear.\n2. The wolf page is black and white like the 1904 book. Keep it, or color it to match?\n3. Showing [my wife]: I'd send it as \"rough draft of one page, is this the direction?\"" },
   { you: "The timing seems off and sure color them  just keep iterating  I want the whole book to send them." },
   { tag: "recon", out: [
     ["warn", "Measured it: the highlighted words ran about a third of a second ahead of the voice, and the narrator rushed."],
@@ -120,6 +144,7 @@ const S = [
     ["ok", "Changing it now: rough cut of the whole book first, polish after."] ] },
   { you: "Keep working. I want to show my wife the whole story with [her business partner] tonight and to be able to write the newsletter and post it tomorrow." },
   { out: [["ok", "✓ 4:57 PM. All 13 scenes, start to finish. Rough, but whole."]], tag: "recon", img: ["img/rough.jpg", "The first whole-book rough cut. The pages literally breathed."] },
+  { said: true, ask: "Your usage limit was reached, so I'm stopping here. The loop keeps working on its own and should have a better version by about 9 PM." },
   { you: "nah keep going\nContinue. And that last one, I couldn't show her. the video was black, just the audio." },
   { out: [["bad", "✗ Found it: saved in a video format phones can't play. Sound over a black screen."], ["ok", "✓ Re-saved for phones. Every future file gets checked for it."]], tag: "recon" },
   { you: "I think you need to look back at the original video my wife sent me and make this more like it. It seems like the pages just breathe a lot. And the words cover the pictures on mobile at least. Keep iterating" },
@@ -134,10 +159,13 @@ const S = [
     ["sys", "● New cut-outs: Gemini finds each object, a free Segment Anything model traces its exact outline."],
     ["sys", "● Google Flow: you have 250 credits. One test clip from the actual book page: 24 credits."] ],
     img: ["img/flow_test.jpg", "The first Flow test, straight from Brooke's straw-house page."] },
+  { ask: "The test clip looks great, and it stays close to Brooke's drawings. My idea: use Flow only for the big action moments, about 6 more clips at 24 credits each. Want me to go ahead?" },
   { you: "Yup" },
   { out: [["ok", "✓ 6 more action clips: stick house, brick house, apple, butter churn, chimney, splash. Each one timed to its words."]], tag: "recon", img: ["img/v32_straw.jpg", "WHOOSH. Brooke's page, with the air actually coming out of the wolf's mouth."] },
+  { ask: "Those clips aren't anywhere on this laptop. I searched everywhere. Did you download them on a different computer?" },
   { you: "I swear I already saved them all twice..." },
   { out: [["warn", "You did. My own tweak to the browser tab was swallowing your downloads. Undone."]], tag: "recon" },
+  { ask: "Here's v32, the whole story with all seven action moments. If any of them looks off to you, you have enough Flow credits left to remake two." },
   { you: "3 pigs on first screen look stupid moving around their ears are cut off and stuff, the pig in the second scene isn't completely colored. or  lot of them... You gotta get eyes on it some isn't coloed.... and the bricks don't even clunk anymore..." },
   { tag: "recon", out: [
     ["bad", "✗ Clunk: the sound mixes were a day old, and every sound effect got ducked under the narrator."],
@@ -168,6 +196,7 @@ async function typeInto(node, text, speed) {
 
 async function render(step, fast) {
   if (step.note) { screen.appendChild(el("p", "note", step.note)); }
+  if (step.ask) { await wait(fast ? 0 : 300); const q = el("div", "q"); q.append(el("b", "", step.said ? "THE AI SAID (shortened)" : "THE AI ASKED (shortened)"), document.createTextNode(step.ask)); screen.appendChild(q); }
   if (step.you) {
     const p = el("p", "line prompt"); const ps = el("span", "ps", "❯ "); const t = el("span"); p.append(ps, t); screen.appendChild(p);
     await typeInto(t, step.you, fast ? 0 : 9);
@@ -189,11 +218,11 @@ async function next() {
   // play notes and agent output on their own; stop before the next thing I typed
   do { await render(S[i], false); i++; } while (i < S.length && !S[i].you);
   busy = false; nextBtn.disabled = i >= S.length;
-  nextBtn.textContent = i >= S.length ? "That's the whole session" : "Type my next prompt (Enter)";
+  nextBtn.textContent = i >= S.length ? "That's the whole session" : "Type what I said back (Enter)";
   if (i < S.length) nextBtn.focus({ preventScroll: true });
 }
 async function all() { if (busy) return; busy = true; while (i < S.length) { await render(S[i], true); i++; } busy = false; nextBtn.disabled = true; nextBtn.textContent = "That's the whole session"; }
-function replay() { if (busy) return; screen.innerHTML = ""; i = 0; nextBtn.disabled = false; nextBtn.textContent = "Type my next prompt (Enter)"; next(); }
+function replay() { if (busy) return; screen.innerHTML = ""; i = 0; nextBtn.disabled = false; nextBtn.textContent = "Type what I said back (Enter)"; next(); }
 
 nextBtn.addEventListener("click", next); allBtn.addEventListener("click", all); replayBtn.addEventListener("click", replay);
 document.addEventListener("keydown", e => { if (e.key === "Enter" && !e.target.closest("button")) { e.preventDefault(); next(); } });
